@@ -16,23 +16,6 @@ function main() {
   ctx.fillStyle = 'rgba(0, 0, 0, 1.0)'; // Set a black color
   ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill a rectangle with the color
 
-  // ------------------------------------------------------------------
-
-  // *** me testing stuff in javascript ***
-  /*
-  console.log("howdy partner");
-  let a = 5;
-  let b = 10;
-  let c = a + b;
-  console.log(a, "+", b, "=", c);
-  console.log("counting...");
-  for(let i = 0; i < 5; i++) {
-    console.log(i);
-  }
-  */
-  
-  // ------------------------------------------------------------------
-
   // draw a red vector v1
 
   function drawVector(v, color) {
