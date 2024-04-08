@@ -16,12 +16,25 @@
     <script src="lib/cuon-matrix-cse160.js"></script>
     
     <br><br>
-    <label for="name">V1</label>
-
-    <input type="text" id="name" name="name" required
-	   minlength="4" maxlength="8" size="10">
+    v1: 
+    <label for="v1_x">x</label>
+    <input type="number" id="v1_x" name="v1_x" required
+	   min="-100" max="100">
+    <label for="v1_y">y</label>
+    <input type="number" id="v1_y" name="v1_y" required
+	   min="-100" max="100">
 
     <br><br>
+    v2: 
+    <label for="v2_x">x</label>
+    <input type="number" id="v2_x" name="v2_x" required
+	   min="-100" max="100">
+    <label for="v2_y">y</label>
+    <input type="number" id="v2_y" name="v2_y" required
+	   min="-100" max="100">
+
+    <br><br>
+    <input class="styled" id="button" type="button" value="Draw"/>
 
   </body>
 </html>
