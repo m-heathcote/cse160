@@ -68,7 +68,7 @@ function main() {
     drawVector(v1, "red");
     var v2 = new Vector3([v2x_val, v2y_val, 0]);
     console.log("v2 = ", v2);
-    drawVector(v2, "red");
+    drawVector(v2, "blue");
   }
 
   // Draw a red vector v1
