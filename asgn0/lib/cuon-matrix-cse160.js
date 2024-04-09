@@ -47,7 +47,9 @@ class Vector3 {
         // Insert your code here.
         // This function should change this vector (this.elements) and not create a new vector.
 	
+	console.log("this[0] = ", this.elements[0], ", other[0] = ", other.elements[0]);
 	this.elements[0] += other.elements[0];
+	console.log("this[0] = ", this.elements[0], ", other[0] = ", other.elements[0]);
 	this.elements[1] += other.elements[1];
 	this.elements[2] += other.elements[2];
 

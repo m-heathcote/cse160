@@ -43,17 +43,19 @@ function main() {
   var v1y = document.getElementById("v1_y");
   var v2x = document.getElementById("v2_x");
   var v2y = document.getElementById("v2_y");
+  var op = document.getElementById("op_select");
+  var scalar = document.getElementById("scalar");
   
-  // Handle user clicking "Draw"
-  let button = document.getElementById("button");
-  console.log(button);
+  // Handle user clicking "Draw" (button 1)
+  let button1 = document.getElementById("button1");
+  console.log(button1);
   
-  button.onclick = function() {
+  button1.onclick = function() {
     handleDrawEvent();
   }
 
   function handleDrawEvent(v1, v2) {
-    console.log("clicked!");
+    console.log("clicked Draw 1");
     var v1x_val = v1x.value;
     var v1y_val = v1y.value;
     var v2x_val = v2x.value;
@@ -71,8 +73,65 @@ function main() {
     drawVector(v2, "blue");
   }
 
-  // Draw a red vector v1
-  //var v1 = new Vector3([2.25, 2.25, 0]);
-  //drawVector(v1, "red");
+  // Handle user clicking "Draw" (button 2)
+  let button2 = document.getElementById("button2");
+  console.log(button2);
+  
+  button2.onclick = function() {
+    handleDrawOperationEvent();
+  }
+
+  function handleDrawOperationEvent(v1, v2) {
+    console.log("clicked Draw 2");
+    var v1x_val = v1x.value;
+    var v1y_val = v1y.value;
+    var v2x_val = v2x.value;
+    var v2y_val = v2y.value;
+    console.log("v1 = (", v1x_val, ", ", v1y_val, ")");
+    console.log("v2 = (", v2x_val, ", ", v2y_val, ")");
+    
+    // draw v1 and v2
+    clearCanvas();
+    var v1 = new Vector3([v1x_val, v1y_val, 0]);
+    console.log("v1 = ", v1);
+    drawVector(v1, "red");
+    var v2 = new Vector3([v2x_val, v2y_val, 0]);
+    console.log("v2 = ", v2);
+    drawVector(v2, "blue");
+
+    // calculate v3 and v4
+    var v3 = new Vector3([0, 0, 0]);
+    var v4 = new Vector3([0, 0, 0]);
+    v3.set(v1);
+
+    console.log("op = ", op.value);
+    
+    if (op.value == "add") {
+      v3 = v3.add(v2); 
+    }
+    else if (op.value == "sub") {
+      v3 = v3.sub(v2); 
+    }
+    else if (op.value == "mul") {
+      v3 = v3.mul(scalar.value); 
+      v4.set(v2);
+      v4 = v4.mul(scalar.value); 
+    }
+    else if (op.value == "div") {
+      v3 = v3.div(scalar.value); 
+      v4.set(v2);
+      v4 = v4.div(scalar.value); 
+    }
+
+    // draw v3 and v4
+    console.log("v3 = ", v3);
+    drawVector(v3, "green");
+    console.log("v4 = ", v4);
+    drawVector(v4, "green");
+    
+
+  }
+
+
 
 }
