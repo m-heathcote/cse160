@@ -122,6 +122,12 @@ function main() {
       v4.set(v2);
       v4 = v4.div(scalar.value); 
     }
+    else if (op.value == "mag") {
+    }
+    else if (op.value == "nor") {
+    }
+    else if (op.value == "ang") {
+    }
 
     // draw v3 and v4
     console.log("v3 = ", v3);
