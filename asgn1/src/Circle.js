@@ -7,13 +7,14 @@ class Circle {
     this.position = [0.0, 0.0, 0.0];
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.size = 5.0;
-    this.segments = 10;
+    this.segments = 15;
   }
 
   render() {
     var xy = this.position;
     var rgba = this.color;
     var size = this.size;
+    var segments = this.segments;
 
     // Pass the color of a point to u_FragColor variable
     gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);

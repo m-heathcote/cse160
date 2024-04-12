@@ -19,7 +19,9 @@ var FSHADER_SOURCE = `
 
 // Global Variables
 let canvas;
+let canvas2;
 let gl;
+let gl2;
 let a_Position;
 let u_FragColor;
 let u_Size;
@@ -28,9 +30,13 @@ function setupWebGL() {
   // Retrieve <canvas> element
   canvas = document.getElementById('webgl');
 
+  // Retrieve 2nd <canvas> element
+  canvas2 = document.getElementById('brushDisplay');
+  
   // Get the rendering context for WebGL
   gl = canvas.getContext("webgl", {preserveDrawingBuffer: true});
-  if (!gl) {
+  gl2 = canvas2.getContext("webgl", {preserveDrawingBuffer: true});
+  if (!gl || !gl2) {
     console.log('Failed to get the rendering context for WebGL');
     return;
   }
@@ -73,16 +79,40 @@ const CIRCLE = 2;
 // Globals for UI elements
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
 let g_selectedSize = 5;
+let g_selectedSegments = 15;
 let g_selectedType = POINT;
 
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
         
   // Color Buttons
-  document.getElementById('green').onclick = function() {
-    g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
   document.getElementById('red').onclick = function() {
-    g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+    g_selectedColor = [1.0, 0.0, 0.0, 1.0];
+    adjustSliders(100, 0, 0); };
+  document.getElementById('orange').onclick = function() {
+    g_selectedColor = [1.0, 0.5, 0.0, 1.0];
+    adjustSliders(100, 50, 0); };
+  document.getElementById('yellow').onclick = function() {
+    g_selectedColor = [1.0, 1.0, 0.0, 1.0];
+    adjustSliders(100, 100, 0); };
+  document.getElementById('green').onclick = function() {
+    g_selectedColor = [0.0, 1.0, 0.0, 1.0];
+    adjustSliders(0, 100, 0); };
+  document.getElementById('blue').onclick = function() {
+    g_selectedColor = [0.0, 0.0, 1.0, 1.0];
+    adjustSliders(0, 0, 100); };
+  document.getElementById('purple').onclick = function() {
+    g_selectedColor = [0.5, 0.0, 1.0, 1.0];
+    adjustSliders(50, 0, 100); };
+  document.getElementById('pink').onclick = function() {
+    g_selectedColor = [1.0, 0.0, 1.0, 1.0];
+    adjustSliders(100, 0, 100); };
+  document.getElementById('black').onclick = function() {
+    g_selectedColor = [0.0, 0.0, 0.0, 1.0];
+    adjustSliders(0, 0, 0); };
+  document.getElementById('white').onclick = function() {
+    g_selectedColor = [1.0, 1.0, 1.0, 1.0];
+    adjustSliders(100, 100, 100); };
 
   // Clear Button
   document.getElementById('clearButton').onclick = function() {
@@ -108,6 +138,22 @@ function addActionsForHtmlUI() {
   // Size Slider Event
   document.getElementById("sizeSlide").addEventListener("mouseup", function() {
     g_selectedSize = this.value; });
+  
+  // Segment Slider Event
+  document.getElementById("segmentSlide").addEventListener("mouseup", function() {
+    g_selectedSegments = this.value; });
+}
+
+function adjustSliders(r, g, b) {
+  // get sliders
+  var Rslide = document.getElementById("redSlide");
+  var Gslide = document.getElementById("greenSlide");
+  var Bslide = document.getElementById("blueSlide");
+
+  // set vals
+  Rslide.value = r;
+  Gslide.value = g;
+  Bslide.value = b;
 }
 
 
@@ -128,9 +174,11 @@ function main() {
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  gl2.clearColor(0.0, 0.0, 0.0, 1.0);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
+  gl2.clear(gl.COLOR_BUFFER_BIT);
 }
 // ---------- END MAIN ----------
 
@@ -151,6 +199,7 @@ function click(ev) {
     point = new Triangle();
   } else {
     point = new Circle();
+    point.segments = g_selectedSegments;
   }
 
   point.position = [x, y];
@@ -181,8 +230,8 @@ function renderAllShapes() {
 
   // Check time at end of function
   var duration = performance.now() - startTime;
-  sendTextToHTML("numdot: " + len + " ms: " + Math.floor(duration) +
-                 " fps: " + Math.floor(10000/duration)/10, "numdot");
+  sendTextToHTML("numdot: " + len + ", ms: " + Math.floor(duration) +
+                 ", fps: " + Math.floor(10000/duration)/10, "numdot");
 }
 
 // Set the text of an HTML element
