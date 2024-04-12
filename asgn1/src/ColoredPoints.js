@@ -60,11 +60,21 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
 
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
-  // Button events (shape type)
+        
+  // Button Events (Shape Type)
   document.getElementById('green').onclick = function() {
     g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
   document.getElementById('red').onclick = function() {
     g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+
+  // Slider Events
+  document.getElementById("redSlide").addEventListener("mouseup", function() {
+    g_selectedColor[0] = this.value/100; });
+  document.getElementById("greenSlide").addEventListener("mouseup", function() {
+    g_selectedColor[1] = this.value/100; });
+  document.getElementById("blueSlide").addEventListener("mouseup", function() {
+    g_selectedColor[2] = this.value/100; });
+
 }
 
 
@@ -103,7 +113,7 @@ function click(ev) {
   g_points.push([x, y]);
 
   // Store the color to g_colors array
-  g_colors.push(g_selectedColor);
+  g_colors.push(g_selectedColor.slice());  // without ".slice()", it pushes a pointer
   
   //if (x >= 0.0 && y >= 0.0) {      // First quadrant
   //  g_colors.push([1.0, 0.0, 0.0, 1.0]);  // Red
