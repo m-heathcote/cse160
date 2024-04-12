@@ -65,14 +65,19 @@ function connectVariablesToGLSL() {
   }
 }
 
+// Constants
+const POINT = 0;
+const TRIANGLE = 1;
+
 // Globals for UI elements
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
 let g_selectedSize = 5;
+let g_selectedType = POINT;
 
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
         
-  // Button Events
+  // Color Buttons
   document.getElementById('green').onclick = function() {
     g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
   document.getElementById('red').onclick = function() {
@@ -82,6 +87,12 @@ function addActionsForHtmlUI() {
   document.getElementById('clearButton').onclick = function() {
     g_shapesList = [];
     renderAllShapes(); };
+
+  // Shape Buttons
+  document.getElementById('pointButton').onclick = function() {
+    g_selectedType = POINT; };
+  document.getElementById('triButton').onclick = function() {
+    g_selectedType = TRIANGLE; };
 
   // Color Slider Events
   document.getElementById("redSlide").addEventListener("mouseup", function() {
@@ -131,7 +142,13 @@ function click(ev) {
   [x, y] = convertCoordinatesEventToGL(ev);
 
   // Create the new point
-  let point = new Triangle();
+  let point;
+  if (g_selectedType == POINT) {
+    point = new Point();
+  } else {
+    point = new Triangle();
+  }
+
   point.position = [x, y];
   point.color = g_selectedColor.slice();  // without ".slice()", it pushes a pointer
   point.size = g_selectedSize;
