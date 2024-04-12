@@ -116,20 +116,7 @@ function main() {
 // ---------- END MAIN ----------
 
 
-// Globals for shape arrays
-//var g_points = [];  // The array for the position of a mouse press
-//var g_colors = [];  // The array to store the color of a point
-//var g_sizes = [];   // The array to store the size of a point
-
-class Point {
-  constructor() {
-    this.type='point';
-    this.position = [0.0, 0.0, 0.0];
-    this.color = [1.0, 1.0, 1.0, 1.0];
-    this.size = 5.0;
-  }
-}
-
+// List of all shapes (points)
 var g_shapesList = [];
 
 // ----- click -----
@@ -146,15 +133,6 @@ function click(ev) {
   // Store the new point
   g_shapesList.push(point);
 
-  // Store the coordinates to g_points array
-  //g_points.push([x, y]);
-
-  // Store the color to g_colors array
-  //g_colors.push(g_selectedColor.slice());  // without ".slice()", it pushes a pointer
-  
-  // Store the size to the g_sizes array
-  //g_sizes.push(g_selectedSize);
-
   // Draw every shape that is supposed to be in the canvas
   renderAllShapes();
 }
@@ -168,23 +146,7 @@ function renderAllShapes(){
   //var len = g_points.length;
   var len = g_shapesList.length;
   for(var i = 0; i < len; i++) {
-    //var xy = g_points[i];
-    //var rgba = g_colors[i];
-    //var size = g_sizes[i];
-    
-    var xy = g_shapesList[i].position;
-    var rgba = g_shapesList[i].color;
-    var size = g_shapesList[i].size;
-
-    // Pass the position of a point to a_Position variable
-    gl.vertexAttrib3f(a_Position, xy[0], xy[1], 0.0);
-    // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
-    // Pass the size of a point to u_Size variable
-    gl.uniform1f(u_Size, size);
-
-    // Draw
-    gl.drawArrays(gl.POINTS, 0, 1);
+    g_shapesList[i].render();
   }
 }
 
