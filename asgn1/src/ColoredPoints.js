@@ -29,7 +29,7 @@ function setupWebGL() {
   canvas = document.getElementById('webgl');
 
   // Get the rendering context for WebGL
-  gl = getWebGLContext(canvas);
+  gl = canvas.getContext("webgl", {preserveDrawingBuffer: true});
   if (!gl) {
     console.log('Failed to get the rendering context for WebGL');
     return;
@@ -72,11 +72,16 @@ let g_selectedSize = 5;
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
         
-  // Button Events (Shape Type)
+  // Button Events
   document.getElementById('green').onclick = function() {
     g_selectedColor = [0.0, 1.0, 0.0, 1.0]; };
   document.getElementById('red').onclick = function() {
     g_selectedColor = [1.0, 0.0, 0.0, 1.0]; };
+
+  // Clear Button
+  document.getElementById('clearButton').onclick = function() {
+    g_shapesList = [];
+    renderAllShapes(); };
 
   // Color Slider Events
   document.getElementById("redSlide").addEventListener("mouseup", function() {
@@ -106,6 +111,7 @@ function main() {
 
   // Register function (event handler) to be called on a mouse press
   canvas.onmousedown = click;
+  canvas.onmousemove = function(ev) { if (ev.buttons == 1) { click(ev) } };
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -139,19 +145,37 @@ function click(ev) {
 // ----- end click -----
 
 // Draw every shape that is supposed to be in the canvas
-function renderAllShapes(){
+function renderAllShapes() {
+  // Check time at start of function
+  var startTime = performance.now();
+
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  //var len = g_points.length;
+  // Draw each shape in the list
   var len = g_shapesList.length;
   for(var i = 0; i < len; i++) {
     g_shapesList[i].render();
   }
+
+  // Check time at end of function
+  var duration = performance.now() - startTime;
+  sendTextToHTML("numdot: " + len + " ms: " + Math.floor(duration) +
+                 " fps: " + Math.floor(10000/duration)/10, "numdot");
+}
+
+// Set the text of an HTML element
+function sendTextToHTML(text, htmlID) {
+  var htmlElm = document.getElementById(htmlID);
+  if (!htmlElm) {
+    console.log("Failed to get " + htmlID + " from HTML");
+    return;
+  }
+  htmlElm.innerHTML = text;
 }
 
 // Extract the event click and return it in WebGL coordinates
-function convertCoordinatesEventToGL(ev){
+function convertCoordinatesEventToGL(ev) {
   var x = ev.clientX; // x coordinate of a mouse pointer
   var y = ev.clientY; // y coordinate of a mouse pointer
   var rect = ev.target.getBoundingClientRect();
