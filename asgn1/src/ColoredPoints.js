@@ -110,7 +110,7 @@ const CIRCLE = 2;
 
 // Globals for UI elements
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
-let g_selectedSize = 5;
+let g_selectedSize = 8;
 let g_selectedSegments = 15;
 let g_selectedType = POINT;
 

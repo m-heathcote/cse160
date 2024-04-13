@@ -6,7 +6,7 @@ class Triangle {
     this.type='triangle';
     this.position = [0.0, 0.0, 0.0];
     this.color = [1.0, 1.0, 1.0, 1.0];
-    this.size = 5.0;
+    this.size = 8.0;
   }
 
   render() {
@@ -20,11 +20,8 @@ class Triangle {
     // Pass the size of a point to u_Size variable
     gl.uniform1f(u_Size, size);
 
-    console.log("triangle: render(): size = ", size);
-
     // Draw
     var d = this.size/200.0;  // delta
-    console.log("tri: re: d = ", d);
     drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl, a_Position);
   }
   
@@ -39,11 +36,8 @@ class Triangle {
     // Pass the size of a point to u_Size variable
     gl2.uniform1f(u_Size2, size);
 
-    console.log("triangle: renderDisplay(): size = ", size);
-
     // Draw
     var d = this.size/50.0;  // delta
-    console.log("tri: redDis: d = ", d);
     drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl2, a_Position2);
   }
 }
