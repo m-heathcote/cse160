@@ -120,31 +120,40 @@ function addActionsForHtmlUI() {
   // Color Buttons
   document.getElementById('red').onclick = function() {
     g_selectedColor = [1.0, 0.0, 0.0, 1.0];
-    adjustSliders(100, 0, 0); };
+    adjustSliders(100, 0, 0);
+    updateBrushDisplay(); };
   document.getElementById('orange').onclick = function() {
     g_selectedColor = [1.0, 0.5, 0.0, 1.0];
-    adjustSliders(100, 50, 0); };
+    adjustSliders(100, 50, 0);
+    updateBrushDisplay(); };
   document.getElementById('yellow').onclick = function() {
     g_selectedColor = [1.0, 1.0, 0.0, 1.0];
-    adjustSliders(100, 100, 0); };
+    adjustSliders(100, 100, 0);
+    updateBrushDisplay(); };
   document.getElementById('green').onclick = function() {
     g_selectedColor = [0.0, 1.0, 0.0, 1.0];
-    adjustSliders(0, 100, 0); };
+    adjustSliders(0, 100, 0);
+    updateBrushDisplay(); };
   document.getElementById('blue').onclick = function() {
     g_selectedColor = [0.0, 0.0, 1.0, 1.0];
-    adjustSliders(0, 0, 100); };
+    adjustSliders(0, 0, 100);
+    updateBrushDisplay(); };
   document.getElementById('purple').onclick = function() {
     g_selectedColor = [0.5, 0.0, 1.0, 1.0];
-    adjustSliders(50, 0, 100); };
+    adjustSliders(50, 0, 100);
+    updateBrushDisplay(); };
   document.getElementById('pink').onclick = function() {
     g_selectedColor = [1.0, 0.0, 1.0, 1.0];
-    adjustSliders(100, 0, 100); };
+    adjustSliders(100, 0, 100);
+    updateBrushDisplay(); };
   document.getElementById('black').onclick = function() {
     g_selectedColor = [0.0, 0.0, 0.0, 1.0];
-    adjustSliders(0, 0, 0); };
+    adjustSliders(0, 0, 0);
+    updateBrushDisplay(); };
   document.getElementById('white').onclick = function() {
     g_selectedColor = [1.0, 1.0, 1.0, 1.0];
-    adjustSliders(100, 100, 100); };
+    adjustSliders(100, 100, 100);
+    updateBrushDisplay(); };
 
   // Clear Button
   document.getElementById('clearButton').onclick = function() {
@@ -161,19 +170,24 @@ function addActionsForHtmlUI() {
 
   // Color Slider Events
   document.getElementById("redSlide").addEventListener("mouseup", function() {
-    g_selectedColor[0] = this.value/100; });
+    g_selectedColor[0] = this.value/100;
+    updateBrushDisplay(); });
   document.getElementById("greenSlide").addEventListener("mouseup", function() {
-    g_selectedColor[1] = this.value/100; });
+    g_selectedColor[1] = this.value/100;
+    updateBrushDisplay(); });
   document.getElementById("blueSlide").addEventListener("mouseup", function() {
-    g_selectedColor[2] = this.value/100; });
+    g_selectedColor[2] = this.value/100;
+    updateBrushDisplay(); });
 
   // Size Slider Event
   document.getElementById("sizeSlide").addEventListener("mouseup", function() {
-    g_selectedSize = this.value; });
+    g_selectedSize = this.value;
+    updateBrushDisplay(); });
   
   // Segment Slider Event
   document.getElementById("segmentSlide").addEventListener("mouseup", function() {
-    g_selectedSegments = this.value; });
+    g_selectedSegments = this.value;
+    updateBrushDisplay(); });
 }
 
 function adjustSliders(r, g, b) {
@@ -313,6 +327,6 @@ function updateBrushDisplay() {
   gl2.clear(gl2.COLOR_BUFFER_BIT);
 
   // Draw point
-  point.render();
+  point.renderDisplay();
 }
 
