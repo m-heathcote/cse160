@@ -158,6 +158,21 @@ function addActionsForHtmlUI() {
   // Clear Button
   document.getElementById('clearButton').onclick = function() {
     g_shapesList = [];
+    g_erasedList = [];
+    renderAllShapes(); };
+
+  // Undo Button
+  document.getElementById('undoButton').onclick = function() {
+    if (g_shapesList.length > 0) {
+      g_erasedList.push(g_shapesList.pop());
+    }
+    renderAllShapes(); };
+
+  // Redo Button
+  document.getElementById('redoButton').onclick = function() {
+    if (g_erasedList.length > 0) {
+      g_shapesList.push(g_erasedList.pop());
+    }
     renderAllShapes(); };
 
   // Shape Buttons
@@ -238,6 +253,7 @@ function main() {
 
 // List of all shapes (points)
 var g_shapesList = [];
+var g_erasedList = [];
 
 // ----- click -----
 function click(ev) {
