@@ -162,11 +162,14 @@ function addActionsForHtmlUI() {
 
   // Shape Buttons
   document.getElementById('pointButton').onclick = function() {
-    g_selectedType = POINT; };
+    g_selectedType = POINT;
+    updateBrushDisplay(); };
   document.getElementById('triButton').onclick = function() {
-    g_selectedType = TRIANGLE; };
+    g_selectedType = TRIANGLE;
+    updateBrushDisplay(); };
   document.getElementById('circleButton').onclick = function() {
-    g_selectedType = CIRCLE; };
+    g_selectedType = CIRCLE;
+    updateBrushDisplay(); };
 
   // Color Slider Events
   document.getElementById("redSlide").addEventListener("mouseup", function() {

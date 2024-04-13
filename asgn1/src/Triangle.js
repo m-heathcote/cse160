@@ -20,13 +20,35 @@ class Triangle {
     // Pass the size of a point to u_Size variable
     gl.uniform1f(u_Size, size);
 
+    console.log("triangle: render(): size = ", size);
+
     // Draw
     var d = this.size/200.0;  // delta
-    drawTriangle( [xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d] );
+    console.log("tri: re: d = ", d);
+    drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl, a_Position);
+  }
+  
+  renderDisplay() {
+    var xy = this.position;
+    var rgba = this.color;
+    var size = this.size;
+
+    // Pass the color of a point to u_FragColor variable
+    gl2.uniform4f(u_FragColor2, rgba[0], rgba[1], rgba[2], rgba[3]);
+    
+    // Pass the size of a point to u_Size variable
+    gl2.uniform1f(u_Size2, size);
+
+    console.log("triangle: renderDisplay(): size = ", size);
+
+    // Draw
+    var d = this.size/50.0;  // delta
+    console.log("tri: redDis: d = ", d);
+    drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl2, a_Position2);
   }
 }
 
-function drawTriangle(vertices) {
+function drawTriangle(vertices, gl, a_Position) {
   var n = 3; // The number of vertices
 
   // Create a buffer object

@@ -14,8 +14,6 @@ class Point {
     var rgba = this.color;
     var size = this.size;
 
-    console.log("in render(): size=", size, " color=", rgba);
-
     // Quit using the buffer to send the attribute
     gl.disableVertexAttribArray(a_Position);
 
