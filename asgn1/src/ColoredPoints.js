@@ -23,8 +23,11 @@ let canvas2;
 let gl;
 let gl2;
 let a_Position;
+let a_Position2;
 let u_FragColor;
+let u_FragColor2;
 let u_Size;
+let u_Size2;
 
 function setupWebGL() {
   // Retrieve <canvas> element
@@ -66,6 +69,35 @@ function connectVariablesToGLSL() {
   // Get the storage location of u_Size
   u_Size = gl.getUniformLocation(gl.program, 'u_Size');
   if (!u_Size) {
+    console.log('Failed to get the storage location of u_Size');
+    return;
+  }
+}
+
+function connectVariablesToGLSL_2() {
+  // Initialize shaders
+  if (!initShaders(gl2, VSHADER_SOURCE, FSHADER_SOURCE)) {
+    console.log('Failed to intialize shaders.');
+    return;
+  }
+
+  // Get the storage location of a_Position
+  a_Position2 = gl2.getAttribLocation(gl2.program, 'a_Position');
+  if (a_Position2 < 0) {
+    console.log('Failed to get the storage location of a_Position');
+    return;
+  }
+
+  // Get the storage location of u_FragColor
+  u_FragColor2 = gl2.getUniformLocation(gl2.program, 'u_FragColor');
+  if (!u_FragColor2) {
+    console.log('Failed to get the storage location of u_FragColor');
+    return;
+  }
+
+  // Get the storage location of u_Size
+  u_Size2 = gl2.getUniformLocation(gl2.program, 'u_Size');
+  if (!u_Size2) {
     console.log('Failed to get the storage location of u_Size');
     return;
   }
@@ -164,6 +196,7 @@ function main() {
   
   // set up GLSL shader programs and connect GLSL variables
   connectVariablesToGLSL();
+  connectVariablesToGLSL_2();
 
   // Set up actions for the HTML UI elements
   addActionsForHtmlUI();
@@ -179,6 +212,9 @@ function main() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
   gl2.clear(gl.COLOR_BUFFER_BIT);
+
+  // Update Brush Display
+  updateBrushDisplay();
 }
 // ---------- END MAIN ----------
 
@@ -254,5 +290,29 @@ function convertCoordinatesEventToGL(ev) {
   y = (canvas.height/2 - (y - rect.top))/(canvas.height/2);
 
   return([x, y]);
+}
+
+// Update Brush Display
+function updateBrushDisplay() {
+  // Create point
+  let point;
+  if (g_selectedType == POINT) {
+    point = new Point();
+  } else if (g_selectedType == TRIANGLE) {
+    point = new Triangle();
+  } else {
+    point = new Circle();
+    point.segments = g_selectedSegments;
+  }
+
+  point.position = [0, 0];
+  point.color = g_selectedColor.slice();  // without ".slice()", it pushes a pointer
+  point.size = g_selectedSize;
+
+  // Clear <canvas>
+  gl2.clear(gl2.COLOR_BUFFER_BIT);
+
+  // Draw point
+  point.render();
 }
 
