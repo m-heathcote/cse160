@@ -197,19 +197,31 @@ function addActionsForHtmlUI() {
   document.getElementById('clearButton').onclick = function() {
     g_shapesList = [];
     g_erasedList = [];
+    g_strokeCountList = [];
+    g_erasedCountList = [];
     renderAllShapes(); };
 
   // Undo Button
   document.getElementById('undoButton').onclick = function() {
     if (g_shapesList.length > 0) {
-      g_erasedList.push(g_shapesList.pop());
+      let num = g_strokeCountList.pop();
+      g_erasedCountList.push(num);
+      
+      for (let i = 0; i < num; i++) {
+        g_erasedList.push(g_shapesList.pop());
+      }
     }
     renderAllShapes(); };
 
   // Redo Button
   document.getElementById('redoButton').onclick = function() {
     if (g_erasedList.length > 0) {
-      g_shapesList.push(g_erasedList.pop());
+      let num = g_erasedCountList.pop();
+      g_strokeCountList.push(num);
+      
+      for (let i = 0; i < num; i++) {
+        g_shapesList.push(g_erasedList.pop());
+      }
     }
     renderAllShapes(); };
 
@@ -218,8 +230,11 @@ function addActionsForHtmlUI() {
     // clear canvas
     g_shapesList = [];
     g_erasedList = [];
+    g_strokeCountList = [];
+    g_erasedCountList = [];
     // draw
     g_shapesList.push(new Drawing());
+    g_strokeCountList.push(1);
     renderAllShapes(); };
 
   // Shape Buttons
@@ -283,6 +298,7 @@ function main() {
   // Register function (event handler) to be called on a mouse press
   canvas.onmousedown = click;
   canvas.onmousemove = function(ev) { if (ev.buttons == 1) { click(ev) } };
+  canvas.onmouseup = release;
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -301,6 +317,11 @@ function main() {
 // List of all shapes (points)
 var g_shapesList = [];
 var g_erasedList = [];
+
+// Globals for counting the number of points in a stroke
+var g_strokeCount = 0;
+var g_strokeCountList = [];
+var g_erasedCountList = [];
 
 // ----- click -----
 function click(ev) {
@@ -326,10 +347,18 @@ function click(ev) {
   g_shapesList.push(point);
   g_erasedList = [];
 
+  // Add to stroke count
+  g_strokeCount += 1;
+
   // Draw every shape that is supposed to be in the canvas
   renderAllShapes();
 }
 // ----- end click -----
+
+function release(ev) {
+  g_strokeCountList.push(g_strokeCount);
+  g_strokeCount = 0;
+}
 
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
