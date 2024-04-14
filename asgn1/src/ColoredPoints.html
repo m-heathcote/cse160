@@ -12,13 +12,25 @@
 
     <p id="numdot" style="font-size:8px; ">&nbsp;</p>
 
+    <p>
+    Canvas Color: 
+    <button type="button" id="black-bg"
+      style="background-color: #000000; color: white;">&nbsp;</button>
+    <button type="button" id="white-bg"
+      style="background-color: #ffffff; color: white;">&nbsp;</button>
+    <button type="button" id="blue-bg"
+      style="background-color: #8cb4ff; color: white;">&nbsp;</button>
+    </p>
+
+    <p>
     <button type="button" id="clearButton">Clear Canvas</button>
     &nbsp;&nbsp;&nbsp;
     <button type="button" id="undoButton">Undo</button>
     <button type="button" id="redoButton">Redo</button>
     &nbsp;&nbsp;&nbsp;
     <button type="button" id="drawingButton">My Drawing</button>
-    
+    </p>
+
     <p>
     Brush Size:  <input type="range" min="2" max="40" value="8"
                         class="slider" id="sizeSlide">
@@ -37,6 +49,7 @@
     </canvas>
 
     <p>
+    Brush Color: 
     <button type="button" id="red"
       style="background-color: #ff0000; color: white;">&nbsp;</button>
     <button type="button" id="orange"
