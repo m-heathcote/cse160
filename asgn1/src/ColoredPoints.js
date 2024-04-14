@@ -155,6 +155,44 @@ function addActionsForHtmlUI() {
     adjustSliders(100, 100, 100);
     updateBrushDisplay(); };
 
+  // Background Color Buttons
+  document.getElementById('black-bg').onclick = function() {
+    // Specify the color for clearing <canvas>
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl2.clearColor(0.0, 0.0, 0.0, 1.0);
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl2.clear(gl2.COLOR_BUFFER_BIT);
+    // redraw
+    renderAllShapes(); };
+  document.getElementById('gray-bg').onclick = function() {
+    // Specify the color for clearing <canvas>
+    gl.clearColor(140/255, 140/255, 150/255, 1.0);
+    gl2.clearColor(140/255, 140/255, 150/255, 1.0);
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl2.clear(gl2.COLOR_BUFFER_BIT);
+    // redraw
+    renderAllShapes(); };
+  document.getElementById('white-bg').onclick = function() {
+    // Specify the color for clearing <canvas>
+    gl.clearColor(250/255, 245/255, 250/255, 1.0);
+    gl2.clearColor(250/255, 245/255, 250/255, 1.0);
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl2.clear(gl2.COLOR_BUFFER_BIT);
+    // redraw
+    renderAllShapes(); };
+  document.getElementById('blue-bg').onclick = function() {
+    // Specify the color for clearing <canvas>
+    gl.clearColor(140/255, 180/255, 255/255, 1.0);
+    gl2.clearColor(140/255, 180/255, 255/255, 1.0);
+    // Clear <canvas>
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl2.clear(gl2.COLOR_BUFFER_BIT);
+    // redraw
+    renderAllShapes(); };
+
   // Clear Button
   document.getElementById('clearButton').onclick = function() {
     g_shapesList = [];
@@ -252,7 +290,7 @@ function main() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT);
-  gl2.clear(gl.COLOR_BUFFER_BIT);
+  gl2.clear(gl2.COLOR_BUFFER_BIT);
 
   // Update Brush Display
   updateBrushDisplay();
