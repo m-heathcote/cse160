@@ -175,6 +175,15 @@ function addActionsForHtmlUI() {
     }
     renderAllShapes(); };
 
+  // My Drawing Button
+  document.getElementById('drawingButton').onclick = function() {
+    // clear canvas
+    g_shapesList = [];
+    g_erasedList = [];
+    // draw
+    g_shapesList.push(new Drawing());
+    renderAllShapes(); };
+
   // Shape Buttons
   document.getElementById('pointButton').onclick = function() {
     g_selectedType = POINT;
@@ -277,6 +286,7 @@ function click(ev) {
 
   // Store the new point
   g_shapesList.push(point);
+  g_erasedList = [];
 
   // Draw every shape that is supposed to be in the canvas
   renderAllShapes();
