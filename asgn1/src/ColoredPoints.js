@@ -107,6 +107,7 @@ function connectVariablesToGLSL_2() {
 const POINT = 0;
 const TRIANGLE = 1;
 const CIRCLE = 2;
+const HEART = 3;
 
 // Globals for UI elements
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
@@ -164,6 +165,7 @@ function addActionsForHtmlUI() {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl2.clear(gl2.COLOR_BUFFER_BIT);
     // redraw
+    updateBrushDisplay();
     renderAllShapes(); };
   document.getElementById('gray-bg').onclick = function() {
     // Specify the color for clearing <canvas>
@@ -173,6 +175,7 @@ function addActionsForHtmlUI() {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl2.clear(gl2.COLOR_BUFFER_BIT);
     // redraw
+    updateBrushDisplay();
     renderAllShapes(); };
   document.getElementById('white-bg').onclick = function() {
     // Specify the color for clearing <canvas>
@@ -182,6 +185,7 @@ function addActionsForHtmlUI() {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl2.clear(gl2.COLOR_BUFFER_BIT);
     // redraw
+    updateBrushDisplay();
     renderAllShapes(); };
   document.getElementById('blue-bg').onclick = function() {
     // Specify the color for clearing <canvas>
@@ -191,6 +195,7 @@ function addActionsForHtmlUI() {
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl2.clear(gl2.COLOR_BUFFER_BIT);
     // redraw
+    updateBrushDisplay();
     renderAllShapes(); };
 
   // Clear Button
@@ -228,10 +233,10 @@ function addActionsForHtmlUI() {
   // My Drawing Button
   document.getElementById('drawingButton').onclick = function() {
     // clear canvas
-    g_shapesList = [];
-    g_erasedList = [];
-    g_strokeCountList = [];
-    g_erasedCountList = [];
+    //g_shapesList = [];
+    //g_erasedList = [];
+    //g_strokeCountList = [];
+    //g_erasedCountList = [];
     // draw
     g_shapesList.push(new Drawing());
     g_strokeCountList.push(1);
@@ -246,6 +251,9 @@ function addActionsForHtmlUI() {
     updateBrushDisplay(); };
   document.getElementById('circleButton').onclick = function() {
     g_selectedType = CIRCLE;
+    updateBrushDisplay(); };
+  document.getElementById('heartButton').onclick = function() {
+    g_selectedType = HEART;
     updateBrushDisplay(); };
 
   // Color Slider Events
@@ -334,9 +342,11 @@ function click(ev) {
     point = new Point();
   } else if (g_selectedType == TRIANGLE) {
     point = new Triangle();
-  } else {
+  } else if (g_selectedType == CIRCLE) {
     point = new Circle();
     point.segments = g_selectedSegments;
+  } else {
+    point = new Heart();
   }
 
   point.position = [x, y];
@@ -345,7 +355,7 @@ function click(ev) {
 
   // Store the new point
   g_shapesList.push(point);
-  g_erasedList = [];
+  g_erasedList = []; // forget undos in memory
 
   // Add to stroke count
   g_strokeCount += 1;
@@ -410,9 +420,11 @@ function updateBrushDisplay() {
     point = new Point();
   } else if (g_selectedType == TRIANGLE) {
     point = new Triangle();
-  } else {
+  } else if (g_selectedType == CIRCLE) {
     point = new Circle();
     point.segments = g_selectedSegments;
+  } else {
+    point = new Heart();
   }
 
   point.position = [0, 0];
