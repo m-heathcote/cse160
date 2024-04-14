@@ -77,8 +77,8 @@ class Drawing {
     // ** set color **
     gl.uniform4f(u_FragColor, C[4][0], C[4][1], C[4][2], C[4][3]);
     
-    // outer wing dot
+    // wing dot
     drawTriangle([x*0.6, 0.2,   x*0.45, 0.05,   x*0.6, 0.0], gl, a_Position);
-    drawTriangle([x*0.6, 0.2,   x*0.45, 0.05,   x*0.35, 0.25], gl, a_Position);
+    drawTriangle([x*0.6, 0.2,   x*0.45, 0.05,   x*0.4, 0.2], gl, a_Position);
   }
 }
