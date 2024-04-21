@@ -18,8 +18,8 @@ function main() {
 
   // create a scene
 	const scene = new THREE.Scene();
-  //scene.background = new THREE.Color(0xAEB3EF);
-  scene.background = new THREE.Color(0xFFFFFF);
+  scene.background = new THREE.Color(0xAEB3EF);
+  //scene.background = new THREE.Color(0xFFFFFF);
 
   // create a box
 	const boxWidth = 1;
@@ -31,7 +31,8 @@ function main() {
 	const cubes = []; // just an array we can use to rotate the cubes
 	
   // create a texture loader
-  const loader = new THREE.TextureLoader();
+  const loadManager = new THREE.LoadingManager();
+  const loader = new THREE.TextureLoader(loadManager);
 
   // list of materials (for each side of the cube)
 	const materials = [
@@ -49,11 +50,22 @@ function main() {
 		//new THREE.MeshBasicMaterial({map: loadColorTexture('../imgs/flower-6.jpg')}),
 	];
 
-  // create a mesh
-	const cube = new THREE.Mesh(geometry, materials);
-	scene.add(cube);
-	cubes.push(cube); // add to our list of cubes to rotate
+  // wait until textured loaded
+  const loadingElem = document.querySelector('#loading');
+  const progressBarElem = loadingElem.querySelector('.progressbar');
 
+  loadManager.onLoad = () => {
+    loadingElem.style.display = 'none';
+    // create a mesh
+	  const cube = new THREE.Mesh(geometry, materials);
+	  scene.add(cube);
+	  cubes.push(cube); // add to our list of cubes to rotate
+  };
+
+  loadManager.onProgress = (urlOfLastItemLoaded, itemsLoaded, itemsTotal) => {
+    const progress = itemsLoaded / itemsTotal;
+    progressBarElem.style.transform = 'scaleX(${progress})';
+  };
 
 	function resizeRendererToDisplaySize(renderer) {
 		const canvas = renderer.domElement;
