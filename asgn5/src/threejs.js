@@ -23,8 +23,12 @@ function main() {
 		const color = 0xFFFFFF;
 		const intensity = 3;
 		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(-1, 2, 4);
-		scene.add(light);
+		
+    // default position and target = (0, 0, 0)
+    light.position.set(-1, 2, 4);
+		
+    // add to scene
+    scene.add(light);
 	}
 
   // create a box
@@ -34,8 +38,10 @@ function main() {
 	const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
 	function makeInstance(geometry, color, x) {
-    // create a basic material and set its color
-		const material = new THREE.MeshPhongMaterial({color});
+    // create a material and set its color
+		// MeshBasicMaterial is NOT affected by lights
+    // MeshPhongMaterial IS affected by lights
+    const material = new THREE.MeshPhongMaterial({color});
 
     // create a mesh
     // (combines: geometry, material, and position/orientation/scale)
@@ -45,15 +51,16 @@ function main() {
     scene.add(cube);
 
 		cube.position.x = x;
+		cube.position.z = -0.5;
 
 		return cube;
 	}
 
   // 3 cubes
 	const cubes = [
-		makeInstance( geometry, 0x44aa88, 0 ),
-		makeInstance( geometry, 0x8844aa, -2 ),
-		makeInstance( geometry, 0xaa8844, 2 ),
+		makeInstance( geometry, 0xFF75CF, 0 ),
+		makeInstance( geometry, 0xFFDC54, -2 ),
+		makeInstance( geometry, 0x54DCFF, 2 ),
 	];
 
 	function render(time) {
