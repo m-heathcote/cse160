@@ -79,22 +79,23 @@ function main() {
 	}
   // -- (end Directional Light) --
 
-  // -- Chair --
+  // -- Lamp --
 	{
+    // load the MTL file
 		const mtlLoader = new MTLLoader();
-		mtlLoader.load('../objs/Palm/materials.mtl', (mtl) => {
-
+		mtlLoader.load('../objs/Lamp/536 Lamp.mtl', (mtl) => {
 			mtl.preload();
+
+      // load the OBJ file
 			const objLoader = new OBJLoader();
-			//mtl.materials.Material.side = THREE.DoubleSide;
 			objLoader.setMaterials(mtl);
-			objLoader.load('../objs/Palm/model.obj', (root) => {
+			objLoader.load('../objs/Lamp/536 Lamp.obj', (root) => {
         // scale
-        const scaleFactor = 10;
+        const scaleFactor = 0.01;
         root.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
         // move
-        const newPosition = new THREE.Vector3(0, 2.8, 0);
+        const newPosition = new THREE.Vector3(0, 3, 0);
         root.position.copy(newPosition);
 
         // add to scene
@@ -102,23 +103,25 @@ function main() {
 			});
 		});
 	}
-  // -- (end Chair) --
+  // -- (end Lamp) --
 
+  // resize to match window dimensions if necessary 
 	function resizeRendererToDisplaySize(renderer) {
 		const canvas = renderer.domElement;
 		const width = canvas.clientWidth;
 		const height = canvas.clientHeight;
 		const needResize = canvas.width !== width || canvas.height !== height;
-		if (needResize) {
+		
+    if (needResize) {
 			renderer.setSize(width, height, false);
 		}
 
 		return needResize;
 	}
 
+  // animation loop
 	function render() {
 		if (resizeRendererToDisplaySize(renderer)) {
-
 			const canvas = renderer.domElement;
 			camera.aspect = canvas.clientWidth / canvas.clientHeight;
 			camera.updateProjectionMatrix();
@@ -129,6 +132,7 @@ function main() {
 		requestAnimationFrame(render);
 	}
 
+  // begin animation
 	requestAnimationFrame(render);
 }
 
