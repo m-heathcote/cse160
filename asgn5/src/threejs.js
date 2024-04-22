@@ -17,7 +17,7 @@ function main() {
 	const near = 0.1;
 	const far = 100;
 	const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-	camera.position.set(0, 10, 25);
+	camera.position.set(0, 10, 40);
 
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
@@ -78,6 +78,79 @@ function main() {
 		scene.add(light.target);
 	}
   // -- (end Directional Light) --
+
+  // function to make geometry object and add it to the scene
+	function makeInstance(geometry, color) {
+    // create a material and set its color
+    // MeshPhongMaterial IS affected by lights
+    const material = new THREE.MeshPhongMaterial({color});
+
+    // create a mesh
+    // (combines: geometry, material, and position/orientation/scale)
+		const shape = new THREE.Mesh(geometry, material);
+		
+    // add mesh to scene
+    scene.add(shape);
+
+		return shape;
+	}
+
+  // function to get the side lengths of an isosceles right triangle
+  // if you know the hypotenuse
+  function getSide(hypotenuse) {
+    return Math.sqrt(Math.pow(hypotenuse, 2) / 2);
+  }
+
+  // function to get the hypotenuse of an isosceles right triangle
+  // if you know the side lengths
+  function getHypotenuse(side) {
+    return Math.sqrt(2 * Math.pow(side, 2));
+  }
+
+  // -- Room Walls --
+  {
+  // define size
+  const size = 20;
+  const height = size * 0.8;
+  const thickness = 0.4;
+
+	// (width, height, depth)
+  const floor_geo = new THREE.BoxGeometry(size, thickness, size);
+  const wall_geo = new THREE.BoxGeometry(size, height, thickness);
+  const corner_geo = new THREE.BoxGeometry(thickness, height, thickness);
+
+  const floor = makeInstance(floor_geo, 0x877057); // dark brown
+  const l_wall = makeInstance(wall_geo, 0xDFCCAC); // light brown
+  const r_wall = makeInstance(wall_geo, 0xC4ACDF); // light purple
+  const corner = makeInstance(corner_geo, 0x877057); // dark brown
+
+  // rotate
+  floor.rotation.y = Math.PI / 4;    // 45 degrees
+  l_wall.rotation.y = - Math.PI / 4; // -45 degrees
+  r_wall.rotation.y = Math.PI / 4;   // 45 degrees
+  corner.rotation.y = Math.PI / 4;    // 45 degrees
+  
+  // move y
+  floor.position.y = thickness/2;
+  l_wall.position.y = height/2;
+  r_wall.position.y = height/2;
+  corner.position.y = height/2;
+  
+  // move xz
+  const shift1 = getSide(size/2);
+  const shift2 = getSide(thickness/2);
+  const shift3 = getHypotenuse(size/2);
+  const shift4 = getHypotenuse(thickness/2);
+
+  l_wall.position.x = shift1 + (shift2);
+  l_wall.position.z = (-1 * shift1) - (shift2);
+  
+  r_wall.position.x = (-1 * shift1) - (shift2);
+  r_wall.position.z = (-1 * shift1) - (shift2);
+  
+  corner.position.z = (-1 * shift3) - (shift4);
+  }
+  // -- (end Room Walls) --
 
   // -- Lamp --
 	{
