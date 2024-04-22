@@ -21,7 +21,8 @@ function main() {
 
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
-	controls.target.set(0, 5, 0);
+	//controls.target.set(0, 5, 0);
+	controls.target.set(5.6, 5.85, -7.7);
 	controls.update();
 
   // create a scene
@@ -120,20 +121,20 @@ function main() {
   const corner_geo = new THREE.BoxGeometry(thickness, height, thickness);
 
   const floor = makeInstance(floor_geo, 0x877057); // dark brown
-  const l_wall = makeInstance(wall_geo, 0xDFCCAC); // light brown
-  const r_wall = makeInstance(wall_geo, 0xC4ACDF); // light purple
+  const r_wall = makeInstance(wall_geo, 0xDFCCAC); // light brown
+  const l_wall = makeInstance(wall_geo, 0xC4ACDF); // light purple
   const corner = makeInstance(corner_geo, 0x877057); // dark brown
 
   // rotate
   floor.rotation.y = Math.PI / 4;    // 45 degrees
-  l_wall.rotation.y = - Math.PI / 4; // -45 degrees
-  r_wall.rotation.y = Math.PI / 4;   // 45 degrees
+  r_wall.rotation.y = - Math.PI / 4; // -45 degrees
+  l_wall.rotation.y = Math.PI / 4;   // 45 degrees
   corner.rotation.y = Math.PI / 4;    // 45 degrees
   
   // move y
   floor.position.y = thickness/2;
-  l_wall.position.y = height/2;
   r_wall.position.y = height/2;
+  l_wall.position.y = height/2;
   corner.position.y = height/2;
   
   // move xz
@@ -142,33 +143,36 @@ function main() {
   const shift3 = getHypotenuse(size/2);
   const shift4 = getHypotenuse(thickness/2);
 
-  l_wall.position.x = shift1 + (shift2);
-  l_wall.position.z = (-1 * shift1) - (shift2);
-  
-  r_wall.position.x = (-1 * shift1) - (shift2);
+  r_wall.position.x = shift1 + (shift2);
   r_wall.position.z = (-1 * shift1) - (shift2);
+  
+  l_wall.position.x = (-1 * shift1) - (shift2);
+  l_wall.position.z = (-1 * shift1) - (shift2);
   
   corner.position.z = (-1 * shift3) - (shift4);
   }
   // -- (end Room Walls) --
 
-  // -- Lamp --
+  // -- Bookshelf --
 	{
     // load the MTL file
 		const mtlLoader = new MTLLoader();
-		mtlLoader.load('../objs/Lamp/536 Lamp.mtl', (mtl) => {
+		mtlLoader.load('../objs/Shelf1/materials.mtl', (mtl) => {
 			mtl.preload();
 
       // load the OBJ file
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials(mtl);
-			objLoader.load('../objs/Lamp/536 Lamp.obj', (root) => {
+			objLoader.load('../objs/Shelf1/model.obj', (root) => {
         // scale
-        const scaleFactor = 0.01;
+        const scaleFactor = 5.5;
         root.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
+        // rotate
+        root.rotation.y = Math.PI / 4
+
         // move
-        const newPosition = new THREE.Vector3(0, 3, 0);
+        const newPosition = new THREE.Vector3(6.4, 2, -6.4);
         root.position.copy(newPosition);
 
         // add to scene
@@ -176,7 +180,49 @@ function main() {
 			});
 		});
 	}
-  // -- (end Lamp) --
+  // -- (end Bookshelf) --
+
+  // -- Books --
+	{
+    // load the MTL file
+		const mtlLoader = new MTLLoader();
+		mtlLoader.load('../objs/Books/materials.mtl', (mtl) => {
+			mtl.preload();
+
+      // load the OBJ file
+			const objLoader = new OBJLoader();
+			objLoader.setMaterials(mtl);
+			objLoader.load('../objs/Books/model.obj', (root) => {
+        // scale
+        const scaleFactor = 4.5;
+        root.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+        // rotate
+        root.rotation.y = - Math.PI / 4
+
+        // move
+        const newPosition = new THREE.Vector3(6.2, 1.5, -6.2);
+        root.position.copy(newPosition);
+
+        // add to scene
+				scene.add(root);
+			});
+		});
+	}
+  // -- (end Books) --
+
+  // -- D20 --
+  {
+	// (radius, detail)
+  const d20_geo = new THREE.IcosahedronGeometry(0.2, 0);
+
+  const d20 = makeInstance(d20_geo, 0xA73265);
+
+  // move
+  const newPosition = new THREE.Vector3(5.6, 5.88, -7.7);
+  d20.position.copy(newPosition);
+  }
+  // -- (end D20) --
 
   // resize to match window dimensions if necessary 
 	function resizeRendererToDisplaySize(renderer) {
