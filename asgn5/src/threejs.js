@@ -22,7 +22,7 @@ function main() {
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
 	//controls.target.set(0, 5, 0);
-	controls.target.set(5.6, 5.85, -7.7);
+	controls.target.set(5.4, 5.86, -7.9);
 	controls.update();
 
   // create a scene
@@ -74,17 +74,42 @@ function main() {
 		const color = 0xFFFFFF;
 		const intensity = 3;
 		const light = new THREE.DirectionalLight(color, intensity);
-		light.position.set(5, 10, 2);
+		//light.position.set(5, 10, 2);
+		light.position.set(-10, 10, 20);
 		scene.add(light);
 		scene.add(light.target);
 	}
   // -- (end Directional Light) --
 
-  // function to make geometry object and add it to the scene
+  // function to make a geometry object and add it to the scene
 	function makeInstance(geometry, color) {
     // create a material and set its color
     // MeshPhongMaterial IS affected by lights
     const material = new THREE.MeshPhongMaterial({color});
+
+    // create a mesh
+    // (combines: geometry, material, and position/orientation/scale)
+		const shape = new THREE.Mesh(geometry, material);
+		
+    // add mesh to scene
+    scene.add(shape);
+
+		return shape;
+	}
+
+  // function to make a textured geometry object and add it to the scene
+	function makeInstTextured(geometry, path, num) {
+    // load the texture
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(path);
+
+    // configure repeating pattern
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(num, num);
+
+    // create a material with the texture
+    const material = new THREE.MeshPhongMaterial({map: texture});
 
     // create a mesh
     // (combines: geometry, material, and position/orientation/scale)
@@ -120,10 +145,11 @@ function main() {
   const wall_geo = new THREE.BoxGeometry(size, height, thickness);
   const corner_geo = new THREE.BoxGeometry(thickness, height, thickness);
 
-  const floor = makeInstance(floor_geo, 0x877057); // dark brown
-  const r_wall = makeInstance(wall_geo, 0xDFCCAC); // light brown
-  const l_wall = makeInstance(wall_geo, 0xC4ACDF); // light purple
-  const corner = makeInstance(corner_geo, 0x877057); // dark brown
+	const floor = makeInstTextured(floor_geo, '../imgs/wood.png', 5);
+  //const floor = makeInstance(floor_geo, 0x877057); // dark brown
+  const r_wall = makeInstance(wall_geo, 0xC4ACDF); // light purple
+  const l_wall = makeInstance(wall_geo, 0xC4ACDF);
+  const corner = makeInstance(corner_geo, 0XC4ACDF);
 
   // rotate
   floor.rotation.y = Math.PI / 4;    // 45 degrees
@@ -164,6 +190,16 @@ function main() {
 			const objLoader = new OBJLoader();
 			objLoader.setMaterials(mtl);
 			objLoader.load('../objs/Shelf1/model.obj', (root) => {
+        // create different material
+        const material = new THREE.MeshPhongMaterial({color: 0x956D56});
+
+        // apply new material to each mesh in the object
+        root.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
+
         // scale
         const scaleFactor = 5.5;
         root.scale.set(scaleFactor, scaleFactor, scaleFactor);
@@ -212,15 +248,30 @@ function main() {
   // -- (end Books) --
 
   // -- D20 --
+  var d20;
   {
 	// (radius, detail)
-  const d20_geo = new THREE.IcosahedronGeometry(0.2, 0);
+  const d20_geo = new THREE.IcosahedronGeometry(0.22, 0);
 
-  const d20 = makeInstance(d20_geo, 0xA73265);
+  d20 = makeInstance(d20_geo, 0xA73265);
 
   // move
-  const newPosition = new THREE.Vector3(5.6, 5.88, -7.7);
+  const newPosition = new THREE.Vector3(4.4, 5.89, -8.3);
   d20.position.copy(newPosition);
+  }
+  // -- (end D20) --
+
+  // -- D12 --
+  var d12;
+  {
+	// (radius, detail)
+  const d12_geo = new THREE.DodecahedronGeometry(0.17, 0);
+
+  d12 = makeInstance(d12_geo, 0xA73265);
+
+  // move
+  const newPosition = new THREE.Vector3(5.4, 5.86, -7.9);
+  d12.position.copy(newPosition);
   }
   // -- (end D20) --
 
@@ -239,15 +290,28 @@ function main() {
 	}
 
   // animation loop
-	function render() {
+	function render(time) {
 		if (resizeRendererToDisplaySize(renderer)) {
 			const canvas = renderer.domElement;
 			camera.aspect = canvas.clientWidth / canvas.clientHeight;
 			camera.updateProjectionMatrix();
 		}
 
+    // determine speed and rotation
+    time *= 0.001; // convert to seconds
+    const speed = 1.5;
+    const rot = time * speed;
+
+    // set rotations (in radians)
+    d20.rotation.x = rot;
+    d20.rotation.y = rot;
+    d12.rotation.x = rot;
+    d12.rotation.y = rot;
+
+    // render the scene
 		renderer.render(scene, camera);
 
+    // animate
 		requestAnimationFrame(render);
 	}
 
