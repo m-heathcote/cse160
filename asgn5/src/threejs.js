@@ -10,6 +10,7 @@ function main() {
 	
   // create a renderer
   const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
+  renderer.shadowMap.enabled = true; // Enable shadow mapping
 
   // create a camera
 	const fov = 45;
@@ -76,6 +77,11 @@ function main() {
 		const light = new THREE.DirectionalLight(color, intensity);
 		//light.position.set(5, 10, 2);
 		light.position.set(-10, 10, 20);
+    light.castShadow = true;
+    light.shadow.mapSize.width = 512;  // Shadow map width
+    light.shadow.mapSize.height = 512; // Shadow map height
+    light.shadow.camera.near = 0.5;    // Near shadow camera distance
+    light.shadow.camera.far = 50;      // Far shadow camera distance
 		scene.add(light);
 		scene.add(light.target);
 	}
@@ -211,6 +217,9 @@ function main() {
         const newPosition = new THREE.Vector3(6.4, 2, -6.4);
         root.position.copy(newPosition);
 
+        // turn on shadows
+        root.recieveShadow = true;
+
         // add to scene
 				scene.add(root);
 			});
@@ -255,6 +264,9 @@ function main() {
 
   d20 = makeInstance(d20_geo, 0xA73265);
 
+  // turn on shadow
+  d20.castShadow = true;
+
   // move
   const newPosition = new THREE.Vector3(4.4, 5.89, -8.3);
   d20.position.copy(newPosition);
@@ -268,6 +280,9 @@ function main() {
   const d12_geo = new THREE.DodecahedronGeometry(0.17, 0);
 
   d12 = makeInstance(d12_geo, 0xA73265);
+
+  // turn on shadow
+  d12.castShadow = true;
 
   // move
   const newPosition = new THREE.Vector3(5.4, 5.86, -7.9);
