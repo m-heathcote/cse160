@@ -22,8 +22,8 @@ function main() {
 
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
-	//controls.target.set(0, 5, 0);
-	controls.target.set(5.4, 5.86, -7.9);
+	controls.target.set(0, 5, 0);
+	//controls.target.set(5.4, 5.86, -7.9);
 	controls.update();
 
   // create a scene
