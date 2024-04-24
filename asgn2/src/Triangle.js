@@ -24,25 +24,9 @@ class Triangle {
     var d = this.size/200.0;  // delta
     drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl, a_Position);
   }
-  
-  renderDisplay() {
-    var xy = this.position;
-    var rgba = this.color;
-    var size = this.size;
-
-    // Pass the color of a point to u_FragColor variable
-    gl2.uniform4f(u_FragColor2, rgba[0], rgba[1], rgba[2], rgba[3]);
-    
-    // Pass the size of a point to u_Size variable
-    gl2.uniform1f(u_Size2, size);
-
-    // Draw
-    var d = this.size/50.0;  // delta
-    drawTriangle([xy[0], xy[1], xy[0]+d, xy[1], xy[0], xy[1]+d], gl2, a_Position2);
-  }
 }
 
-function drawTriangle(vertices, gl, a_Position) {
+function drawTriangle(vertices) {
   var n = 3; // The number of vertices
 
   // Create a buffer object
@@ -68,7 +52,7 @@ function drawTriangle(vertices, gl, a_Position) {
   gl.drawArrays(gl.TRIANGLES, 0, n);
 }
 
-function drawTriangle3D(vertices, gl, a_Position) {
+function drawTriangle3D(vertices) {
   var n = 3; // The number of vertices
 
   // Create a buffer object

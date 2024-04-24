@@ -265,6 +265,9 @@ function main() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  
+  // Render
+  renderAllShapes();
 }
 // ---------- END MAIN ----------
 
@@ -317,6 +320,7 @@ function release(ev) {
   g_strokeCount = 0;
 }
 
+// ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
   // Check time at start of function
@@ -325,17 +329,29 @@ function renderAllShapes() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
+  /*
   // Draw each shape in the list
   var len = g_shapesList.length;
   for(var i = 0; i < len; i++) {
     g_shapesList[i].render();
   }
+  */
+
+  // Draw a Triangle
+  drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 0.0,  0.0, 0.0, 0.0]);
+
+  // Draw a Cube
+  var body = new Cube();
+  body.color = [1.0, 0.0, 0.0, 1.0];
+  body.render();
 
   // Check time at end of function
   var duration = performance.now() - startTime;
-  sendTextToHTML("numdot: " + len + ", ms: " + Math.floor(duration) +
+  //sendTextToHTML("numdot: " + len + ", ms: " + Math.floor(duration) +
+  sendTextToHTML(" ms: " + Math.floor(duration) +
                  ", fps: " + Math.floor(10000/duration)/10, "numdot");
 }
+// ----- end renderAllShapes -----
 
 // Set the text of an HTML element
 function sendTextToHTML(text, htmlID) {
