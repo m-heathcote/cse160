@@ -94,7 +94,7 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
 let g_selectedSize = 8;
 let g_selectedSegments = 15;
 let g_selectedType = POINT;
-let g_globalAngle = 5;
+let g_globalAngle = 0;
 
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
@@ -268,14 +268,14 @@ function renderAllShapes() {
 
   // Draw Body Cube
   var body = new Cube();
-  body.color = [1.0, 0.0, 0.0, 1.0];
+  body.color = [1.0, 0.0, 0.0, 1.0]; // red
   body.matrix.translate(-0.25, -0.5, 0.0);
   body.matrix.scale(0.5, 1, 0.5);
   body.render();
 
   // Draw Left Arm
   var leftArm = new Cube();
-  leftArm.color = [1.0, 1.0, 0.0, 1.0];
+  leftArm.color = [1.0, 1.0, 0.0, 1.0]; // yellow
   leftArm.matrix.translate(0.7, 0.0, 0.0);
   leftArm.matrix.rotate(45, 0, 0, 1);
   leftArm.matrix.scale(0.25, 0.7, 0.5);
@@ -283,7 +283,7 @@ function renderAllShapes() {
 
   // Test Box
   var box = new Cube();
-  box.color = [1, 0, 1, 1];
+  box.color = [1, 0, 1, 1]; // magenta
   box.matrix.translate(0, 0, 0.5, 0);
   box.matrix.rotate(-30, 1, 0, 0);
   box.matrix.scale(0.5, 0.5, 0.5);
