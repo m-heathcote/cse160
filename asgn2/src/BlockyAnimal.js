@@ -84,16 +84,8 @@ function connectVariablesToGLSL() {
 }
 // ----- end connectVariablesToGLSL -----
 
-// Constants
-const POINT = 0;
-const TRIANGLE = 1;
-const CIRCLE = 2;
-
 // Globals for UI elements
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
-let g_selectedSize = 8;
-let g_selectedSegments = 15;
-let g_selectedType = POINT;
 let g_globalAngle = 0;
 
 // ----- addActionsForHtmlUI -----
@@ -138,22 +130,17 @@ function addActionsForHtmlUI() {
     g_erasedCountList = [];
     renderAllShapes(); };
 
-  // Color Slider Events
-  document.getElementById("redSlide").addEventListener("mouseup", function() {
-    g_selectedColor[0] = this.value/100;
-    updateBrushDisplay(); });
-  document.getElementById("greenSlide").addEventListener("mouseup", function() {
-    g_selectedColor[1] = this.value/100;
-    updateBrushDisplay(); });
-  document.getElementById("blueSlide").addEventListener("mouseup", function() {
-    g_selectedColor[2] = this.value/100;
-    updateBrushDisplay(); });
-
   // Size Slider Event
-  document.getElementById("angleSlide").addEventListener("mouseup", function() {
+  document.getElementById("angleSlide").addEventListener("mousemove", function() {
     g_globalAngle = this.value;
     renderAllShapes();
-    });
+  });
+  
+  // Color Slider Events
+  document.getElementById("redSlide").addEventListener("mousemove", function() {
+    g_selectedColor[0] = this.value/100;
+    updateBrushDisplay();
+  });
 }
 // ----- end addActionsForHtmlUI -----
 
@@ -284,7 +271,7 @@ function renderAllShapes() {
   // Test Box
   var box = new Cube();
   box.color = [1, 0, 1, 1]; // magenta
-  box.matrix.translate(0, 0, 0.5, 0);
+  box.matrix.translate(0, 0, -0.5, 0);
   box.matrix.rotate(-30, 1, 0, 0);
   box.matrix.scale(0.5, 0.5, 0.5);
   box.render();
