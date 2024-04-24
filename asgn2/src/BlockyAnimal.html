@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blocky Animal</title>
+    <style>
+      #webgl { border: 2px solid black; }
+      #brushDisplay { border: 2px solid black; }
+    </style>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+
+    <p id="numdot" style="font-size:8px; ">&nbsp;</p>
+
+    <p>
+    Canvas Color: 
+    <button type="button" id="black-bg"
+      style="background-color: #000000; color: white;">&nbsp;</button>
+    <button type="button" id="gray-bg"
+      style="background-color: #8c8c96; color: white;">&nbsp;</button>
+    <button type="button" id="white-bg"
+      style="background-color: #faf5fa; color: white;">&nbsp;</button>
+    <button type="button" id="blue-bg"
+      style="background-color: #8cb4ff; color: white;">&nbsp;</button>
+    </p>
+
+    <p>
+    <button type="button" id="clearButton">Clear Canvas</button>
+    &nbsp;&nbsp;&nbsp;
+    <button type="button" id="undoButton">Undo</button>
+    <button type="button" id="redoButton">Redo</button>
+    &nbsp;&nbsp;&nbsp;
+    <button type="button" id="drawingButton">My Drawing</button>
+    </p>
+
+    <p>
+    Brush Size:  <input type="range" min="2" max="40" value="8"
+                        class="slider" id="sizeSlide">
+    Circle Segments:  <input type="range" min="3" max="24" value="15"
+                             class="slider" id="segmentSlide">
+
+    <br><br>
+    Brush Shape: 
+    <button type="button" id="pointButton">Point</button>
+    <button type="button" id="triButton">Triangle</button>
+    <button type="button" id="circleButton">Circle</button>
+    <button type="button" id="heartButton">Heart</button>
+    </p>
+
+    <p>
+    Brush Color: 
+    <button type="button" id="red"
+      style="background-color: #ff0000; color: white;">&nbsp;</button>
+    <button type="button" id="orange"
+      style="background-color: #ff8000; color: white;">&nbsp;</button>
+    <button type="button" id="yellow"
+      style="background-color: #ffff00; color: white;">&nbsp;</button>
+    <button type="button" id="green"
+      style="background-color: #00ff00; color: white;">&nbsp;</button>
+    <button type="button" id="blue"
+      style="background-color: #0000ff; color: white;">&nbsp;</button>
+    <button type="button" id="purple"
+      style="background-color: #8000ff; color: white;">&nbsp;</button>
+    <button type="button" id="pink"
+      style="background-color: #ff00ff; color: white;">&nbsp;</button>
+    <button type="button" id="black"
+      style="background-color: #000000; color: white;">&nbsp;</button>
+    <button type="button" id="white"
+      style="background-color: #ffffff; color: white;">&nbsp;</button>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <br>
+    Red   <input type="range" min="0" max="100" value="100"
+                 class="slider" id="redSlide">
+    Green <input type="range" min="0" max="100" value="100"
+	               class="slider" id="greenSlide">
+    Blue  <input type="range" min="0" max="100" value="100"
+                 class="slider" id="blueSlide">
+    </p>
+
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="BlockyAnimal.js"></script>
+  </body>
+</html>
