@@ -85,8 +85,8 @@ function connectVariablesToGLSL() {
 // ----- end connectVariablesToGLSL -----
 
 // Globals for UI elements
-let g_selectedColor = [1.0, 1.0, 1.0, 1.0]; // start with white
 let g_globalAngle = 0;
+let g_yellowAngle = 0;
 
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
@@ -94,69 +94,44 @@ function addActionsForHtmlUI() {
   
   // Background Color Buttons
   document.getElementById('black-bg').onclick = function() {
-    // Specify the color for clearing <canvas>
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // redraw
-    renderAllShapes(); };
+    renderAllShapes();
+  };
   document.getElementById('gray-bg').onclick = function() {
-    // Specify the color for clearing <canvas>
     gl.clearColor(140/255, 140/255, 150/255, 1.0);
-    // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // redraw
-    renderAllShapes(); };
+    renderAllShapes();
+  };
   document.getElementById('white-bg').onclick = function() {
-    // Specify the color for clearing <canvas>
     gl.clearColor(250/255, 245/255, 250/255, 1.0);
-    // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // redraw
-    renderAllShapes(); };
+    renderAllShapes();
+  };
   document.getElementById('blue-bg').onclick = function() {
-    // Specify the color for clearing <canvas>
     gl.clearColor(140/255, 180/255, 255/255, 1.0);
-    // Clear <canvas>
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // redraw
-    renderAllShapes(); };
+    renderAllShapes();
+  };
 
   // Clear Button
   document.getElementById('clearButton').onclick = function() {
-    g_shapesList = [];
-    g_erasedList = [];
-    g_strokeCountList = [];
-    g_erasedCountList = [];
-    renderAllShapes(); };
+    renderAllShapes();
+  };
 
-  // Size Slider Event
+  // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
     g_globalAngle = this.value;
     renderAllShapes();
   });
   
-  // Color Slider Events
-  document.getElementById("redSlide").addEventListener("mousemove", function() {
-    g_selectedColor[0] = this.value/100;
-    updateBrushDisplay();
+  // Yellow Arm Angle Slider
+  document.getElementById("yellowSlide").addEventListener("mousemove", function() {
+    g_yellowAngle = this.value;
+    renderAllShapes();
   });
 }
 // ----- end addActionsForHtmlUI -----
-
-// ----- adjustSliders -----
-function adjustSliders(r, g, b) {
-  // get sliders
-  var Rslide = document.getElementById("redSlide");
-  var Gslide = document.getElementById("greenSlide");
-  var Bslide = document.getElementById("blueSlide");
-
-  // set vals
-  Rslide.value = r;
-  Gslide.value = g;
-  Bslide.value = b;
-}
-// ----- end adjustSliders -----
 
 
 // ---------- MAIN ---------------------------------------------------
@@ -171,9 +146,9 @@ function main() {
   addActionsForHtmlUI();
 
   // Register function (event handler) to be called on a mouse press
-  canvas.onmousedown = click;
-  canvas.onmousemove = function(ev) { if (ev.buttons == 1) { click(ev) } };
-  canvas.onmouseup = release;
+  //canvas.onmousedown = click;
+  //canvas.onmousemove = function(ev) { if (ev.buttons == 1) { click(ev) } };
+  //canvas.onmouseup = release;
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -187,55 +162,15 @@ function main() {
 // ---------- END MAIN -----------------------------------------------
 
 
-// List of all shapes (points)
-var g_shapesList = [];
-var g_erasedList = [];
-
-// Globals for counting the number of points in a stroke
-var g_strokeCount = 0;
-var g_strokeCountList = [];
-var g_erasedCountList = [];
-
 // ----- click -----
 function click(ev) {
   // Extract the event click and return it in WebGL coordinates
   [x, y] = convertCoordinatesEventToGL(ev);
 
-  // Create the new point
-  let point;
-  if (g_selectedType == POINT) {
-    point = new Point();
-  } else if (g_selectedType == TRIANGLE) {
-    point = new Triangle();
-  } else if (g_selectedType == CIRCLE) {
-    point = new Circle();
-    point.segments = g_selectedSegments;
-  } else {
-    point = new Heart();
-  }
-
-  point.position = [x, y];
-  point.color = g_selectedColor.slice();  // without ".slice()", it pushes a pointer
-  point.size = g_selectedSize;
-
-  // Store the new point
-  g_shapesList.push(point);
-  g_erasedList = []; // forget undos in memory
-
-  // Add to stroke count
-  g_strokeCount += 1;
-
   // Draw every shape that is supposed to be in the canvas
   renderAllShapes();
 }
 // ----- end click -----
-
-// ----- release -----
-function release(ev) {
-  g_strokeCountList.push(g_strokeCount);
-  g_strokeCount = 0;
-}
-// ----- end release -----
 
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
@@ -243,37 +178,34 @@ function renderAllShapes() {
   // Check time at start of function
   var startTime = performance.now();
 
-  // 
-  var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
+  // Pass a matrix to u_GlobalRotateMatrix attribute
+  var globalRotMat = new Matrix4().rotate(-g_globalAngle, 0, 1, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  // Draw a Triangle
-  //drawTriangle3D([-1.0, 0.0, 0.0,  -0.5, -1.0, 0.0,  0.0, 0.0, 0.0]);
-
-  // Draw Body Cube
+  // Draw Red Cube
   var body = new Cube();
-  body.color = [1.0, 0.0, 0.0, 1.0]; // red
-  body.matrix.translate(-0.25, -0.5, 0.0);
-  body.matrix.scale(0.5, 1, 0.5);
+  body.color = [1, 0, 0, 1]; // red
+  body.matrix.translate(-0.25, -0.75, -0.1);
+  body.matrix.scale(0.5, 0.6, 0.5);
   body.render();
 
-  // Draw Left Arm
+  // Draw Yellow Cube
   var leftArm = new Cube();
-  leftArm.color = [1.0, 1.0, 0.0, 1.0]; // yellow
-  leftArm.matrix.translate(0.7, 0.0, 0.0);
-  leftArm.matrix.rotate(45, 0, 0, 1);
-  leftArm.matrix.scale(0.25, 0.7, 0.5);
+  leftArm.color = [1, 1, 0, 1]; // yellow
+  leftArm.matrix.translate(-0.1, -0.2, 0);
+  leftArm.matrix.rotate(-g_yellowAngle, 0, 0, 1);
+  leftArm.matrix.scale(0.25, 0.6, 0.3);
   leftArm.render();
 
-  // Test Box
+  // Draw Magenta Cube
   var box = new Cube();
   box.color = [1, 0, 1, 1]; // magenta
-  box.matrix.translate(0, 0, -0.5, 0);
-  box.matrix.rotate(-30, 1, 0, 0);
-  box.matrix.scale(0.5, 0.5, 0.5);
+  box.matrix.translate(-0.2, 0.3, 0.1, 0);
+  box.matrix.rotate(-20, 1, 0, 0);
+  box.matrix.scale(0.4, 0.3, 0.3);
   box.render();
 
   // Check time at end of function
