@@ -17,7 +17,7 @@ var FSHADER_SOURCE = `
     gl_FragColor = u_FragColor;
   }`
 
-// Global Variables
+// -- Global Variables --
 let canvas;
 let gl;
 let a_Position;
@@ -84,11 +84,11 @@ function connectVariablesToGLSL() {
 }
 // ----- end connectVariablesToGLSL -----
 
-// Animation Constants
+// -- Animation Constants --
 const OFF = 0;
 const ON = 1;
 
-// Globals for UI elements
+// -- Globals for UI elements --
 let g_globalAngle = 0;
 let g_yellowAngle = 0;
 let g_magentaAngle = 0;
@@ -194,7 +194,7 @@ function main() {
 // ---------- END MAIN -----------------------------------------------
 
 
-// Global Time Variables
+// -- Global Time Variables --
 var g_startTime = performance.now() / 1000.0;
 var g_seconds = (performance.now() / 1000.0) - g_startTime;
 var g_onTime = 0;
@@ -214,10 +214,6 @@ function tick() {
     g_offTime = g_seconds- g_onTime;
   }
   
-  //console.log("seconds: ", g_seconds);
-  //console.log("ON: ", g_onTime);
-  //console.log("OFF: ", g_offTime);
-
   // Update Animation Angles
   updateAnimationAngles();
 
@@ -229,7 +225,7 @@ function tick() {
 }
 // ----- end tick -----
 
-// Global Mouse Position Variables
+// -- Global Mouse Position Variables --
 var g_clickX = 0;
 var g_clickY = 0;
 var g_initialRotation = g_globalAngle;
@@ -258,8 +254,6 @@ function drag(ev) {
   // Rotate
   g_globalAngle = g_initialRotation - (xDiff * 100);
   fixSlider("angleSlide", -g_globalAngle);
-
-  console.log("globalAngle = ", g_globalAngle);
 
   // Redraw
   renderAllShapes();
