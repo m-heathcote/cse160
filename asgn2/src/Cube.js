@@ -16,7 +16,8 @@ class Cube {
 
     // lightest
     // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+    let light = 0.9;
+    gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Front
     drawTriangle3D([0, 0, 0,  1, 1, 0,  1, 0, 0]);
@@ -24,7 +25,8 @@ class Cube {
 
     // darkest
     // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0]*0.7, rgba[1]*0.7, rgba[2]*0.7, rgba[3]);
+    light = 0.7;
+    gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Back
     drawTriangle3D([0, 0, 1,  1, 1, 1,  1, 0, 1]);
@@ -32,7 +34,8 @@ class Cube {
 
     // lighter
     // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0]*0.9, rgba[1]*0.9, rgba[2]*0.9, rgba[3]);
+    light = 0.8;
+    gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Right
     drawTriangle3D([1, 1, 0,  1, 0, 1,  1, 0, 0]);
@@ -44,12 +47,18 @@ class Cube {
 
     // darker
     // Pass the color of a point to u_FragColor variable
-    gl.uniform4f(u_FragColor, rgba[0]*0.8, rgba[1]*0.8, rgba[2]*0.8, rgba[3]);
+    light = 1;
+    gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Top
     drawTriangle3D([1, 1, 0,  0, 1, 1,  1, 1, 1]);
     drawTriangle3D([1, 1, 0,  0, 1, 1,  0, 1, 0]);
     
+    // darker
+    // Pass the color of a point to u_FragColor variable
+    light = 0.6;
+    gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
+   
     // Bottom
     drawTriangle3D([1, 0, 0,  0, 0, 1,  1, 0, 1]);
     drawTriangle3D([1, 0, 0,  0, 0, 1,  0, 0, 0]);

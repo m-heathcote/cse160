@@ -78,7 +78,7 @@ function connectVariablesToGLSL() {
   // Get the storage location of u_GlobalRotateMatrix
   u_GlobalRotateMatrix = gl.getUniformLocation(gl.program, 'u_GlobalRotateMatrix');
   if (!u_GlobalRotateMatrix) {
-    console.log('Failed to get the storage location of u_u_GlobalRotateMatrix');
+    console.log('Failed to get the storage location of u_GlobalRotateMatrix');
     return;
   }
 }
@@ -89,7 +89,8 @@ const OFF = 0;
 const ON = 1;
 
 // -- Globals for UI elements --
-let g_globalAngle = 0;
+let g_globalAngle = 0;   // rotate around y axis
+let g_globalAngle_2 = 0; // rotate around x axis
 let g_yellowAngle = 0;
 let g_magentaAngle = 0;
 let g_animationSpeed = 1;
@@ -132,6 +133,12 @@ function addActionsForHtmlUI() {
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
     g_globalAngle = -this.value;
+    renderAllShapes();
+  });
+  
+  // Global Angle Slider 2
+  document.getElementById("angleSlide2").addEventListener("mousemove", function() {
+    g_globalAngle_2 = this.value;
     renderAllShapes();
   });
   
@@ -229,6 +236,7 @@ function tick() {
 var g_clickX = 0;
 var g_clickY = 0;
 var g_initialRotation = g_globalAngle;
+var g_initialRotation_2 = g_globalAngle_2;
 
 // ----- click -----
 function click(ev) {
@@ -239,6 +247,7 @@ function click(ev) {
   g_clickX = x;
   g_clickY = y;
   g_initialRotation = g_globalAngle;
+  g_initialRotation_2 = g_globalAngle_2;
 }
 // ----- end click -----
 
@@ -251,9 +260,13 @@ function drag(ev) {
   let xDiff = x - g_clickX;
   let yDiff = y - g_clickY;
 
-  // Rotate
+  // Rotate around y axis
   g_globalAngle = g_initialRotation - (xDiff * 100);
   fixSlider("angleSlide", -g_globalAngle);
+
+  // Rotate around x axis
+  g_globalAngle_2 = g_initialRotation_2 + (yDiff * 100);
+  fixSlider("angleSlide2", g_globalAngle_2);
 
   // Redraw
   renderAllShapes();
