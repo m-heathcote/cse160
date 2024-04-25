@@ -53,6 +53,5 @@ class Cube {
     // Bottom
     drawTriangle3D([1, 0, 0,  0, 0, 1,  1, 0, 1]);
     drawTriangle3D([1, 0, 0,  0, 0, 1,  0, 0, 0]);
-  }
-  
+  } 
 }
