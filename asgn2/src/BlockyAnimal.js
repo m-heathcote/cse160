@@ -124,7 +124,6 @@ function addActionsForHtmlUI() {
   // Animation Buttons
   document.getElementById('offButton').onclick = function() {
     g_animation = OFF;
-    console.log("OFF       (", g_yellowAngle, ")"); // *****
   };
   document.getElementById('onButton').onclick = function() {
     g_animation = ON;
@@ -158,7 +157,7 @@ function addActionsForHtmlUI() {
 
 // ----- fixSlider -----
 function fixSlider(id, val) {
-  // get slider
+  // get slder
   var slider = document.getElementById(id);
 
   // set slider position
@@ -179,9 +178,8 @@ function main() {
   addActionsForHtmlUI();
 
   // Register function (event handler) to be called on a mouse press
-  //canvas.onmousedown = click;
-  //canvas.onmousemove = function(ev) { if (ev.buttons == 1) { click(ev) } };
-  //canvas.onmouseup = release;
+  canvas.onmousedown = click;
+  canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
 
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -216,9 +214,9 @@ function tick() {
     g_offTime = g_seconds- g_onTime;
   }
   
-  console.log("seconds: ", g_seconds);
-  console.log("ON: ", g_onTime);
-  console.log("OFF: ", g_offTime);
+  //console.log("seconds: ", g_seconds);
+  //console.log("ON: ", g_onTime);
+  //console.log("OFF: ", g_offTime);
 
   // Update Animation Angles
   updateAnimationAngles();
@@ -231,21 +229,47 @@ function tick() {
 }
 // ----- end tick -----
 
+// Global Mouse Position Variables
+var g_clickX = 0;
+var g_clickY = 0;
+var g_initialRotation = g_globalAngle;
+
 // ----- click -----
 function click(ev) {
   // Extract the event click and return it in WebGL coordinates
   [x, y] = convertCoordinatesEventToGL(ev);
 
-  // Draw every shape that is supposed to be in the canvas
-  renderAllShapes();
+  // save in global variables
+  g_clickX = x;
+  g_clickY = y;
+  g_initialRotation = g_globalAngle;
 }
 // ----- end click -----
+
+// ----- drag -----
+function drag(ev) {
+  // Extract the event click and return it in WebGL coordinates
+  [x, y] = convertCoordinatesEventToGL(ev);
+
+  // Get Difference (drag length)
+  let xDiff = x - g_clickX;
+  let yDiff = y - g_clickY;
+
+  // Rotate
+  g_globalAngle = g_initialRotation - (xDiff * 100);
+  fixSlider("angleSlide", -g_globalAngle);
+
+  console.log("globalAngle = ", g_globalAngle);
+
+  // Redraw
+  renderAllShapes();
+}
+// ----- end drag -----
 
 // ----- updateAnimationAngles -----
 function updateAnimationAngles() { 
   if (g_animation == ON) {
     g_yellowAngle = 45 * Math.sin(g_onTime * g_animationSpeed);
-    console.log("angle: ", g_yellowAngle); // ******
     fixSlider("yellowSlide", -45 * Math.sin(g_onTime * g_animationSpeed));
   }
 }
@@ -291,9 +315,8 @@ function renderAllShapes() {
 
   // Check time at end of function
   var duration = performance.now() - startTime;
-  //sendTextToHTML("numdot: " + len + ", ms: " + Math.floor(duration) +
   sendTextToHTML(" ms: " + Math.floor(duration) +
-                 ", fps: " + Math.floor(10000/duration)/10, "numdot");
+                 "&nbsp;&nbsp;  fps: " + Math.floor(10000/duration)/10, "numdot");
 }
 // ----- end renderAllShapes -----
 
@@ -309,7 +332,7 @@ function sendTextToHTML(text, htmlID) {
 }
 // ----- end sendTextToHTML -----
 
-// ----- convertCoord/inatesEventTGL -----
+// ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
 function convertCoordinatesEventToGL(ev) {
   var x = ev.clientX; // x coordinate of a mouse pointer
@@ -321,5 +344,5 @@ function convertCoordinatesEventToGL(ev) {
 
   return([x, y]);
 }
-// ----- end convertCoordinatesEventTGL -----
+// ----- end convertCoordinatesEventToGL -----
 
