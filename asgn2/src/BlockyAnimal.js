@@ -84,11 +84,16 @@ function connectVariablesToGLSL() {
 }
 // ----- end connectVariablesToGLSL -----
 
+// Animation Constants
+const OFF = 0;
+const ON = 1;
+
 // Globals for UI elements
 let g_globalAngle = 0;
 let g_yellowAngle = 0;
 let g_magentaAngle = 0;
 let g_animationSpeed = 1;
+let g_animation = OFF;
 
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
@@ -116,9 +121,13 @@ function addActionsForHtmlUI() {
     renderAllShapes();
   };
 
-  // Clear Button
-  document.getElementById('clearButton').onclick = function() {
-    renderAllShapes();
+  // Animation Buttons
+  document.getElementById('offButton').onclick = function() {
+    g_animation = OFF;
+    console.log("OFF       (", g_yellowAngle, ")"); // *****
+  };
+  document.getElementById('onButton').onclick = function() {
+    g_animation = ON;
   };
 
   // Global Angle Slider
@@ -127,17 +136,15 @@ function addActionsForHtmlUI() {
     renderAllShapes();
   });
   
-  /*
-  // Yellow Arm Angle Slider
-  document.getElementById("yellowSlide").addEventListener("mousemove", function() {
-    g_yellowAngle = -this.value;
-    renderAllShapes();
-  });
-  */
-  
   // Animation Speed Slider
   document.getElementById("animationSlide").addEventListener("mousemove", function() {
     g_animationSpeed = this.value;
+    renderAllShapes();
+  });
+  
+  // Yellow Arm Angle Slider
+  document.getElementById("yellowSlide").addEventListener("mousemove", function() {
+    g_yellowAngle = -this.value;
     renderAllShapes();
   });
   
@@ -148,6 +155,16 @@ function addActionsForHtmlUI() {
   });
 }
 // ----- end addActionsForHtmlUI -----
+
+// ----- fixSlider -----
+function fixSlider(id, val) {
+  // get slider
+  var slider = document.getElementById(id);
+
+  // set slider position
+  slider.value = val;
+}
+// ----- end fixSlider -----
 
 
 // ---------- MAIN ---------------------------------------------------
@@ -181,13 +198,30 @@ function main() {
 
 // Global Time Variables
 var g_startTime = performance.now() / 1000.0;
-var g_seconds = performance.now() / 1000.0 - g_startTime;
+var g_seconds = (performance.now() / 1000.0) - g_startTime;
+var g_onTime = 0;
+var g_offTime = g_seconds - g_onTime;
 
 // ----- tick -----
 function tick() {
   // Save the current time
-  g_seconds = performance.now() / 1000.0 - g_startTime;
-  console.log(g_seconds);
+  g_seconds = (performance.now() / 1000.0) - g_startTime;
+  
+  if (g_animation == ON) {
+    // count seconds on
+    g_onTime = g_seconds - g_offTime;
+  }
+  else if (g_animation == OFF) {
+    // count seconds off
+    g_offTime = g_seconds- g_onTime;
+  }
+  
+  console.log("seconds: ", g_seconds);
+  console.log("ON: ", g_onTime);
+  console.log("OFF: ", g_offTime);
+
+  // Update Animation Angles
+  updateAnimationAngles();
 
   // Draw Everything
   renderAllShapes();
@@ -206,6 +240,16 @@ function click(ev) {
   renderAllShapes();
 }
 // ----- end click -----
+
+// ----- updateAnimationAngles -----
+function updateAnimationAngles() { 
+  if (g_animation == ON) {
+    g_yellowAngle = 45 * Math.sin(g_onTime * g_animationSpeed);
+    console.log("angle: ", g_yellowAngle); // ******
+    fixSlider("yellowSlide", -45 * Math.sin(g_onTime * g_animationSpeed));
+  }
+}
+// ----- end updateAnimationAngles -----
 
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
@@ -231,7 +275,7 @@ function renderAllShapes() {
   var leftArm = new Cube();
   leftArm.color = [1, 1, 0, 1]; // yellow
   leftArm.matrix.translate(-0.1, -0.2, 0);
-  leftArm.matrix.rotate(45 * Math.sin(g_seconds * g_animationSpeed), 0, 0, 1);
+  leftArm.matrix.rotate(g_yellowAngle, 0, 0, 1);
   var yellowCoordsMat = new Matrix4(leftArm.matrix);
   leftArm.matrix.scale(0.25, 0.6, 0.3);
   leftArm.render();
@@ -265,7 +309,7 @@ function sendTextToHTML(text, htmlID) {
 }
 // ----- end sendTextToHTML -----
 
-// ----- convertCoordinatesEventTGL -----
+// ----- convertCoord/inatesEventTGL -----
 // Extract the event click and return it in WebGL coordinates
 function convertCoordinatesEventToGL(ev) {
   var x = ev.clientX; // x coordinate of a mouse pointer
