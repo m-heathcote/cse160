@@ -87,6 +87,8 @@ function connectVariablesToGLSL() {
 // Globals for UI elements
 let g_globalAngle = 0;
 let g_yellowAngle = 0;
+let g_magentaAngle = 0;
+let g_animationSpeed = 1;
 
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
@@ -121,13 +123,27 @@ function addActionsForHtmlUI() {
 
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
-    g_globalAngle = this.value;
+    g_globalAngle = -this.value;
     renderAllShapes();
   });
   
+  /*
   // Yellow Arm Angle Slider
   document.getElementById("yellowSlide").addEventListener("mousemove", function() {
-    g_yellowAngle = this.value;
+    g_yellowAngle = -this.value;
+    renderAllShapes();
+  });
+  */
+  
+  // Animation Speed Slider
+  document.getElementById("animationSlide").addEventListener("mousemove", function() {
+    g_animationSpeed = this.value;
+    renderAllShapes();
+  });
+  
+  // Magenta Arm Angle Slider
+  document.getElementById("magentaSlide").addEventListener("mousemove", function() {
+    g_magentaAngle = -this.value;
     renderAllShapes();
   });
 }
@@ -157,10 +173,29 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
   // Render
-  renderAllShapes();
+  //renderAllShapes();
+  requestAnimationFrame(tick);
 }
 // ---------- END MAIN -----------------------------------------------
 
+
+// Global Time Variables
+var g_startTime = performance.now() / 1000.0;
+var g_seconds = performance.now() / 1000.0 - g_startTime;
+
+// ----- tick -----
+function tick() {
+  // Save the current time
+  g_seconds = performance.now() / 1000.0 - g_startTime;
+  console.log(g_seconds);
+
+  // Draw Everything
+  renderAllShapes();
+
+  // Tell the browser to update again when it has time
+  requestAnimationFrame(tick);
+}
+// ----- end tick -----
 
 // ----- click -----
 function click(ev) {
@@ -179,7 +214,7 @@ function renderAllShapes() {
   var startTime = performance.now();
 
   // Pass a matrix to u_GlobalRotateMatrix attribute
-  var globalRotMat = new Matrix4().rotate(-g_globalAngle, 0, 1, 0);
+  var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
@@ -196,15 +231,17 @@ function renderAllShapes() {
   var leftArm = new Cube();
   leftArm.color = [1, 1, 0, 1]; // yellow
   leftArm.matrix.translate(-0.1, -0.2, 0);
-  leftArm.matrix.rotate(-g_yellowAngle, 0, 0, 1);
+  leftArm.matrix.rotate(45 * Math.sin(g_seconds * g_animationSpeed), 0, 0, 1);
+  var yellowCoordsMat = new Matrix4(leftArm.matrix);
   leftArm.matrix.scale(0.25, 0.6, 0.3);
   leftArm.render();
 
   // Draw Magenta Cube
   var box = new Cube();
   box.color = [1, 0, 1, 1]; // magenta
-  box.matrix.translate(-0.2, 0.3, 0.1, 0);
-  box.matrix.rotate(-20, 1, 0, 0);
+  box.matrix = yellowCoordsMat;
+  box.matrix.translate(-0.2, 0.5, 0.1, 0);
+  box.matrix.rotate(g_magentaAngle, 1, 0, 0);
   box.matrix.scale(0.4, 0.3, 0.3);
   box.render();
 
