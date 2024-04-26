@@ -16,6 +16,7 @@ let g_moveZ = 0;
 let g_baseY = 0;
 let g_headX = 0;
 let g_headY = 0;
+let g_eyeLidZ = 0.05;
 
 // ----- updateAnimationXY -----
 function updateAnimationXY() { 
@@ -30,9 +31,13 @@ function updateAnimationXY() {
     g_headY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
   }
   else if (g_animation == POKE) {
-    //let inc = (-0.45 * (g_pokeTime - 1.5) * (g_pokeTime - 1.5)) + 1;
     let inc = (-0.5 * (g_pokeTime - 1) * (g_pokeTime - 1)) + 0.5;
-    
+   
+    console.log(inc*0.2);
+    if (inc*0.2 <= 0.05) {
+      g_eyeLidZ = 0.05 - inc*0.2;
+    }
+
     if (inc < 0.34) {
       g_headX = -inc;
       fixSlider("headSlide", 100 * -inc);
@@ -72,6 +77,7 @@ function renderAllShapes() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
 
   // ---------- TURTLE ----------
   
@@ -633,33 +639,41 @@ function renderAllShapes() {
   var r_eye2 = new Cube();
   r_eye2.color = [35/255, 35/255, 35/255, 1];
   r_eye2.matrix = new Matrix4(headCoords2);
-  r_eye2.matrix.translate(0.06, 0.04, -0.04);
+  r_eye2.matrix.translate(0.06, 0.04, -0.03);
   r_eye2.matrix.scale(0.05, 0.085, 0.05);
   r_eye2.render();
   var r_eyeDot2 = new Cube();
   r_eyeDot2.color = [235/255, 235/255, 235/255, 1];
   r_eyeDot2.matrix = new Matrix4(headCoords2);
-  r_eyeDot2.matrix.translate(0.065, 0.07, -0.05);
+  r_eyeDot2.matrix.translate(0.065, 0.07, -0.035);
   r_eyeDot2.matrix.scale(0.03, 0.045, 0.05);
   r_eyeDot2.render();
+  var r_eyelid = new Cube();
+  r_eyelid.color = feathers2;
+  r_eyelid.matrix = new Matrix4(headCoords2);
+  r_eyelid.matrix.translate(0.05, 0.05, -0.04 + g_eyeLidZ);
+  r_eyelid.matrix.scale(0.07, 0.085, 0.06);
+  r_eyelid.render();
 
   // Left Eye
   var l_eye2 = new Cube();
   l_eye2.color = [35/255, 35/255, 35/255, 1];
   l_eye2.matrix = new Matrix4(headCoords2);
-  l_eye2.matrix.translate(0.06, 0.04, 0.15);
+  l_eye2.matrix.translate(0.06, 0.04, 0.14);
   l_eye2.matrix.scale(0.05, 0.085, 0.05);
   l_eye2.render();
   var l_eyeDot2 = new Cube();
   l_eyeDot2.color = [235/255, 235/255, 235/255, 1];
   l_eyeDot2.matrix = new Matrix4(headCoords2);
-  l_eyeDot2.matrix.translate(0.065, 0.07, 0.16);
+  l_eyeDot2.matrix.translate(0.065, 0.07, 0.145);
   l_eyeDot2.matrix.scale(0.03, 0.045, 0.05);
   l_eyeDot2.render();
-
-
-
-
+  var l_eyelid = new Cube();
+  l_eyelid.color = feathers2;
+  l_eyelid.matrix = new Matrix4(headCoords2);
+  l_eyelid.matrix.translate(0.05, 0.05, 0.15 - g_eyeLidZ);
+  l_eyelid.matrix.scale(0.07, 0.085, 0.06);
+  l_eyelid.render();
 
 
   // Check time at end of function
