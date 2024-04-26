@@ -130,9 +130,27 @@ function addActionsForHtmlUI() {
     renderAllShapes();
   });
   
-  // FR Angle Slider
+  // Head Slider
   document.getElementById("headSlide").addEventListener("mousemove", function() {
     g_headX = this.value * 0.01;
+    renderAllShapes();
+  });
+  
+  // Joint 1 Slider
+  document.getElementById("j1Slide").addEventListener("mousemove", function() {
+    g_j1Angle = -this.value;
+    renderAllShapes();
+  });
+  
+  // Joint 2 Slider
+  document.getElementById("j2Slide").addEventListener("mousemove", function() {
+    g_j2Angle = -this.value;
+    renderAllShapes();
+  });
+  
+  // Joint 3 Slider
+  document.getElementById("j3Slide").addEventListener("mousemove", function() {
+    g_j3Angle = -this.value;
     renderAllShapes();
   });
 }
