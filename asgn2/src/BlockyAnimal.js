@@ -112,6 +112,7 @@ function addActionsForHtmlUI() {
     g_animation = POKE;
   };
 
+  /*
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
     g_globalAngle = -this.value;
@@ -123,7 +124,8 @@ function addActionsForHtmlUI() {
     g_globalAngle_2 = this.value;
     renderAllShapes();
   });
-  
+  */
+
   // Animation Speed Slider
   document.getElementById("animationSlide").addEventListener("mousemove", function() {
     g_animationSpeed = this.value;
@@ -285,11 +287,11 @@ function drag(ev) {
 
   // Rotate around y axis
   g_globalAngle = g_initialRotation - (xDiff * 100);
-  fixSlider("angleSlide", -g_globalAngle);
+  //fixSlider("angleSlide", -g_globalAngle);
 
   // Rotate around x axis
   g_globalAngle_2 = g_initialRotation_2 + (yDiff * 100);
-  fixSlider("angleSlide2", g_globalAngle_2);
+  //fixSlider("angleSlide2", g_globalAngle_2);
 
   // Redraw
   renderAllShapes();

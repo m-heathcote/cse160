@@ -33,7 +33,6 @@ function updateAnimationXY() {
   else if (g_animation == POKE) {
     let inc = (-0.5 * (g_pokeTime - 1) * (g_pokeTime - 1)) + 0.5;
    
-    console.log(inc*0.2);
     if (inc*0.2 <= 0.05) {
       g_eyeLidZ = 0.05 - inc*0.2;
     }
