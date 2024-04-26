@@ -14,24 +14,10 @@
     <p id="numdot" style="font-size:8px; ">&nbsp;</p>
 
     <p>
-    Background Color: 
-    <button type="button" id="black-bg"
-      style="background-color: #000000; color: white;">&nbsp;</button>
-    <button type="button" id="gray-bg"
-      style="background-color: #8c8c96; color: white;">&nbsp;</button>
-    <button type="button" id="white-bg"
-      style="background-color: #faf5fa; color: white;">&nbsp;</button>
-    <button type="button" id="blue-bg"
-      style="background-color: #8cb4ff; color: white;">&nbsp;</button>
+    FR:   <input type="range" min="-180" max="180" value="0"
+                 class="slider" id="frSlide">
     </p>
 
-    <p>
-    Y Rotation:  <input type="range" min="-180" max="180" value="0"
-                        class="slider" id="angleSlide">
-    X Rotation:  <input type="range" min="-180" max="180" value="0"
-                        class="slider" id="angleSlide2">
-    </p>
-    
     <p>
     Animation:
     <button type="button" id="offButton">OFF</button>
@@ -43,12 +29,13 @@
     </p>
 
     <p>
-    Yellow Arm:   <input type="range" min="-180" max="180" value="0"
-                 class="slider" id="yellowSlide">
-    Magenta Arm:   <input type="range" min="-180" max="180" value="0"
-                 class="slider" id="magentaSlide">
+    <br>
+    Y Rotation:  <input type="range" min="-180" max="180" value="0"
+                        class="slider" id="angleSlide">
+    X Rotation:  <input type="range" min="-180" max="180" value="0"
+                        class="slider" id="angleSlide2">
     </p>
-
+    
     <script src="../lib/webgl-utils.js"></script>
     <script src="../lib/webgl-debug.js"></script>
     <script src="../lib/cuon-utils.js"></script>

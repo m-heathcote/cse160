@@ -91,8 +91,6 @@ const ON = 1;
 // -- Globals for UI elements --
 let g_globalAngle = 0;   // rotate around y axis
 let g_globalAngle_2 = 0; // rotate around x axis
-let g_yellowAngle = 0;
-let g_magentaAngle = 0;
 let g_animationSpeed = 1;
 let g_animation = OFF;
 
@@ -100,28 +98,6 @@ let g_animation = OFF;
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
   
-  // Background Color Buttons
-  document.getElementById('black-bg').onclick = function() {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    renderAllShapes();
-  };
-  document.getElementById('gray-bg').onclick = function() {
-    gl.clearColor(140/255, 140/255, 150/255, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    renderAllShapes();
-  };
-  document.getElementById('white-bg').onclick = function() {
-    gl.clearColor(250/255, 245/255, 250/255, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    renderAllShapes();
-  };
-  document.getElementById('blue-bg').onclick = function() {
-    gl.clearColor(140/255, 180/255, 255/255, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    renderAllShapes();
-  };
-
   // Animation Buttons
   document.getElementById('offButton').onclick = function() {
     g_animation = OFF;
@@ -148,15 +124,9 @@ function addActionsForHtmlUI() {
     renderAllShapes();
   });
   
-  // Yellow Arm Angle Slider
-  document.getElementById("yellowSlide").addEventListener("mousemove", function() {
-    g_yellowAngle = -this.value;
-    renderAllShapes();
-  });
-  
-  // Magenta Arm Angle Slider
-  document.getElementById("magentaSlide").addEventListener("mousemove", function() {
-    g_magentaAngle = -this.value;
+  // FR Angle Slider
+  document.getElementById("frSlide").addEventListener("mousemove", function() {
+    g_frAngle = this.value;
     renderAllShapes();
   });
 }
@@ -221,8 +191,9 @@ function tick() {
     g_offTime = g_seconds- g_onTime;
   }
   
-  // Update Animation Angles
+  // Update Animation Variables
   updateAnimationAngles();
+  updateAnimationXY();
 
   // Draw Everything
   renderAllShapes();
@@ -273,16 +244,9 @@ function drag(ev) {
 }
 // ----- end drag -----
 
-// ----- updateAnimationAngles -----
-function updateAnimationAngles() { 
-  if (g_animation == ON) {
-    g_yellowAngle = 45 * Math.sin(g_onTime * g_animationSpeed);
-    fixSlider("yellowSlide", -45 * Math.sin(g_onTime * g_animationSpeed));
-  }
-}
-// ----- end updateAnimationAngles -----
+// ----- updateAnimationAngles (moved to Render.js) -----
 
-// ----- renderAllShapes (moved to render.js) -----
+// ----- renderAllShapes (moved to Render.js) -----
 
 // ----- sendTextToHTML -----
 // Set the text of an HTML element
