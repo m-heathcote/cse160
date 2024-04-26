@@ -87,11 +87,12 @@ function connectVariablesToGLSL() {
 // -- Animation Constants --
 const OFF = 0;
 const ON = 1;
+const POKE = 2;
 
 // -- Globals for UI elements --
 let g_globalAngle = 0;   // rotate around y axis
 let g_globalAngle_2 = 0; // rotate around x axis
-let g_animationSpeed = 1;
+let g_animationSpeed = 4;
 let g_animation = OFF;
 
 // ----- addActionsForHtmlUI -----
@@ -100,10 +101,15 @@ function addActionsForHtmlUI() {
   
   // Animation Buttons
   document.getElementById('offButton').onclick = function() {
+    g_wasON = false;
     g_animation = OFF;
   };
   document.getElementById('onButton').onclick = function() {
+    g_wasON = true;
     g_animation = ON;
+  };
+  document.getElementById('pokeButton').onclick = function() {
+    g_animation = POKE;
   };
 
   // Global Angle Slider
@@ -125,8 +131,8 @@ function addActionsForHtmlUI() {
   });
   
   // FR Angle Slider
-  document.getElementById("frSlide").addEventListener("mousemove", function() {
-    g_frAngle = this.value;
+  document.getElementById("headSlide").addEventListener("mousemove", function() {
+    g_headX = this.value * 0.01;
     renderAllShapes();
   });
 }
@@ -158,6 +164,9 @@ function main() {
   canvas.onmousedown = click;
   canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
 
+  // Register function (event handler) to be called on shift + click
+  
+
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -176,6 +185,8 @@ var g_startTime = performance.now() / 1000.0;
 var g_seconds = (performance.now() / 1000.0) - g_startTime;
 var g_onTime = 0;
 var g_offTime = g_seconds - g_onTime;
+var g_pokeTime = 0;
+var g_wasON = false;
 
 // ----- tick -----
 function tick() {
@@ -188,7 +199,23 @@ function tick() {
   }
   else if (g_animation == OFF) {
     // count seconds off
-    g_offTime = g_seconds- g_onTime;
+    g_offTime = g_seconds - g_onTime;
+  }
+  else if (g_animation == POKE) {
+    // count seconds for poke animation
+    g_pokeTime = g_seconds - (g_onTime + g_offTime);
+
+    if (g_pokeTime > 2) {
+      g_offTime += g_pokeTime;
+      g_pokeTime = 0;
+      
+      if (g_wasON) {
+        g_animation = ON;
+      }
+      else {
+        g_animation = OFF; // animation over
+      }
+    }
   }
   
   // Update Animation Variables
@@ -211,14 +238,19 @@ var g_initialRotation_2 = g_globalAngle_2;
 
 // ----- click -----
 function click(ev) {
-  // Extract the event click and return it in WebGL coordinates
-  [x, y] = convertCoordinatesEventToGL(ev);
+  if (ev.shiftKey) {
+    g_animation = POKE;
+  }
+  else {
+    // Extract the event click and return it in WebGL coordinates
+    [x, y] = convertCoordinatesEventToGL(ev);
 
-  // save in global variables
-  g_clickX = x;
-  g_clickY = y;
-  g_initialRotation = g_globalAngle;
-  g_initialRotation_2 = g_globalAngle_2;
+    // save in global variables
+    g_clickX = x;
+    g_clickY = y;
+    g_initialRotation = g_globalAngle;
+    g_initialRotation_2 = g_globalAngle_2;
+  }
 }
 // ----- end click -----
 

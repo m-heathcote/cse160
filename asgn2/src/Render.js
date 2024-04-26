@@ -9,15 +9,37 @@ let g_moveX = 0;
 let g_moveX2 = 0;
 let g_moveY = 0;
 let g_moveY2 = 0;
+let g_moveZ = 0;
+let g_baseY = 0;
+let g_headX = 0;
+let g_headY = 0;
 
 // ----- updateAnimationXY -----
 function updateAnimationXY() { 
   if (g_animation == ON) {
-    g_moveX = 0.1 * Math.sin(g_onTime * g_animationSpeed);
-    g_moveY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+    g_moveX = 0.8 * 0.1 * Math.sin(g_onTime * g_animationSpeed);
+    g_moveY = 0.8 * 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
     
-    g_moveX2 = 0.1 * Math.sin(g_onTime * g_animationSpeed - Math.PI / 2);
-    g_moveY2 = 0.05 * Math.sin(g_onTime * g_animationSpeed);
+    g_moveX2 = 0.8 * 0.1 * Math.sin(g_onTime * g_animationSpeed - Math.PI / 2);
+    g_moveY2 = 0.8 * 0.05 * Math.sin(g_onTime * g_animationSpeed);
+    
+    g_baseY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+    g_headY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+  }
+  else if (g_animation == POKE) {
+    //let inc = (-0.45 * (g_pokeTime - 1.5) * (g_pokeTime - 1.5)) + 1;
+    let inc = (-0.5 * (g_pokeTime - 1) * (g_pokeTime - 1)) + 0.5;
+    
+    if (inc < 0.34) {
+      g_headX = -inc;
+      fixSlider("headSlide", 100 * -inc);
+
+      g_moveY = 0.6 * inc;
+      g_moveY2 = 0.6 * inc;
+      g_moveZ = 0.4 * inc;
+
+      g_baseY = -0.4 * inc;
+    }
   }
 }
 // ----- end updateAnimationAngles -----
@@ -26,8 +48,6 @@ function updateAnimationXY() {
 function updateAnimationAngles() { 
   if (g_animation == ON) {
     g_frAngle = 40 * Math.sin(g_onTime * g_animationSpeed);
-    fixSlider("frSlide", 45 * Math.sin(g_onTime * g_animationSpeed));
-    
     g_brAngle = 40 * Math.sin(g_onTime * g_animationSpeed - Math.PI / 2);
     g_flAngle = 40 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
     g_swayAngle = 40 * Math.sin(g_onTime * g_animationSpeed + Math.PI);
@@ -50,41 +70,6 @@ function renderAllShapes() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  /*
-  // Draw Red Cube
-  var body = new Cube();
-  body.color = [1, 0, 0, 1]; // red
-  body.matrix.translate(-0.25, -0.75, -0.1);
-  body.matrix.scale(0.5, 0.6, 0.5);
-  body.render();
-
-  // Draw Yellow Cube
-  var leftArm = new Cube();
-  leftArm.color = [1, 1, 0, 1]; // yellow
-  leftArm.matrix.translate(-0.1, -0.2, 0);
-  leftArm.matrix.rotate(g_yellowAngle, 0, 0, 1);
-  var yellowCoordsMat = new Matrix4(leftArm.matrix);
-  leftArm.matrix.scale(0.25, 0.6, 0.3);
-  leftArm.render();
-
-  // Draw Magenta Cube
-  var box = new Cube();
-  box.color = [1, 0, 1, 1]; // magenta
-  box.matrix = yellowCoordsMat;
-  box.matrix.translate(-0.2, 0.5, 0.1, 0);
-  box.matrix.rotate(g_magentaAngle, 1, 0, 0);
-  box.matrix.scale(0.4, 0.3, 0.3);
-  box.render();
-  
-  // Draw Pyramid
-  var funky = new Pyramid();
-  funky.color = [0.3, 0.2, 0.9, 1];
-  funky.matrix.translate(0, -0.4, 0);
-  funky.matrix.rotate(180, 1, 0, 0);
-  funky.matrix.scale(0.5, 0.3, 0.5);
-  funky.render();
-  */
-
   // Colors
   var shell1 = [61/255, 128/255, 126/255, 1];  // lightest
   var shell2 = [42/255, 114/255, 144/255, 1];  // mid
@@ -98,7 +83,7 @@ function renderAllShapes() {
   // Center of Rotation
   var center = new Cube(); 
   center.color = shell2;
-  center.matrix.translate(-0.25, -0.4 + g_moveY*0.7, -0.2);
+  center.matrix.translate(-0.25, -0.4 + g_baseY*0.7, -0.2);
   center.matrix.rotate(g_swayAngle*0.05, 1, 0, 0);
   var centerCoords = new Matrix4(center.matrix);
   center.matrix.scale(0.5, 0.05, 0.2);
@@ -342,24 +327,24 @@ function renderAllShapes() {
   var head = new Cube();
   head.color = body1;
   head.matrix = new Matrix4(baseCoords);
-  head.matrix.translate(0.8, -0.15 + g_moveY*0.4, 0.365);
-  head.matrix.rotate(g_frAngle*0.1, 0, 0, 1);
+  head.matrix.translate(0.6 + g_headX, -0.15 + g_headY*0.4, 0.365);
+  head.matrix.rotate(g_frAngle*0.06, 0, 0, 1);
   head.matrix.rotate(g_flAngle*0.05, 1, 0, 0);
   var headCoords = new Matrix4(head.matrix);
-  head.matrix.scale(0.5, 0.22, 0.27);
+  head.matrix.scale(0.7, 0.22, 0.27);
   head.render();
 
   // Right Eye
   var r_eye = new Cube();
   r_eye.color = [35/255, 35/255, 35/255, 1];
   r_eye.matrix = new Matrix4(headCoords);
-  r_eye.matrix.translate(0.38, 0.07, -0.05);
+  r_eye.matrix.translate(0.58, 0.07, -0.05);
   r_eye.matrix.scale(0.09, 0.12, 0.07);
   r_eye.render();
   var r_eyeDot = new Cube();
   r_eyeDot.color = [235/255, 235/255, 235/255, 1];
   r_eyeDot.matrix = new Matrix4(headCoords);
-  r_eyeDot.matrix.translate(0.4, 0.12, -0.06);
+  r_eyeDot.matrix.translate(0.6, 0.12, -0.06);
   r_eyeDot.matrix.scale(0.03, 0.05, 0.07);
   r_eyeDot.render();
 
@@ -367,13 +352,13 @@ function renderAllShapes() {
   var l_eye = new Cube();
   l_eye.color = [35/255, 35/255, 35/255, 1];
   l_eye.matrix = new Matrix4(headCoords);
-  l_eye.matrix.translate(0.38, 0.07, 0.25);
+  l_eye.matrix.translate(0.58, 0.07, 0.25);
   l_eye.matrix.scale(0.09, 0.12, 0.07);
   l_eye.render();
   var l_eyeDot = new Cube();
   l_eyeDot.color = [235/255, 235/255, 235/255, 1];
   l_eyeDot.matrix = new Matrix4(headCoords);
-  l_eyeDot.matrix.translate(0.4, 0.12, 0.26);
+  l_eyeDot.matrix.translate(0.6, 0.12, 0.26);
   l_eyeDot.matrix.scale(0.03, 0.05, 0.07);
   l_eyeDot.render();
 
@@ -385,7 +370,7 @@ function renderAllShapes() {
   var fr_j = new Cube();
   fr_j.color = body1;
   fr_j.matrix = new Matrix4(baseCoords);
-  fr_j.matrix.translate(0.75 + g_moveX*0.8, -0.05 + g_moveY*0.8, 0.07);
+  fr_j.matrix.translate(0.75 + g_moveX, -0.05 + g_moveY, 0.07 + g_moveZ);
   fr_j.matrix.rotate(g_frAngle*0.4, 0, 0, 1);
   var fr_jCoords = new Matrix4(fr_j.matrix);
   fr_j.matrix.scale(0.02, 0.02, 0.15);
@@ -415,7 +400,7 @@ function renderAllShapes() {
   var br_j = new Cube();
   br_j.color = body1;
   br_j.matrix = new Matrix4(baseCoords);
-  br_j.matrix.translate(0.25 + g_moveX2*0.8, -0.05 + g_moveY2*0.8, 0.07);
+  br_j.matrix.translate(0.25 + g_moveX2, -0.05 + g_moveY2, 0.07 + g_moveZ);
   br_j.matrix.rotate(g_brAngle*0.4, 0, 0, 1);
   var br_jCoords = new Matrix4(br_j.matrix);
   br_j.matrix.scale(0.02, 0.02, 0.15);
@@ -445,7 +430,7 @@ function renderAllShapes() {
   var fl_j = new Cube();
   fl_j.color = body1;
   fl_j.matrix = new Matrix4(baseCoords);
-  fl_j.matrix.translate(0.75 + g_moveX2*0.8, -0.05 + g_moveY2*0.8, 0.78);
+  fl_j.matrix.translate(0.75 + g_moveX2, -0.05 + g_moveY2, 0.78 - g_moveZ);
   fl_j.matrix.rotate(g_brAngle*0.4, 0, 0, 1);
   var fl_jCoords = new Matrix4(fl_j.matrix);
   fl_j.matrix.scale(0.02, 0.02, 0.15);
@@ -475,7 +460,7 @@ function renderAllShapes() {
   var bl_j = new Cube();
   bl_j.color = body1;
   bl_j.matrix = new Matrix4(baseCoords);
-  bl_j.matrix.translate(0.25 + g_moveX*0.8, -0.05 + g_moveY*0.8, 0.78);
+  bl_j.matrix.translate(0.25 + g_moveX, -0.05 + g_moveY, 0.78 - g_moveZ);
   bl_j.matrix.rotate(g_frAngle*0.4, 0, 0, 1);
   var bl_jCoords = new Matrix4(bl_j.matrix);
   bl_j.matrix.scale(0.02, 0.02, 0.15);
@@ -517,11 +502,6 @@ function renderAllShapes() {
   tail.matrix.rotate(110 + g_frAngle*0.2, 0, 0, 1);
   tail.matrix.scale(0.05, 0.2, 0.15);
   tail.render();
-
-
-
-
-
 
   // Check time at end of function
   var duration = performance.now() - startTime;
