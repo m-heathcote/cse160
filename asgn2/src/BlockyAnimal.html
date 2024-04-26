@@ -7,13 +7,31 @@
   </head>
 
   <body onload="main()">
-    <canvas id="webgl" width="400" height="400">
-    Please use a browser that supports "canvas"
-    </canvas>
+    <div class="container">
+      <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports "canvas"
+      </canvas>
+
+      <div class="slider-container">
+        Turtle Head:   <input type="range" min="-31.5" max="28" value="0"
+                              class="slider" id="headSlide">
+        <p>
+        <br><br>
+        Bird Joint 1: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j1Slide">
+        <br><br>
+        Bird Joint 2: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j2Slide">
+        <br><br>
+        Bird Joint 3: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j3Slide">
+        </p>
+      </div>
+
+    </div>
 
     <p id="numdot" style="font-size:8px; ">&nbsp;</p>
 
-    <p>
     Animation:
     <button type="button" class="rounded-button" id="offButton">OFF</button>
     <button type="button" class="rounded-button" id="onButton">ON</button>
@@ -24,28 +42,12 @@
     <br><br>
     Animation Speed: <input type="range" min="1" max="20" value="4"
                             class="slider" id="animationSlide">
-    </p>
 
     <p>
-    Turtle Head:   <input type="range" min="-31.5" max="28" value="0"
-                          class="slider" id="headSlide">
-    </p>
-
-    <p>
-    Bird Joint 1: <input type="range" min="-25" max="25" value="0"
-                    class="slider" id="j1Slide">
     <br><br>
-    Bird Joint 2: <input type="range" min="-25" max="25" value="0"
-                    class="slider" id="j2Slide">
-    <br><br>
-    Bird Joint 3: <input type="range" min="-25" max="25" value="0"
-                    class="slider" id="j3Slide">
-    </p>
-
-    <p>
-    <br>
     Y Rotation: <input type="range" min="-180" max="180" value="0"
                        class="slider" id="angleSlide">
+    <br><br>
     X Rotation: <input type="range" min="-180" max="180" value="0"
                        class="slider" id="angleSlide2">
     </p>
