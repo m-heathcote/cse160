@@ -168,7 +168,9 @@ function main() {
   
 
   // Specify the color for clearing <canvas>
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  //gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  //gl.clearColor(63/255, 76/255, 102/255, 1);
+  gl.clearColor(55/255, 68/255, 95/255, 1);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
