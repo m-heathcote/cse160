@@ -556,8 +556,9 @@ function renderAllShapes() {
   var bJoint = new Cube();
   bJoint.color = legs;
   bJoint.matrix = new Matrix4(rFootCoords);
-  bJoint.matrix.translate(0.03, 0.25, 0);
+  bJoint.matrix.translate(0.03, 0.25 + g_baseY*0.4, 0);
   bJoint.matrix.rotate(g_j1Angle, 0, 0, 1);
+  bJoint.matrix.rotate(-g_swayAngle*0.05, 0, 0, 1);
   var bJointCoords = new Matrix4(bJoint.matrix);
   bJoint.matrix.scale(0.04, 0.04, 0.24);
   bJoint.render();
