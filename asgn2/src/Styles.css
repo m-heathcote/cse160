@@ -8,7 +8,10 @@ body {
 }
 
 h1 {
-  font-family: "Gill Sans", sans-serif;
+  /*font-family: "Gill Sans", sans-serif;*/
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 
@@ -24,10 +27,29 @@ h1 {
 .container {
   display: flex;
   align-items: center;
+  margin-left: 5px;
+}
+
+.container2 {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    /*justify-content: center; /* Horizontal centering */
+    /* margin: 0 auto;*/
+    width: 400px;
+    height: 70px; /* Just for demonstration */
+    /*border: 1px solid black; /* Just for demonstration */
+}
+
+.container2 h1 {
+    /* Optional: If you want to center the text within the heading */
+    text-align: center;
+    /* Optional: If you want to control the width of the heading */
+    width: 400px;
 }
 
 .slider-container {
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 
@@ -39,7 +61,7 @@ h1 {
 
 .slider {
   -webkit-appearance: none;
-  width: 400px;
+  width: 300px;
   height: 15px;
   border-radius: 5px;
   background: #e3e5ee;
