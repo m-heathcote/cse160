@@ -78,3 +78,53 @@ function drawTriangle3D(vertices) {
   gl.drawArrays(gl.TRIANGLES, 0, n);
 }
 
+function drawTriangle3DUV(vertices, uv) {
+  var n = 3; // The number of vertices
+
+  // --- Vertex Buffer ---
+
+  // Create a buffer object
+  var vertexBuffer = gl.createBuffer();
+  if (!vertexBuffer) {
+    console.log('Failed to create the buffer object');
+    return -1;
+  }
+
+  // Bind the buffer object to target
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+  
+  // Write date into the buffer object
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+
+  // Assign the buffer object to a_Position variable
+  gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, 0, 0); // pointer to buffer
+  //                                 ^ 3 pieces of data per point (x, y, z)
+
+  // Enable the assignment to a_Position variable
+  gl.enableVertexAttribArray(a_Position);
+
+  // --- UV Buffer ---
+
+  // Create a buffer object
+  var uvBuffer = gl.createBuffer();
+  if (!uvBuffer) {
+    console.log('Failed to create the buffer object');
+    return -1;
+  }
+
+  // Bind the buffer object to target
+  gl.bindBuffer(gl.ARRAY_BUFFER, uvBuffer);
+  
+  // Write date into the buffer object
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(uv), gl.DYNAMIC_DRAW);
+
+  // Assign the buffer object to a_Position variable
+  gl.vertexAttribPointer(a_UV, 3, gl.FLOAT, false, 0, 0); // pointer to buffer
+  //                           ^ 3 pieces of data per point (x, y, z)
+
+  // Enable the assignment to a_Position variable
+  gl.enableVertexAttribArray(a_UV);
+
+  // Draw the triangle
+  gl.drawArrays(gl.TRIANGLES, 0, n);
+}

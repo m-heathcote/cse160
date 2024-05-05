@@ -20,8 +20,8 @@ class Cube {
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Front
-    drawTriangle3D([0, 0, 0,  1, 1, 0,  1, 0, 0]);
-    drawTriangle3D([0, 0, 0,  0, 1, 0,  1, 1, 0]);
+    drawTriangle3DUV([0,0,0,  1,1,0,  1,0,0], [1,0,  0,1,  1,1]);
+    drawTriangle3D([0,0,0,  0,1,0,  1,1,0]);
 
     // darkest
     // Pass the color of a point to u_FragColor variable
