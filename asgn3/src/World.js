@@ -232,6 +232,7 @@ function addActionsForHtmlUI() {
 }
 // ----- end addActionsForHtmlUI -----
 
+/*
 // ----- fixSlider -----
 function fixSlider(id, val) {
   // get slder
@@ -241,6 +242,7 @@ function fixSlider(id, val) {
   slider.value = val;
 }
 // ----- end fixSlider -----
+*/
 
 
 // -------------------------------------------------------------------
