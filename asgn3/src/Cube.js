@@ -6,6 +6,7 @@ class Cube {
     this.type='cube';
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.matrix = new Matrix4();
+    this.textureNum = -2;
   }
 
   render() {
@@ -13,6 +14,10 @@ class Cube {
 
     // Pass the matrix to u_ModelMatrix attribute
     gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+
+    // Pass the texture number to u_whichTexture
+    // (1i = 1 integer)
+    gl.uniform1i(u_whichTexture, this.textureNum);
 
     // lightest
     // Pass the color of a point to u_FragColor variable

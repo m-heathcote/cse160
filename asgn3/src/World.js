@@ -22,10 +22,17 @@ var FSHADER_SOURCE = `
   varying vec2 v_UV;
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
+  uniform int u_whichTexture;
   void main() {
-    gl_FragColor = u_FragColor;
-    gl_FragColor = vec4(v_UV, 1.0, 1.0);
-    gl_FragColor = texture2D(u_Sampler0, v_UV);
+    if (u_whichTexture == -2) {                     // Use color
+      gl_FragColor = u_FragColor;
+    } else if (u_whichTexture == -1) {              // Use UV debug color
+      gl_FragColor = vec4(v_UV, 1.0, 1.0);
+    } else if (u_whichTexture == 0) {               // Use texture0
+      gl_FragColor = texture2D(u_Sampler0, v_UV);
+    } else {                                        // Error: use red
+      gl_FragColor = vec4(1, 0.2, 0.2, 1);
+    }
   }`
 
 // -- Global Variables --
@@ -34,6 +41,7 @@ let gl;
 let a_Position;
 let a_UV;
 let u_FragColor;
+let u_whichTexture;
 let u_Sampler0;
 let u_Size;
 let u_ModelMatrix;
@@ -85,6 +93,13 @@ function connectVariablesToGLSL() {
   if (!u_FragColor) {
     console.log('Failed to get the storage location of u_FragColor');
     return;
+  }
+
+  // Get the storage location of u_whichTexture
+  u_whichTexture = gl.getUniformLocation(gl.program, 'u_whichTexture');
+  if (!u_whichTexture) {
+    console.log('Failed to get the storage location of u_whichTexture');
+    return false;
   }
 
   // Get the storage location of u_Sampler0
