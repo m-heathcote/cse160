@@ -63,11 +63,26 @@ function updateAnimationAngles() {
 // ----- end updateAnimationAngles -----
 
 
+// -- Globals for Camera View --
+var g_eye = [0, 0, 3];
+var g_at = [0, 0, -100];
+var g_up = [0, 1, 0];
+
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
   // Check time at start of function
   var startTime = performance.now();
+
+  // Pass the Projection matrix
+  var projMat = new Matrix4();
+  projMat.setPerspective(60, canvas.width/canvas.height, 0.1, 100)   // (degrees wide, aspect, near, far)
+  gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMat.elements);
+
+  // Pass the View matrix
+  var viewMat = new Matrix4();
+  viewMat.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]);   // (eye, at, up)
+  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
 
   // Pass a matrix to u_GlobalRotateMatrix attribute
   var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
@@ -76,6 +91,30 @@ function renderAllShapes() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+
+  // ---------- ENVIRONMENT ----------
+
+  // Color
+  var grass = [62/255, 90/255, 52/255, 1];
+  var sky = [127/255, 194/255, 231/255, 1];
+
+  // yee ol ground cube
+  var ground = new Cube();
+  ground.textureNum = 0;  // ****
+  ground.color = grass;
+  ground.matrix.translate(0, -0.75, 0);
+  ground.matrix.scale(10, 0, 10);
+  ground.matrix.translate(-0.5, 0, -0.5);
+  ground.render();
+
+  // yee ol sky box
+  var sky_box = new Cube();
+  //sky_box.textureNum = 0;  // ****
+  sky_box.color = sky;
+  sky_box.matrix.scale(50, 50, 50);
+  sky_box.matrix.translate(-0.5, -0.5, -0.5);
+  sky_box.render();
 
 
   // ---------- TURTLE ----------
@@ -93,7 +132,7 @@ function renderAllShapes() {
   // Center of Rotation
   var center = new Cube();
   center.color = shell2;
-  center.matrix.translate(-0.25, -0.4 + g_baseY*0.7, -0.2);
+  center.matrix.translate(-0.25, -0.35 + g_baseY*0.7, -0.2);
   center.matrix.rotate(g_swayAngle*0.05, 1, 0, 0);
   var centerCoords = new Matrix4(center.matrix);
   center.matrix.scale(0.5, 0.05, 0.2);
@@ -515,7 +554,8 @@ function renderAllShapes() {
   tail.matrix.scale(0.05, 0.2, 0.15);
   tail.render();
 
-  // ---------- BIRD ----------
+  
+  // ---------- DUCK ----------
 
   // Colors
   var legs = [199/255, 138/255, 13/255, 1];
@@ -573,6 +613,7 @@ function renderAllShapes() {
 
   // Chest
   var chest = new Cube();
+  chest.textureNum = 0;  // ****
   chest.color = feathers1;
   chest.matrix = new Matrix4(bJointCoords);
   chest.matrix.translate(-0.09, -0.05, -0.01);
@@ -619,8 +660,6 @@ function renderAllShapes() {
 
   // Head
   var head = new Cube();
-  head.textureNum = 0;  // ****
-  console.log("head tex num = ", head.textureNum)
   head.color = feathers1;
   head.matrix = new Matrix4(neckCoords);
   head.matrix.translate(-0.02, 0.1, -0.04);
@@ -631,7 +670,6 @@ function renderAllShapes() {
 
   // Beak
   var beak = new Cube();
-  console.log("beak tex num = ", beak.textureNum)
   beak.color = legs;
   beak.matrix = new Matrix4(headCoords2);
   beak.matrix.translate(0.1, 0.02, 0.01);

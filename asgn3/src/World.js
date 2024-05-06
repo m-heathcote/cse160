@@ -6,13 +6,13 @@ var VSHADER_SOURCE = `
   attribute vec4 a_Position;
   attribute vec2 a_UV;
   varying vec2 v_UV;
-  uniform mat4 u_ModelMatrix;
-  uniform mat4 u_GlobalRotateMatrix;
-  //uniform mat4 u_ViewMatrix;
-  //uniform mat4 u_ProjectionMatrix;
+  uniform mat4 u_ModelMatrix;           // sets where shape located
+  uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
+  uniform mat4 u_ViewMatrix;            // set by lookAt command
+  uniform mat4 u_ProjectionMatrix;      // set by GL perspective command
   void main() {
-    //gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
-    gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    //gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     v_UV = a_UV;
   }`
 
@@ -22,13 +22,13 @@ var FSHADER_SOURCE = `
   varying vec2 v_UV;
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
-  uniform int u_whichTexture;
+  uniform int u_WhichTexture;
   void main() {
-    if (u_whichTexture == -2) {                     // Use color
+    if (u_WhichTexture == -2) {                     // Use color
       gl_FragColor = u_FragColor;
-    } else if (u_whichTexture == -1) {              // Use UV debug color
+    } else if (u_WhichTexture == -1) {              // Use UV debug color
       gl_FragColor = vec4(v_UV, 1.0, 1.0);
-    } else if (u_whichTexture == 0) {               // Use texture0
+    } else if (u_WhichTexture == 0) {               // Use texture0
       gl_FragColor = texture2D(u_Sampler0, v_UV);
     } else {                                        // Error: use red
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
@@ -41,7 +41,7 @@ let gl;
 let a_Position;
 let a_UV;
 let u_FragColor;
-let u_whichTexture;
+let u_WhichTexture;
 let u_Sampler0;
 let u_Size;
 let u_ModelMatrix;
@@ -95,10 +95,10 @@ function connectVariablesToGLSL() {
     return;
   }
 
-  // Get the storage location of u_whichTexture
-  u_whichTexture = gl.getUniformLocation(gl.program, 'u_whichTexture');
-  if (!u_whichTexture) {
-    console.log('Failed to get the storage location of u_whichTexture');
+  // Get the storage location of u_WhichTexture
+  u_WhichTexture = gl.getUniformLocation(gl.program, 'u_WhichTexture');
+  if (!u_WhichTexture) {
+    console.log('Failed to get the storage location of u_WhichTexture');
     return false;
   }
 
@@ -116,11 +116,10 @@ function connectVariablesToGLSL() {
     return;
   }
 
-  /*
-  // Get the storage location of u_ProjectionMatrix
-  u_ProjectionMatrix = gl.getUniformLocation(gl.program, 'u_ProjectionMatrix');
-  if (!u_ProjectionMatrix) {
-    console.log('Failed to get the storage location of u_ProjectionMatrix');
+  // Get the storage location of u_GlobalRotateMatrix
+  u_GlobalRotateMatrix = gl.getUniformLocation(gl.program, 'u_GlobalRotateMatrix');
+  if (!u_GlobalRotateMatrix) {
+    console.log('Failed to get the storage location of u_GlobalRotateMatrix');
     return;
   }
 
@@ -130,16 +129,15 @@ function connectVariablesToGLSL() {
     console.log('Failed to get the storage location of u_ViewMatrix');
     return;
   }
-  */
 
-  // Get the storage location of u_GlobalRotateMatrix
-  u_GlobalRotateMatrix = gl.getUniformLocation(gl.program, 'u_GlobalRotateMatrix');
-  if (!u_GlobalRotateMatrix) {
-    console.log('Failed to get the storage location of u_GlobalRotateMatrix');
+  // Get the storage location of u_ProjectionMatrix
+  u_ProjectionMatrix = gl.getUniformLocation(gl.program, 'u_ProjectionMatrix');
+  if (!u_ProjectionMatrix) {
+    console.log('Failed to get the storage location of u_ProjectionMatrix');
     return;
   }
 
-  // Set an initial value for this matrix to identity
+  // Set an initial value for these matrix to identity
   var identityM = new Matrix4();
   gl.uniformMatrix4fv(u_ModelMatrix, false, identityM.elements);
 }
@@ -260,8 +258,8 @@ function main() {
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
   // Render
-  renderAllShapes();
-  //requestAnimationFrame(tick);
+  //renderAllShapes();
+  requestAnimationFrame(tick);
 }
 // ---------- END MAIN -----------------------------------------------
 // -------------------------------------------------------------------
