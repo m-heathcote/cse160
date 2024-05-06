@@ -25,7 +25,7 @@ var FSHADER_SOURCE = `
   void main() {
     gl_FragColor = u_FragColor;
     gl_FragColor = vec4(v_UV, 1.0, 1.0);
-    //gl_FragColor = texture2D(u_Sampler0, v_UV);
+    gl_FragColor = texture2D(u_Sampler0, v_UV);
   }`
 
 // -- Global Variables --
@@ -209,6 +209,7 @@ function fixSlider(id, val) {
 // ----- end fixSlider -----
 
 
+// -------------------------------------------------------------------
 // ---------- MAIN ---------------------------------------------------
 function main() {
   console.log("hellooo")
@@ -226,6 +227,9 @@ function main() {
   canvas.onmousedown = click;
   canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
 
+  // Initialize Textures
+  initTextures(0);
+
   // Specify the color for clearing <canvas>
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -237,6 +241,7 @@ function main() {
   //requestAnimationFrame(tick);
 }
 // ---------- END MAIN -----------------------------------------------
+// -------------------------------------------------------------------
 
 
 // -- Global Time Variables --
@@ -376,3 +381,58 @@ function convertCoordinatesEventToGL(ev) {
 }
 // ----- end convertCoordinatesEventToGL -----
 
+// ----- initTextures -----
+function initTextures(n) {
+  var texture = gl.createTexture();   // Create a texture object
+  if (!texture) {
+    console.log('Failed to create the texture object');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler0
+  var u_Sampler0 = gl.getUniformLocation(gl.program, 'u_Sampler0');
+  if (!u_Sampler0) {
+    console.log('Failed to get the storage location of u_Sampler0');
+    return false;
+  }
+
+  var image = new Image();  // Create the image object
+  if (!image) {
+    console.log('Failed to create the image object');
+    return false;
+  }
+
+  // Register the event handler to be called on loading an image
+  image.onload = function(){ sendTextureToGLSL(n, texture, u_Sampler0, image); };
+  
+  // Tell the browser to load an image
+  image.src = '../resources/sky.jpg';
+
+  return true;
+}
+// ----- end initTextures -----
+
+// ----- sendTextureToGLSL -----
+function sendTextureToGLSL(n, texture, u_Sampler0, image) {
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
+  // Enable texture unit0
+  gl.activeTexture(gl.TEXTURE0);
+  // Bind the texture object to the target
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Set the texture parameters
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  // Set the texture image
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
+  
+  // Set the texture unit 0 to the sampler
+  gl.uniform1i(u_Sampler0, 0);
+  
+  gl.clear(gl.COLOR_BUFFER_BIT);   // Clear <canvas>
+
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
+
+  // Render
+  renderAllShapes();
+}
+// ----- end sendTextureToGLSL -----
