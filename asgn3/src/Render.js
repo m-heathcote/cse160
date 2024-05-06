@@ -91,7 +91,7 @@ function renderAllShapes() {
   // -- Base --
   
   // Center of Rotation
-  var center = new Cube(); 
+  var center = new Cube();
   center.color = shell2;
   center.matrix.translate(-0.25, -0.4 + g_baseY*0.7, -0.2);
   center.matrix.rotate(g_swayAngle*0.05, 1, 0, 0);
@@ -101,6 +101,7 @@ function renderAllShapes() {
 
   // Base of Shell
   var shell_base = new Cube();
+  shell_base.textureNum = 0;  // ****
   shell_base.color = shell2;
   shell_base.matrix = new Matrix4(centerCoords);
   shell_base.matrix.translate(-0.25, 0, -0.3);
@@ -618,6 +619,8 @@ function renderAllShapes() {
 
   // Head
   var head = new Cube();
+  head.textureNum = 0;  // ****
+  console.log("head tex num = ", head.textureNum)
   head.color = feathers1;
   head.matrix = new Matrix4(neckCoords);
   head.matrix.translate(-0.02, 0.1, -0.04);
@@ -628,6 +631,7 @@ function renderAllShapes() {
 
   // Beak
   var beak = new Cube();
+  console.log("beak tex num = ", beak.textureNum)
   beak.color = legs;
   beak.matrix = new Matrix4(headCoords2);
   beak.matrix.translate(0.1, 0.02, 0.01);
