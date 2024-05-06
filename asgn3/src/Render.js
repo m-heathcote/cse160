@@ -39,7 +39,7 @@ function updateAnimationXY() {
 
     if (inc < 0.34) {
       g_headX = -inc;
-      fixSlider("headSlide", 100 * -inc);
+      //fixSlider("headSlide", 100 * -inc);
 
       g_moveY = 0.6 * inc;
       g_moveY2 = 0.6 * inc;
