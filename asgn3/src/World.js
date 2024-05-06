@@ -8,10 +8,11 @@ var VSHADER_SOURCE = `
   varying vec2 v_UV;
   uniform mat4 u_ModelMatrix;
   uniform mat4 u_GlobalRotateMatrix;
-  uniform mat4 u_ViewMatrix;
-  uniform mat4 u_ProjectionMatrix;
+  //uniform mat4 u_ViewMatrix;
+  //uniform mat4 u_ProjectionMatrix;
   void main() {
-    gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    //gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     v_UV = a_UV;
   }`
 
@@ -20,9 +21,11 @@ var FSHADER_SOURCE = `
   precision mediump float;
   varying vec2 v_UV;
   uniform vec4 u_FragColor;
+  uniform sampler2D u_Sampler0;
   void main() {
     gl_FragColor = u_FragColor;
-    //gl_FragColor = vec4(v_UV, 1.0, 1.0)
+    gl_FragColor = vec4(v_UV, 1.0, 1.0);
+    //gl_FragColor = texture2D(u_Sampler0, v_UV);
   }`
 
 // -- Global Variables --
@@ -70,8 +73,8 @@ function connectVariablesToGLSL() {
   }
 
   // Get the storage location of a_UV
-  a_Position = gl.getAttribLocation(gl.program, 'a_UV');
-  if (a_Position < 0) {
+  a_UV = gl.getAttribLocation(gl.program, 'a_UV');
+  if (a_UV < 0) {
     console.log('Failed to get the storage location of a_UV');
     return;
   }
@@ -90,7 +93,8 @@ function connectVariablesToGLSL() {
     return;
   }
 
-  // Get the storage location of u_ViewMatrix
+  /*
+  // Get the storage location of u_ProjectionMatrix
   u_ProjectionMatrix = gl.getUniformLocation(gl.program, 'u_ProjectionMatrix');
   if (!u_ProjectionMatrix) {
     console.log('Failed to get the storage location of u_ProjectionMatrix');
@@ -103,17 +107,18 @@ function connectVariablesToGLSL() {
     console.log('Failed to get the storage location of u_ViewMatrix');
     return;
   }
+  */
 
-  // Set an initial value for this matrix to identity
-  var identityM = new Matrix4();
-  gl.uniformMatrix4fv(u_ModelMatrix, false, identityM.elements);
-  
   // Get the storage location of u_GlobalRotateMatrix
   u_GlobalRotateMatrix = gl.getUniformLocation(gl.program, 'u_GlobalRotateMatrix');
   if (!u_GlobalRotateMatrix) {
     console.log('Failed to get the storage location of u_GlobalRotateMatrix');
     return;
   }
+
+  // Set an initial value for this matrix to identity
+  var identityM = new Matrix4();
+  gl.uniformMatrix4fv(u_ModelMatrix, false, identityM.elements);
 }
 // ----- end connectVariablesToGLSL -----
 
@@ -123,8 +128,8 @@ const ON = 1;
 const POKE = 2;
 
 // -- Globals for UI elements --
-let g_globalAngle = 0;   // rotate around y axis
-let g_globalAngle_2 = 0; // rotate around x axis
+let g_globalAngle = 0;    // rotate around y axis
+let g_globalAngle_2 = 0;  // rotate around x axis
 let g_animationSpeed = 4;
 let g_animation = OFF;
 
@@ -165,6 +170,7 @@ function addActionsForHtmlUI() {
     renderAllShapes();
   });
   
+  /*
   // Head Slider
   document.getElementById("headSlide").addEventListener("mousemove", function() {
     g_headX = this.value * 0.01;
@@ -188,6 +194,7 @@ function addActionsForHtmlUI() {
     g_j3Angle = -this.value;
     renderAllShapes();
   });
+  */
 }
 // ----- end addActionsForHtmlUI -----
 
@@ -204,6 +211,8 @@ function fixSlider(id, val) {
 
 // ---------- MAIN ---------------------------------------------------
 function main() {
+  console.log("hellooo")
+
   // setup canvas and gl variables
   setupWebGL();
   
@@ -217,20 +226,15 @@ function main() {
   canvas.onmousedown = click;
   canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
 
-  // Register function (event handler) to be called on shift + click
-  
-
   // Specify the color for clearing <canvas>
-  //gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  //gl.clearColor(63/255, 76/255, 102/255, 1);
-  gl.clearColor(55/255, 68/255, 95/255, 1);
+  gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   
   // Render
-  //renderAllShapes();
-  requestAnimationFrame(tick);
+  renderAllShapes();
+  //requestAnimationFrame(tick);
 }
 // ---------- END MAIN -----------------------------------------------
 

@@ -21,6 +21,7 @@ class Cube {
    
     // Front
     drawTriangle3DUV([0,0,0,  1,1,0,  1,0,0], [1,0,  0,1,  1,1]);
+    //drawTriangle3D([0,0,0,  1,1,0,  1,0,0]);
     drawTriangle3D([0,0,0,  0,1,0,  1,1,0]);
 
     // darkest
