@@ -140,7 +140,6 @@ function renderAllShapes() {
 
   // Base of Shell
   var shell_base = new Cube();
-  shell_base.textureNum = 0;  // ****
   shell_base.color = shell2;
   shell_base.matrix = new Matrix4(centerCoords);
   shell_base.matrix.translate(-0.25, 0, -0.3);
@@ -613,7 +612,6 @@ function renderAllShapes() {
 
   // Chest
   var chest = new Cube();
-  chest.textureNum = 0;  // ****
   chest.color = feathers1;
   chest.matrix = new Matrix4(bJointCoords);
   chest.matrix.translate(-0.09, -0.05, -0.01);
