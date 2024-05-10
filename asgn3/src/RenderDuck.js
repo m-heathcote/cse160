@@ -1,6 +1,6 @@
 // RenderDuck.js
 
-function renderDuck(shellTopCoords) {
+function renderDuck(scale, shellTopCoords) {
   // ---------- DUCK ----------
 
   // Colors
@@ -9,6 +9,8 @@ function renderDuck(shellTopCoords) {
   var feathers2 = [235/255, 220/255, 133/255, 1];
 
   // -- Feet --
+
+  shellTopCoords.scale(scale, scale, scale);
   
   // Right Foot
   var rFoot = new Cube();

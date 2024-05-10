@@ -54,11 +54,24 @@ function renderAllShapes() {
   sky_box.render();
 
 
+  // ---------- ENVIRONMENT ----------
+
+  // test cube
+  var testCube = new Cube();
+  testCube.textureNum = 1;  // ****
+  testCube.color = [1, 0, 0, 1];  // red
+  testCube.matrix.translate(-0.2, -0.5, -0);
+  testCube.matrix.scale(0.6, 0.6, 0.6);
+  testCube.render();
+
+
+
   // ---------- TURTLE ----------
-  var shellTopCoords = renderTurtle();
+  var turtleLoc = [0.5, 0, -1.3];
+  var shellTopCoords = renderTurtle(0.8, turtleLoc);
 
   // ---------- DUCK ----------
-  renderDuck(shellTopCoords);
+  renderDuck(1, shellTopCoords);
 
 
   // Check time at end of function

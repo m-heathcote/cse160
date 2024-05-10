@@ -1,5 +1,20 @@
 // SetupWebGL.js
 
+// -- Global Variables --
+let canvas;
+let gl;
+let a_Position;
+let a_UV;
+let u_FragColor;
+let u_WhichTexture;
+let u_Sampler0;
+let u_Sampler1;
+let u_Size;
+let u_ModelMatrix;
+let u_ProjectionMatrix;
+let u_ViewMatrix;
+let u_GlobalRotateMatrix;
+
 // ----- setupWebGL -----
 function setupWebGL() {
   // Retrieve <canvas> element
