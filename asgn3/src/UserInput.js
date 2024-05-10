@@ -41,7 +41,6 @@ function drag(ev) {
 
   // Rotate around y axis
   g_globalAngle_y = convertTo360(g_initialRotation_y + (xDiff * 100));
-  //fixSlider("angleSlide", -g_globalAngle_y);
 
   // Rotate around x axis
   if (g_initialRotation_y > 90 && g_initialRotation_y < 270) {
@@ -50,7 +49,6 @@ function drag(ev) {
   else {
     g_globalAngle_x = convertTo360(g_initialRotation_x - (yDiff * 100));
   }
-  //fixSlider("angleSlide2", g_globalAngle_x);
 
   // Redraw
   renderAllShapes();
@@ -70,3 +68,30 @@ function convertCoordinatesEventToGL(ev) {
   return([x, y]);
 }
 // ----- end convertCoordinatesEventToGL -----
+
+// ----- keydown -----
+function keydown(ev) {
+  if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
+    camera.moveForward();
+  } else
+  if (ev.keyCode == 65 || ev.keyCode == 37) {  // A or left arrow
+    camera.moveLeft();
+  } else
+  if (ev.keyCode == 83 || ev.keyCode == 40) {  // S or down arrow
+    camera.moveBackward();
+  } else
+  if (ev.keyCode == 68 || ev.keyCode == 39) {  // D or right arrow
+    camera.moveRight();
+  } else
+  if (ev.keyCode == 81) {  // Q
+    camera.panLeft();
+  } else
+  if (ev.keyCode == 69) {  // E
+    camera.panRight();
+  }
+
+  // Redraw
+  renderAllShapes();
+  console.log("key: ", ev.keyCode);
+}
+// ----- end keydown -----

@@ -1,4 +1,4 @@
-// World.js
+// World.js - contains shaders and main function
 
 // Vertex shader program
 var VSHADER_SOURCE = `
@@ -70,9 +70,15 @@ function main() {
   // Set up actions for the HTML UI elements
   addActionsForHtmlUI();
 
-  // Register function (event handler) to be called on a mouse press
+  // Create camera
+  camera = new Camera();
+
+  // Register click function
   canvas.onmousedown = click;
   canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
+
+  // Register keydown function
+  document.onkeydown = keydown;
 
   // Initialize Textures
   initTextures();

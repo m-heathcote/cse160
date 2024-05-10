@@ -12,14 +12,16 @@ function renderAllShapes() {
   var startTime = performance.now();
 
   // Pass the Projection matrix
-  var projMat = new Matrix4();
-  projMat.setPerspective(60, canvas.width/canvas.height, 0.1, 100)   // (degrees wide, aspect, near, far)
-  gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMat.elements);
+  //var projMat = new Matrix4();
+  //projMat.setPerspective(60, canvas.width/canvas.height, 0.1, 100)   // (degrees wide, aspect, near, far)
+  //gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMat.elements);
+  gl.uniformMatrix4fv(u_ProjectionMatrix, false, camera.projMat.elements);
 
   // Pass the View matrix
-  var viewMat = new Matrix4();
-  viewMat.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]);   // (eye, at, up)
-  gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
+  //var viewMat = new Matrix4();
+  //viewMat.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]);   // (eye, at, up)
+  //gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
+  gl.uniformMatrix4fv(u_ViewMatrix, false, camera.viewMat.elements);
 
   // Pass a matrix to u_GlobalRotateMatrix attribute
   var globalRotMat = new Matrix4().rotate(g_globalAngle_y, 0, 1, 0);
