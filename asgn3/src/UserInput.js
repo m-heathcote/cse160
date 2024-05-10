@@ -1,59 +1,9 @@
 // UserInput.js
 
-// -- Global Mouse Position Variables --
-var g_clickX = 0;
-var g_clickY = 0;
-var g_initialRotation_y = g_globalAngle_y;
-var g_initialRotation_x = g_globalAngle_x;
-
-// ----- click -----
-function click(ev) {
-  if (ev.shiftKey) {
-    g_animation = POKE;
-  }
-  else {
-    // Extract the event click and return it in WebGL coordinates
-    [x, y] = convertCoordinatesEventToGL(ev);
-
-    // save in global variables
-    g_clickX = x;
-    g_clickY = y;
-    g_initialRotation_y = g_globalAngle_y;
-    g_initialRotation_x = g_globalAngle_x;
-  }
-}
-// ----- end click -----
-
-// ----- convertTo360 -----
-function convertTo360(degrees) {
-  return ((degrees % 360) + 360) % 360;
-}
-// ----- end convertTo360 -----
-
-// ----- drag -----
-function drag(ev) {
-  // Extract the event click and return it in WebGL coordinates
-  [x, y] = convertCoordinatesEventToGL(ev);
-
-  // Get Difference (drag length)
-  let xDiff = x - g_clickX;
-  let yDiff = y - g_clickY;
-
-  // Rotate around y axis
-  g_globalAngle_y = convertTo360(g_initialRotation_y + (xDiff * 100));
-
-  // Rotate around x axis
-  if (g_initialRotation_y > 90 && g_initialRotation_y < 270) {
-    g_globalAngle_x = convertTo360(g_initialRotation_x + (yDiff * 100));
-  }
-  else {
-    g_globalAngle_x = convertTo360(g_initialRotation_x - (yDiff * 100));
-  }
-
-  // Redraw
-  renderAllShapes();
-}
-// ----- end drag -----
+// -- Globals for mouse movement --
+g_prevX = 0;
+g_prevY = 0;
+g_lookWithMouse = false;
 
 // ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
@@ -94,39 +44,52 @@ function keydown(ev) {
   } else
   if (ev.keyCode == 69) {  // E
     camera.panRight();
+  } else
+  if (ev.keyCode == 27) {  // esc
+    g_lookWithMouse = !g_lookWithMouse;
+
+    if (g_lookWithMouse) {
+      [x, y] = convertCoordinatesEventToGL(ev);
+      g_prevX = x;
+      g_prevY = y;
+    }
   }
 
   console.log("key: ", ev.keyCode);
 }
 // ----- end keydown -----
 
-g_prevX = 0;
-g_prevY = 0;
-
 // ----- mousemove -----
 function mousemove(ev) {
-  // Extract the event click and return it in WebGL coordinates
-  [x, y] = convertCoordinatesEventToGL(ev);
+  if (g_lookWithMouse) {
+    // Extract the event click and return it in WebGL coordinates
+    [x, y] = convertCoordinatesEventToGL(ev);
 
-  // Get Difference (drag length)
-  let xDiff = x - g_prevX;
-  let yDiff = y - g_prevY;
+    // Get Difference (drag length)
+    let xDiff = x - g_prevX;
+    let yDiff = y - g_prevY;
 
-  g_prevX = x;
-  g_prevY = y;
+    let xSpeed = xDiff * 10;
+    let ySpeed = yDiff * 10;
 
-  if (xDiff < 0) {
-    camera.panLeft();
-  } else
-  if (xDiff > 0) {
-    camera.panRight();
-  }
+    console.log("xSpeed = ", xSpeed);
 
-  if (yDiff < 0) {
-    camera.panDown();
-  } else
-  if (yDiff > 0) {
-    camera.panUp();
+    g_prevX = x;
+    g_prevY = y;
+
+    if (xDiff < 0) {
+      camera.panLeft(xSpeed);
+    } else
+    if (xDiff > 0) {
+      camera.panRight(xSpeed);
+    }
+
+    if (yDiff < 0) {
+      camera.panDown(ySpeed);
+    } else
+    if (yDiff > 0) {
+      camera.panUp(ySpeed);
+    }
   }
 }
 // ----- end mousemove -----

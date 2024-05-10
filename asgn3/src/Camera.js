@@ -1,9 +1,9 @@
 // Camera.js - defines camera class
 
-// Global Camera
+// -- Global Camera --
 var camera;
 
-// Camera Class
+// ----- Camera Class -----
 class Camera {
   constructor() {
     this.type = 'camera';
@@ -114,14 +114,16 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panLeft() {
+  panLeft(speed) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
     f.mul(this.speed);
 
-    let r = new Matrix4().rotate(this.alpha, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    console.log("alpha = ", this.alpha + speed);
+
+    let r = new Matrix4().rotate(this.alpha + speed, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -132,14 +134,16 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panRight() {
+  panRight(speed) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
     f.mul(this.speed);
 
-    let r = new Matrix4().rotate(-this.alpha, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    console.log("alpha = ", -this.alpha - speed);
+
+    let r = new Matrix4().rotate(-this.alpha - speed, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -150,7 +154,7 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panUp() {
+  panUp(speed) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
@@ -161,7 +165,7 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    let r = new Matrix4().rotate(this.alpha, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(this.alpha + speed, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -172,7 +176,7 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panDown() {
+  panDown(speed) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
@@ -183,7 +187,7 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    let r = new Matrix4().rotate(-this.alpha, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(-this.alpha - speed, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);

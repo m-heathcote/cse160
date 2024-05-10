@@ -50,7 +50,7 @@ function tick() {
 }
 // ----- end tick -----
 
-// Global Animation Variables
+// -- Global Animation Variables --
 let g_frAngle = 0;
 let g_brAngle = 0;
 let g_flAngle = 0;
