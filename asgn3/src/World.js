@@ -28,6 +28,8 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler1;
   uniform sampler2D u_Sampler2;
   uniform sampler2D u_Sampler3;
+  uniform sampler2D u_Sampler4;
+  uniform sampler2D u_Sampler5;
 
   uniform int u_WhichTexture;
 
@@ -44,6 +46,10 @@ var FSHADER_SOURCE = `
       gl_FragColor = texture2D(u_Sampler2, v_UV);
     } else if (u_WhichTexture == 3) {               // Use texture 3
       gl_FragColor = texture2D(u_Sampler3, v_UV);
+    } else if (u_WhichTexture == 4) {               // Use texture 4
+      gl_FragColor = texture2D(u_Sampler4, v_UV);
+    } else if (u_WhichTexture == 5) {               // Use texture 5
+      gl_FragColor = texture2D(u_Sampler5, v_UV);
     } else {                                        // Error: use red
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
     }

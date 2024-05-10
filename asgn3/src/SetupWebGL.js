@@ -11,6 +11,8 @@ let u_Sampler0;
 let u_Sampler1;
 let u_Sampler2;
 let u_Sampler3;
+let u_Sampler4;
+let u_Sampler5;
 let u_Size;
 let u_ModelMatrix;
 let u_ProjectionMatrix;
@@ -95,6 +97,20 @@ function connectVariablesToGLSL() {
   u_Sampler3 = gl.getUniformLocation(gl.program, 'u_Sampler3');
   if (!u_Sampler3) {
     console.log('Failed to get the storage location of u_Sampler3');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler4
+  u_Sampler4 = gl.getUniformLocation(gl.program, 'u_Sampler4');
+  if (!u_Sampler4) {
+    console.log('Failed to get the storage location of u_Sampler4');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler5
+  u_Sampler5 = gl.getUniformLocation(gl.program, 'u_Sampler5');
+  if (!u_Sampler5) {
+    console.log('Failed to get the storage location of u_Sampler5');
     return false;
   }
 
