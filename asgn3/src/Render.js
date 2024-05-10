@@ -54,15 +54,23 @@ function renderAllShapes() {
   sky_box.render();
 
 
-  // ---------- TEST CUBE ----------
+  // ---------- TEST CUBES ----------
 
-  // test cube
-  var testCube = new Cube();
-  testCube.textureNum = 1;  // ****
-  testCube.color = [1, 0, 0, 1];  // red
-  testCube.matrix.translate(-0.2, -0.5, -0);
-  testCube.matrix.scale(0.6, 0.6, 0.6);
-  testCube.render();
+  // test cube 1
+  var testCube1 = new Cube();
+  testCube1.textureNum = 2;  // ****
+  testCube1.color = [1, 0, 0, 1];  // red
+  testCube1.matrix.translate(-0.5, -0.5, -0);
+  testCube1.matrix.scale(0.6, 0.6, 0.6);
+  testCube1.render();
+
+  // test cube 2
+  var testCube2 = new Cube();
+  testCube2.textureNum = 3;  // ****
+  testCube2.color = [1, 0, 0, 1];  // red
+  testCube2.matrix.translate(0.5, -0.5, -0);
+  testCube2.matrix.scale(0.6, 0.6, 0.6);
+  testCube2.render();
 
 
   // ---------- TURTLE ----------

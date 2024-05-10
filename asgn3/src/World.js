@@ -6,7 +6,7 @@ var VSHADER_SOURCE = `
   attribute vec4 a_Position;
   attribute vec2 a_UV;
   varying vec2 v_UV;
-  
+
   uniform mat4 u_ModelMatrix;           // sets where shape located
   uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
   uniform mat4 u_ViewMatrix;            // set by lookAt command
@@ -26,6 +26,8 @@ var FSHADER_SOURCE = `
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
   uniform sampler2D u_Sampler1;
+  uniform sampler2D u_Sampler2;
+  uniform sampler2D u_Sampler3;
 
   uniform int u_WhichTexture;
 
@@ -38,6 +40,10 @@ var FSHADER_SOURCE = `
       gl_FragColor = texture2D(u_Sampler0, v_UV);
     } else if (u_WhichTexture == 1) {               // Use texture 1
       gl_FragColor = texture2D(u_Sampler1, v_UV);
+    } else if (u_WhichTexture == 2) {               // Use texture 2
+      gl_FragColor = texture2D(u_Sampler2, v_UV);
+    } else if (u_WhichTexture == 3) {               // Use texture 3
+      gl_FragColor = texture2D(u_Sampler3, v_UV);
     } else {                                        // Error: use red
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
     }

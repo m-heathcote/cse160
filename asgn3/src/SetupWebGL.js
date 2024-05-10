@@ -9,6 +9,8 @@ let u_FragColor;
 let u_WhichTexture;
 let u_Sampler0;
 let u_Sampler1;
+let u_Sampler2;
+let u_Sampler3;
 let u_Size;
 let u_ModelMatrix;
 let u_ProjectionMatrix;
@@ -79,6 +81,20 @@ function connectVariablesToGLSL() {
   u_Sampler1 = gl.getUniformLocation(gl.program, 'u_Sampler1');
   if (!u_Sampler1) {
     console.log('Failed to get the storage location of u_Sampler1');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler2
+  u_Sampler2 = gl.getUniformLocation(gl.program, 'u_Sampler2');
+  if (!u_Sampler2) {
+    console.log('Failed to get the storage location of u_Sampler2');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler3
+  u_Sampler3 = gl.getUniformLocation(gl.program, 'u_Sampler3');
+  if (!u_Sampler3) {
+    console.log('Failed to get the storage location of u_Sampler3');
     return false;
   }
 
