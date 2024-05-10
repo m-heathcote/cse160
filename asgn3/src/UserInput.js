@@ -83,6 +83,12 @@ function keydown(ev) {
   if (ev.keyCode == 68 || ev.keyCode == 39) {  // D or right arrow
     camera.moveRight();
   } else
+  if (ev.keyCode == 32) {  // space
+    camera.moveUp();
+  } else
+  if (ev.keyCode == 16) {  // L-shift
+    camera.moveDown();
+  } else
   if (ev.keyCode == 81) {  // Q
     camera.panLeft();
   } else
@@ -90,8 +96,37 @@ function keydown(ev) {
     camera.panRight();
   }
 
-  // Redraw
-  renderAllShapes();
   console.log("key: ", ev.keyCode);
 }
 // ----- end keydown -----
+
+g_prevX = 0;
+g_prevY = 0;
+
+// ----- mousemove -----
+function mousemove(ev) {
+  // Extract the event click and return it in WebGL coordinates
+  [x, y] = convertCoordinatesEventToGL(ev);
+
+  // Get Difference (drag length)
+  let xDiff = x - g_prevX;
+  let yDiff = y - g_prevY;
+
+  g_prevX = x;
+  g_prevY = y;
+
+  if (xDiff < 0) {
+    camera.panLeft();
+  } else
+  if (xDiff > 0) {
+    camera.panRight();
+  }
+
+  if (yDiff < 0) {
+    camera.panDown();
+  } else
+  if (yDiff > 0) {
+    camera.panUp();
+  }
+}
+// ----- end mousemove -----
