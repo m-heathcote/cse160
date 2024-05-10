@@ -6,8 +6,8 @@ const ON = 1;
 const POKE = 2;
 
 // -- Globals for UI elements --
-let g_globalAngle = 0;    // rotate around y axis
-let g_globalAngle_2 = 0;  // rotate around x axis
+let g_globalAngle_y = 0;    // rotate around y axis
+let g_globalAngle_x = 0;  // rotate around x axis
 let g_animationSpeed = 4;
 let g_animation = OFF;
 
@@ -31,13 +31,13 @@ function addActionsForHtmlUI() {
   /*
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
-    g_globalAngle = -this.value;
+    g_globalAngle_y = -this.value;
     renderAllShapes();
   });
   
   // Global Angle Slider 2
   document.getElementById("angleSlide2").addEventListener("mousemove", function() {
-    g_globalAngle_2 = this.value;
+    g_globalAngle_x = this.value;
     renderAllShapes();
   });
   */

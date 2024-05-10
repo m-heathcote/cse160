@@ -9,6 +9,7 @@ function initTextures() {
 }
 // ----- end initTextures -----
 
+// ----- createAndLoadTexture -----
 function createAndLoadTexture(index, path) {
   var image = new Image();  // Create the image object
   if (!image) {
@@ -24,7 +25,9 @@ function createAndLoadTexture(index, path) {
 
   return true;
 }
+// ----- end createAndLoadTexture -----
 
+// ----- sendImageToTEXTURE -----
 function sendImageToTEXTURE(image, index) {
   var texture = gl.createTexture();   // Create a texture object
   if (!texture) {
@@ -53,7 +56,9 @@ function sendImageToTEXTURE(image, index) {
   // Render
   renderAllShapes();
 }
+// ----- end sendImageToTEXTURE -----
 
+// ----- getTexture -----
 function getTexture(index) {
   switch(index) {
     case 0:
@@ -64,7 +69,9 @@ function getTexture(index) {
       return null;
   }
 }
+// ----- end getTexture -----
 
+// ----- getSampler -----
 function getSampler(index) {
   switch(index) {
     case 0:
@@ -75,36 +82,4 @@ function getSampler(index) {
       return null;
   }
 }
-
-
-
-
-
-/*
-// ----- sendImageToTEXTURE0 -----
-function sendImageToTEXTURE0(image, index) {
-  var texture = gl.createTexture();   // Create a texture object
-  if (!texture) {
-    console.log('Failed to create the texture object');
-    return false;
-  }
-
-  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
-  // Enable texture unit0
-  gl.activeTexture(gl.TEXTURE0);
-  // Bind the texture object to the target
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-  // Set the texture parameters
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-  // Set the texture image
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
-  
-  // Set the texture unit 0 to the sampler
-  gl.uniform1i(u_Sampler0, 0);
-
-  // Render
-  renderAllShapes();
-}
-// ----- end sendImageToTEXTURE0 -----
-*/
+// ----- end getSampler -----

@@ -22,8 +22,8 @@ function renderAllShapes() {
   gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
 
   // Pass a matrix to u_GlobalRotateMatrix attribute
-  var globalRotMat = new Matrix4().rotate(g_globalAngle, 0, 1, 0);
-  globalRotMat.rotate(g_globalAngle_2, 1, 0, 0);
+  var globalRotMat = new Matrix4().rotate(g_globalAngle_y, 0, 1, 0);
+  globalRotMat.rotate(g_globalAngle_x, 1, 0, 0);
   gl.uniformMatrix4fv(u_GlobalRotateMatrix, false, globalRotMat.elements);
 
   // Clear <canvas>
@@ -54,7 +54,7 @@ function renderAllShapes() {
   sky_box.render();
 
 
-  // ---------- ENVIRONMENT ----------
+  // ---------- TEST CUBE ----------
 
   // test cube
   var testCube = new Cube();
@@ -63,7 +63,6 @@ function renderAllShapes() {
   testCube.matrix.translate(-0.2, -0.5, -0);
   testCube.matrix.scale(0.6, 0.6, 0.6);
   testCube.render();
-
 
 
   // ---------- TURTLE ----------

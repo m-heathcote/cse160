@@ -6,10 +6,12 @@ var VSHADER_SOURCE = `
   attribute vec4 a_Position;
   attribute vec2 a_UV;
   varying vec2 v_UV;
+  
   uniform mat4 u_ModelMatrix;           // sets where shape located
   uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
   uniform mat4 u_ViewMatrix;            // set by lookAt command
   uniform mat4 u_ProjectionMatrix;      // set by GL perspective command
+
   void main() {
     gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     //gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
@@ -26,6 +28,7 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler1;
 
   uniform int u_WhichTexture;
+
   void main() {
     if (u_WhichTexture == -2) {                     // Use color
       gl_FragColor = u_FragColor;
