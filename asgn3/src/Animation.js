@@ -49,3 +49,65 @@ function tick() {
   requestAnimationFrame(tick);
 }
 // ----- end tick -----
+
+// Global Animation Variables
+let g_frAngle = 0;
+let g_brAngle = 0;
+let g_flAngle = 0;
+let g_swayAngle = 0;
+let g_j1Angle = 0;
+let g_j2Angle = 0;
+let g_j3Angle = 0;
+let g_moveX = 0;
+let g_moveX2 = 0;
+let g_moveY = 0;
+let g_moveY2 = 0;
+let g_moveZ = 0;
+let g_baseY = 0;
+let g_headX = 0;
+let g_headY = 0;
+let g_eyeLidZ = 0.05;
+
+// ----- updateAnimationXY -----
+function updateAnimationXY() { 
+  if (g_animation == ON) {
+    g_moveX = 0.8 * 0.1 * Math.sin(g_onTime * g_animationSpeed);
+    g_moveY = 0.8 * 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+    
+    g_moveX2 = 0.8 * 0.1 * Math.sin(g_onTime * g_animationSpeed - Math.PI / 2);
+    g_moveY2 = 0.8 * 0.05 * Math.sin(g_onTime * g_animationSpeed);
+    
+    g_baseY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+    g_headY = 0.05 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+  }
+  else if (g_animation == POKE) {
+    let inc = (-0.5 * (g_pokeTime - 1) * (g_pokeTime - 1)) + 0.5;
+   
+    if (inc*0.2 <= 0.05) {
+      g_eyeLidZ = 0.05 - inc*0.2;
+    }
+
+    if (inc < 0.34) {
+      g_headX = -inc;
+      //fixSlider("headSlide", 100 * -inc);
+
+      g_moveY = 0.6 * inc;
+      g_moveY2 = 0.6 * inc;
+      g_moveZ = 0.4 * inc;
+
+      g_baseY = -0.4 * inc;
+    }
+  }
+}
+// ----- end updateAnimationAngles -----
+
+// ----- updateAnimationAngles -----
+function updateAnimationAngles() { 
+  if (g_animation == ON) {
+    g_frAngle = 40 * Math.sin(g_onTime * g_animationSpeed);
+    g_brAngle = 40 * Math.sin(g_onTime * g_animationSpeed - Math.PI / 2);
+    g_flAngle = 40 * Math.sin(g_onTime * g_animationSpeed + Math.PI / 2);
+    g_swayAngle = 40 * Math.sin(g_onTime * g_animationSpeed + Math.PI);
+  }
+}
+// ----- end updateAnimationAngles -----
