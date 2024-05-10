@@ -40,15 +40,15 @@ function drag(ev) {
   let yDiff = y - g_clickY;
 
   // Rotate around y axis
-  g_globalAngle = convertTo360(g_initialRotation - (xDiff * 100));
+  g_globalAngle = convertTo360(g_initialRotation + (xDiff * 100));
   //fixSlider("angleSlide", -g_globalAngle);
 
   // Rotate around x axis
   if (g_initialRotation > 90 && g_initialRotation < 270) {
-    g_globalAngle_2 = convertTo360(g_initialRotation_2 - (yDiff * 100));
+    g_globalAngle_2 = convertTo360(g_initialRotation_2 + (yDiff * 100));
   }
   else {
-    g_globalAngle_2 = convertTo360(g_initialRotation_2 + (yDiff * 100));
+    g_globalAngle_2 = convertTo360(g_initialRotation_2 - (yDiff * 100));
   }
   //fixSlider("angleSlide2", g_globalAngle_2);
 
