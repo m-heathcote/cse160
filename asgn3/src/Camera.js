@@ -121,9 +121,7 @@ class Camera {
     f.normalize();
     f.mul(this.speed);
 
-    console.log("alpha = ", this.alpha + speed);
-
-    let r = new Matrix4().rotate(this.alpha + speed, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    let r = new Matrix4().rotate(this.alpha + speed*1.2, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -141,9 +139,7 @@ class Camera {
     f.normalize();
     f.mul(this.speed);
 
-    console.log("alpha = ", -this.alpha - speed);
-
-    let r = new Matrix4().rotate(-this.alpha - speed, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    let r = new Matrix4().rotate(-this.alpha - speed*1.2, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -165,7 +161,7 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    let r = new Matrix4().rotate(this.alpha + speed, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(this.alpha + speed*1.2, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -187,7 +183,7 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    let r = new Matrix4().rotate(-this.alpha - speed, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(-this.alpha - speed*1.2, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);

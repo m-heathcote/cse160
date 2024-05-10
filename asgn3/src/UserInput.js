@@ -72,8 +72,6 @@ function mousemove(ev) {
     let xSpeed = xDiff * 10;
     let ySpeed = yDiff * 10;
 
-    console.log("xSpeed = ", xSpeed);
-
     g_prevX = x;
     g_prevY = y;
 
