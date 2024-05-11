@@ -43,7 +43,7 @@ function renderAllShapes() {
   ground.textureNum = 0;  // ****
   ground.color = grass;
   ground.matrix.translate(0, -0.75, 0);
-  ground.matrix.scale(10, 0, 10);
+  ground.matrix.scale(16, 0, 16);
   ground.matrix.translate(-0.5, 0, -0.5);
   ground.render();
 

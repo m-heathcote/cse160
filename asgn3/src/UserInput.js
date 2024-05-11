@@ -25,7 +25,6 @@ var intervals = {};
 // save each function to loop in a dict indexed by keyCode
 var keyLoop = {
   87: function() {                  // W
-    console.log("holding W");
     camera.moveForward();
   },
   65: function() {                  // A
@@ -52,7 +51,6 @@ var moveKeys = [87, 65, 83, 68,  32,    16];
 // ----- keydown -----
 function keydown(ev) {
   if (moveKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid movement key
-    console.log("setup intervals");
     intervals[ev.keyCode] = setInterval(keyLoop[ev.keyCode], 50);
   } else
   if (ev.keyCode == 27) {  // esc
