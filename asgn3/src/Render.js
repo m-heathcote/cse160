@@ -56,6 +56,10 @@ function renderAllShapes() {
   sky_box.render();
 
 
+   // ---------- MAP ----------
+   drawMap();
+
+
   // ---------- TEST CUBES ----------
 
   // test cube 1

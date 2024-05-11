@@ -2,7 +2,9 @@
 
 // ----- initTextures -----
 function initTextures() {
-  createAndLoadTexture(0, '../resources/grass-top.png');
+  //createAndLoadTexture(0, '../resources/grass-top.png');
+  //createAndLoadTexture(0, '../resources/grass-top-2.jpg');
+  createAndLoadTexture(0, '../resources/debug-floor.png');
   createAndLoadTexture(1, '../resources/my-sky.jpg');
   createAndLoadTexture(2, '../resources/dirt.jpg');
   createAndLoadTexture(3, '../resources/oak-wood.png');
