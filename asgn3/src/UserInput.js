@@ -78,7 +78,7 @@ function keyup(ev) {
   if (moveKeys.includes(ev.keyCode)) {   // valid movement key
     clearInterval(intervals[ev.keyCode]);
     delete intervals[ev.keyCode];
-    console.log("released");
+    console.log("released: ", ev.keyCode);
   } else
   if (ev.keyCode == 9) {  // tab
     // normal speed
@@ -92,6 +92,10 @@ function mousemove(ev) {
   if (g_lookWithMouse) {
     // Extract the event click and return it in WebGL coordinates
     [x, y] = convertCoordinatesEventToGL(ev);
+
+    //console.log("x: ", x);
+    //console.log("y: ", y);
+    //console.log("--------");
 
     // Get Difference (drag length)
     let xDiff = x - g_prevX;

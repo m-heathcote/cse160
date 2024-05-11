@@ -82,7 +82,8 @@ function main() {
   document.onkeyup = keyup;
 
   // Register mousemove function
-  canvas.onmousemove = mousemove;
+  //canvas.onmousemove = mousemove;
+  document.onmousemove = mousemove;
 
   // Initialize Textures
   initTextures();
