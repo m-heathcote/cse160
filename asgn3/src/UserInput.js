@@ -88,35 +88,34 @@ function keyup(ev) {
 // ----- mousemove -----
 function mousemove(ev) {
   if (g_lookWithMouse) {
-    // Extract the event click and return it in WebGL coordinates
-    [x, y] = convertCoordinatesEventToGL(ev);
-
-    //console.log("x: ", x);
-    //console.log("y: ", y);
-    //console.log("--------");
+    // Extract the event click coords
+    var x = ev.clientX; // x coordinate of a mouse pointer
+    var y = ev.clientY; // y coordinate of a mouse pointer
+    x = ((x) - canvas.width/2)/(canvas.width/2);
+    y = (canvas.height/2 - (y))/(canvas.height/2);
 
     // Get Difference (drag length)
     let xDiff = x - g_prevX;
     let yDiff = y - g_prevY;
 
-    let xSpeed = xDiff * 10;
-    let ySpeed = yDiff * 10;
+    let panX = xDiff * 90;
+    let panY = yDiff * 90;
 
     g_prevX = x;
     g_prevY = y;
 
     if (xDiff < 0) {
-      camera.panLeft(xSpeed);
+      camera.panLeft(panX);
     } else
     if (xDiff > 0) {
-      camera.panRight(xSpeed);
+      camera.panRight(panX);
     }
 
     if (yDiff < 0) {
-      camera.panDown(ySpeed);
+      camera.panDown(panY);
     } else
     if (yDiff > 0) {
-      camera.panUp(ySpeed);
+      camera.panUp(panY);
     }
   }
 }

@@ -61,7 +61,7 @@ function renderAllShapes() {
 
 
   // ---------- TEST CUBES ----------
-
+  /*
   // test cube 1
   var testCube1 = new Cube();
   testCube1.textureNum = 2;  // ****
@@ -93,11 +93,12 @@ function renderAllShapes() {
   testCube4.matrix.translate(0.5, -0.7, -0.1);
   testCube4.matrix.scale(0.4, 0.4, 0.4);
   testCube4.render();
+  */
 
 
   // ---------- TURTLE ----------
-  var turtleLoc = [0, 0, -1.4];
-  var shellTopCoords = renderTurtle(0.8, turtleLoc);
+  var turtleLoc = [0, 0, 0];
+  var shellTopCoords = renderTurtle(0.6, turtleLoc);
 
   // ---------- DUCK ----------
   renderDuck(1, shellTopCoords);

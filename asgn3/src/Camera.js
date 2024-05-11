@@ -114,14 +114,13 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panLeft(speed) {
+  panLeft(x) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
-    f.mul(this.speed);
 
-    let r = new Matrix4().rotate(this.alpha + speed*1.2, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    let r = new Matrix4().rotate(this.alpha * -x, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -132,14 +131,13 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panRight(speed) {
+  panRight(x) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
-    f.mul(this.speed);
 
-    let r = new Matrix4().rotate(-this.alpha - speed*1.2, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
+    let r = new Matrix4().rotate(this.alpha * -x, this.up.elements[0],this.up.elements[1],this.up.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -150,18 +148,16 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panUp(speed) {
+  panUp(y) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
-    f.mul(this.speed);
 
     let s = Vector3.cross(f, this.up);
     s.normalize();
-    s.mul(this.speed);
 
-    let r = new Matrix4().rotate(this.alpha + speed*1.2, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(this.alpha * y, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);
@@ -172,18 +168,16 @@ class Camera {
                            this.up.elements[0],this.up.elements[1],this.up.elements[2]);
   }
 
-  panDown(speed) {
+  panDown(y) {
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
     f.normalize();
-    f.mul(this.speed);
 
     let s = Vector3.cross(f, this.up);
     s.normalize();
-    s.mul(this.speed);
 
-    let r = new Matrix4().rotate(-this.alpha - speed*1.2, s.elements[0],s.elements[1],s.elements[2]);
+    let r = new Matrix4().rotate(this.alpha * y, s.elements[0],s.elements[1],s.elements[2]);
     let f_prime = r.multiplyVector3(f);
 
     this.at.set(this.eye);

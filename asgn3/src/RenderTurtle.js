@@ -16,7 +16,7 @@ function renderTurtle(scale, loc) {
   // Center of Rotation
   var center = new Cube();
   center.color = shell2;
-  center.matrix.translate(-0.25 + loc[0], -0.35 + g_baseY*0.7 + loc[1], -0.2 + loc[2]);
+  center.matrix.translate(-0.18 + loc[0], -0.5 + g_baseY*0.7 + loc[1], -0.14 + loc[2]);
   center.matrix.rotate(g_swayAngle*0.05, 1, 0, 0);
   center.matrix.scale(scale, scale, scale);
   var centerCoords = new Matrix4(center.matrix);
