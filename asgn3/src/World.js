@@ -77,8 +77,9 @@ function main() {
   //canvas.onmousedown = click;
   //canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
 
-  // Register keydown function
+  // Register keydown/keyup functions
   document.onkeydown = keydown;
+  document.onkeyup = keyup;
 
   // Register mousemove function
   canvas.onmousemove = mousemove;

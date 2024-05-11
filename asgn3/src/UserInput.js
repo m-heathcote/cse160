@@ -19,10 +19,21 @@ function convertCoordinatesEventToGL(ev) {
 }
 // ----- end convertCoordinatesEventToGL -----
 
+var intervalId = null;
+function testFunction() {
+  console.log("holding W");
+  camera.moveForward();
+}
+
 // ----- keydown -----
 function keydown(ev) {
-  if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
+  //if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
+  if (ev.keyCode == 87 && !intervalId) {  // W or up arrow
     camera.moveForward();
+
+    intervalId = setInterval(testFunction, 50);
+    
+
   } else
   if (ev.keyCode == 65 || ev.keyCode == 37) {  // A or left arrow
     camera.moveLeft();
@@ -53,11 +64,29 @@ function keydown(ev) {
       g_prevX = x;
       g_prevY = y;
     }
+  } else
+  if (ev.keyCode == 9) {  // tab
+    // faster speed
+    camera.speed = 0.6;
   }
 
   console.log("key: ", ev.keyCode);
 }
 // ----- end keydown -----
+
+// ----- keyup -----
+function keyup(ev) {
+  if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
+    clearInterval(intervalId);
+    intervalId = null;
+    console.log("released W");
+  } else
+  if (ev.keyCode == 9) {  // tab
+    // normal speed
+    camera.speed = 0.1;
+  }
+}
+// ----- end keyup -----
 
 // ----- mousemove -----
 function mousemove(ev) {
