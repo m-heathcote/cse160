@@ -5,15 +5,6 @@ var g_eye = [0, 0, 3];
 var g_at = [0, 0, -100];
 var g_up = [0, 1, 0];
 
-// -- Globals for Turtle Movement --
-var E = 0;  // east
-var S = 1;  // south
-var W = 2;  // west
-var N = 3;  // north
-var g_facing = E;
-var g_turtleX = 0;
-var g_turtleZ = 0;
-
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
@@ -107,7 +98,7 @@ function renderAllShapes() {
 
   // ---------- TURTLE ----------
   var turtleLoc = [g_turtleX, 0, g_turtleZ];
-  var shellTopCoords = renderTurtle(0.6, turtleLoc);
+  var shellTopCoords = renderTurtle(0.6, turtleLoc, g_turtleRot);
 
   // ---------- DUCK ----------
   renderDuck(1, shellTopCoords);

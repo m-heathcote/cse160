@@ -1,9 +1,19 @@
 // UserInput.js
 
-// -- Globals for mouse movement --
+// -- Globals for Mouse Movement --
 g_prevX = 0;
 g_prevY = 0;
 g_lookWithMouse = false;
+
+// -- Globals for Turtle Movement --
+var E = 0;  // east
+var S = 1;  // south
+var W = 2;  // west
+var N = 3;  // north
+var g_facing = E;
+var g_turtleX = 0;
+var g_turtleZ = 0;
+var g_turtleRot = 0;
 
 // ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
@@ -23,7 +33,7 @@ function convertCoordinatesEventToGL(ev) {
 var intervals = {};
 
 // save each function to loop in a dict indexed by keyCode
-var keyLoop = {
+var keyFunc = {
   87: function() {                  // W
     camera.moveForward();
   },
@@ -43,30 +53,96 @@ var keyLoop = {
     camera.moveDown();
   },
   38: function() {                  // up arrow
-    g_turtleZ -= 0.1;
+    switch(g_facing) {
+      case N:
+        g_turtleZ -= 0.08;
+        break;
+      case E:
+        g_turtleX += 0.08;
+        break;
+      case S:
+        g_turtleZ += 0.08;
+        break;
+      case W:
+        g_turtleX -= 0.08;
+        break;
+    }
   },
   37: function() {                  // left arrow
-    g_turtleX -= 0.1;
-    console.log("turtle x: ", g_turtleX);
+    switch(g_facing) {
+      case N:
+        g_facing = W;
+        g_turtleRot = 180;
+        break;
+      case E:
+        g_facing = N;
+        g_turtleRot = 90;
+        break;
+      case S:
+        g_facing = E;
+        g_turtleRot = 0;
+        break;
+      case W:
+        g_facing = S;
+        g_turtleRot = 270;
+        break;
+    }
   },
   40: function() {                  // down arrow
-    g_turtleZ += 0.1;
+    switch(g_facing) {
+      case N:
+        g_turtleZ += 0.08;
+        break;
+      case E:
+        g_turtleX -= 0.08;
+        break;
+      case S:
+        g_turtleZ -= 0.08;
+        break;
+      case W:
+        g_turtleX += 0.08;
+        break;
+    }
   },
   39: function() {                  // right arrow
-    g_turtleX += 0.1;
-    console.log("turtle x: ", g_turtleX);
+    console.log("in right arrow function");
+    switch(g_facing) {
+      case S:
+        g_facing = W;
+        g_turtleRot = 180;
+        break;
+      case W:
+        g_facing = N;
+        g_turtleRot = 90;
+        break;
+      case N:
+        g_facing = E;
+        g_turtleRot = 0;
+        break;
+      case E:
+        g_facing = S;
+        g_turtleRot = 270;
+        break;
+    }
   }
 };
 
-// list of valid movement keys
-var moveKeys = [87, 65, 83, 68,  32,    16,   38,  37,  40, 39];
-//               W   A   S   D  space  shift   ^    <    v   >
+// list of valid camera movement keys
+var moveCameraKeys = [87, 65, 83, 68,  32,    16];
+//                     W   A   S   D  space  shift
+
+// list of valid turtle movement keys
+var moveTurtleKeys = [38,  37,  40, 39];
+//                     ^    <    v   >
 
 // ----- keydown -----
 function keydown(ev) {
-  if (moveKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid movement key
+  if (moveCameraKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid camera movement key
     console.log("got move key");
-    intervals[ev.keyCode] = setInterval(keyLoop[ev.keyCode], 50);
+    intervals[ev.keyCode] = setInterval(keyFunc[ev.keyCode], 50);
+  } else
+  if (moveTurtleKeys.includes(ev.keyCode)) {  // valid turtle movement key
+    keyFunc[ev.keyCode]();
   } else
   if (ev.keyCode == 27) {  // esc
     g_lookWithMouse = !g_lookWithMouse;
@@ -88,7 +164,7 @@ function keydown(ev) {
 
 // ----- keyup -----
 function keyup(ev) {
-  if (moveKeys.includes(ev.keyCode)) {   // valid movement key
+  if (moveCameraKeys.includes(ev.keyCode)) {   // valid camera movement key
     clearInterval(intervals[ev.keyCode]);
     delete intervals[ev.keyCode];
     console.log("released: ", ev.keyCode);
