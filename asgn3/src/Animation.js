@@ -111,3 +111,17 @@ function updateAnimationAngles() {
   }
 }
 // ----- end updateAnimationAngles -----
+
+/* add these later??
+// ----- rotate90 -----
+function rotate90() {
+
+}
+// ----- end rotate90 -----
+
+// ----- bobbing -----
+function bobbing() {
+
+}
+// ----- end bobbing -----
+*/

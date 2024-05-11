@@ -10,10 +10,11 @@ var E = 0;  // east
 var S = 1;  // south
 var W = 2;  // west
 var N = 3;  // north
-var g_facing = E;
+var g_facing = N;
+var g_turtleRot = 90;
 var g_turtleX = 0;
 var g_turtleZ = 0;
-var g_turtleRot = 0;
+var g_turtleRot = 90;
 
 // ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
@@ -53,6 +54,11 @@ var keyFunc = {
     camera.moveDown();
   },
   38: function() {                  // up arrow
+    g_animation = ON;
+    console.log("turtle coords: ", [g_turtleX, 0, g_turtleZ]);
+    console.log("    converted: ", [toMapCoords(g_turtleX), 0, toMapCoords(g_turtleZ)]);
+    console.log("   map at coords: ", g_map[toMapCoords(g_turtleZ)][toMapCoords(g_turtleX)]);
+    //console.log("test: map[0][1] = ", g_map[0][1]);
     switch(g_facing) {
       case N:
         g_turtleZ -= 0.08;
@@ -89,6 +95,7 @@ var keyFunc = {
     }
   },
   40: function() {                  // down arrow
+    g_animation = ON
     switch(g_facing) {
       case N:
         g_turtleZ += 0.08;
@@ -105,7 +112,6 @@ var keyFunc = {
     }
   },
   39: function() {                  // right arrow
-    console.log("in right arrow function");
     switch(g_facing) {
       case S:
         g_facing = W;
@@ -127,21 +133,20 @@ var keyFunc = {
   }
 };
 
-// list of valid camera movement keys
-var moveCameraKeys = [87, 65, 83, 68,  32,    16];
-//                     W   A   S   D  space  shift
+// set up looping interval for these functions (until key released)
+var loopedKeys = [87, 65, 83, 68,  32,    16,  38, 40];
+//                 W   A   S   D  space  shift  ^   v
 
-// list of valid turtle movement keys
-var moveTurtleKeys = [38,  37,  40, 39];
-//                     ^    <    v   >
+// run these once when clicked
+var clickedKeys = [37, 39];
+//                  <   >
 
 // ----- keydown -----
 function keydown(ev) {
-  if (moveCameraKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid camera movement key
-    console.log("got move key");
+  if (loopedKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {
     intervals[ev.keyCode] = setInterval(keyFunc[ev.keyCode], 50);
   } else
-  if (moveTurtleKeys.includes(ev.keyCode)) {  // valid turtle movement key
+  if (clickedKeys.includes(ev.keyCode)) {
     keyFunc[ev.keyCode]();
   } else
   if (ev.keyCode == 27) {  // esc
@@ -164,10 +169,13 @@ function keydown(ev) {
 
 // ----- keyup -----
 function keyup(ev) {
-  if (moveCameraKeys.includes(ev.keyCode)) {   // valid camera movement key
+  if (loopedKeys.includes(ev.keyCode)) {
     clearInterval(intervals[ev.keyCode]);
     delete intervals[ev.keyCode];
-    console.log("released: ", ev.keyCode);
+
+    if (ev.keyCode == 38 || ev.keyCode == 40) {
+      g_animation = OFF;
+    }
   } else
   if (ev.keyCode == 9) {  // tab
     // normal speed
