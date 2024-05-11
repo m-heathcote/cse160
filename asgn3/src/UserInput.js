@@ -58,9 +58,13 @@ var keyFunc = {
     console.log("turtle coords: ", [g_turtleX, 0, g_turtleZ]);
     console.log("    converted: ", [toMapCoords(g_turtleX), 0, toMapCoords(g_turtleZ)]);
     console.log("   map at coords: ", g_map[toMapCoords(g_turtleZ)][toMapCoords(g_turtleX)]);
-    //console.log("test: map[0][1] = ", g_map[0][1]);
+    
+    let mapZ = toMapCoords(g_turtleZ);
+    let mapX = toMapCoords(g_turtleX);
+    
     switch(g_facing) {
       case N:
+        //if (!g_map)
         g_turtleZ -= 0.08;
         break;
       case E:

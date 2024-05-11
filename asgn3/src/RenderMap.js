@@ -41,7 +41,7 @@ function toMapCoords(num) {
     return 0;
   }
   else {
-    return Math.round((num + 7) * 4);
+    return Math.round((num + 7) * 2 + 1);
   }
 }
 
