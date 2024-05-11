@@ -41,16 +41,31 @@ var keyLoop = {
   },
   16: function() {                  // shift
     camera.moveDown();
+  },
+  38: function() {                  // up arrow
+    g_turtleZ -= 0.1;
+  },
+  37: function() {                  // left arrow
+    g_turtleX -= 0.1;
+    console.log("turtle x: ", g_turtleX);
+  },
+  40: function() {                  // down arrow
+    g_turtleZ += 0.1;
+  },
+  39: function() {                  // right arrow
+    g_turtleX += 0.1;
+    console.log("turtle x: ", g_turtleX);
   }
 };
 
 // list of valid movement keys
-var moveKeys = [87, 65, 83, 68,  32,    16];
-//               W   A   S   D  space  shift
+var moveKeys = [87, 65, 83, 68,  32,    16,   38,  37,  40, 39];
+//               W   A   S   D  space  shift   ^    <    v   >
 
 // ----- keydown -----
 function keydown(ev) {
   if (moveKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid movement key
+    console.log("got move key");
     intervals[ev.keyCode] = setInterval(keyLoop[ev.keyCode], 50);
   } else
   if (ev.keyCode == 27) {  // esc
