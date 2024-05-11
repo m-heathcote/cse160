@@ -19,42 +19,41 @@ function convertCoordinatesEventToGL(ev) {
 }
 // ----- end convertCoordinatesEventToGL -----
 
-var intervalId = null;
-function testFunction() {
-  console.log("holding W");
-  camera.moveForward();
-}
+// save each interval id in a dict indexed by keyCode
+var intervals = {};
+
+// save each function to loop in a dict indexed by keyCode
+var keyLoop = {
+  87: function() {                  // W
+    console.log("holding W");
+    camera.moveForward();
+  },
+  65: function() {                  // A
+    camera.moveLeft();
+  },
+  83: function() {                  // S
+    camera.moveBackward();
+  },
+  68: function() {                  // D
+    camera.moveRight();
+  },
+  32: function() {                  // space
+    camera.moveUp();
+  },
+  16: function() {                  // shift
+    camera.moveDown();
+  }
+};
+
+// list of valid movement keys
+var moveKeys = [87, 65, 83, 68,  32,    16];
+//               W   A   S   D  space  shift
 
 // ----- keydown -----
 function keydown(ev) {
-  //if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
-  if (ev.keyCode == 87 && !intervalId) {  // W or up arrow
-    camera.moveForward();
-
-    intervalId = setInterval(testFunction, 50);
-    
-
-  } else
-  if (ev.keyCode == 65 || ev.keyCode == 37) {  // A or left arrow
-    camera.moveLeft();
-  } else
-  if (ev.keyCode == 83 || ev.keyCode == 40) {  // S or down arrow
-    camera.moveBackward();
-  } else
-  if (ev.keyCode == 68 || ev.keyCode == 39) {  // D or right arrow
-    camera.moveRight();
-  } else
-  if (ev.keyCode == 32) {  // space
-    camera.moveUp();
-  } else
-  if (ev.keyCode == 16) {  // L-shift
-    camera.moveDown();
-  } else
-  if (ev.keyCode == 81) {  // Q
-    camera.panLeft();
-  } else
-  if (ev.keyCode == 69) {  // E
-    camera.panRight();
+  if (moveKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {   // valid movement key
+    console.log("setup intervals");
+    intervals[ev.keyCode] = setInterval(keyLoop[ev.keyCode], 50);
   } else
   if (ev.keyCode == 27) {  // esc
     g_lookWithMouse = !g_lookWithMouse;
@@ -67,7 +66,7 @@ function keydown(ev) {
   } else
   if (ev.keyCode == 9) {  // tab
     // faster speed
-    camera.speed = 0.6;
+    camera.speed = 0.4;
   }
 
   console.log("key: ", ev.keyCode);
@@ -76,10 +75,10 @@ function keydown(ev) {
 
 // ----- keyup -----
 function keyup(ev) {
-  if (ev.keyCode == 87 || ev.keyCode == 38) {  // W or up arrow
-    clearInterval(intervalId);
-    intervalId = null;
-    console.log("released W");
+  if (moveKeys.includes(ev.keyCode)) {   // valid movement key
+    clearInterval(intervals[ev.keyCode]);
+    delete intervals[ev.keyCode];
+    console.log("released");
   } else
   if (ev.keyCode == 9) {  // tab
     // normal speed
