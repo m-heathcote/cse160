@@ -114,6 +114,34 @@ function connectVariablesToGLSL() {
     return false;
   }
 
+  // Get the storage location of u_Sampler6
+  u_Sampler6 = gl.getUniformLocation(gl.program, 'u_Sampler6');
+  if (!u_Sampler6) {
+    console.log('Failed to get the storage location of u_Sampler6');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler7
+  u_Sampler7 = gl.getUniformLocation(gl.program, 'u_Sampler7');
+  if (!u_Sampler7) {
+    console.log('Failed to get the storage location of u_Sampler7');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler8
+  u_Sampler8 = gl.getUniformLocation(gl.program, 'u_Sampler8');
+  if (!u_Sampler8) {
+    console.log('Failed to get the storage location of u_Sampler8');
+    return false;
+  }
+
+  // Get the storage location of u_Sampler9
+  u_Sampler9 = gl.getUniformLocation(gl.program, 'u_Sampler9');
+  if (!u_Sampler9) {
+    console.log('Failed to get the storage location of u_Sampler9');
+    return false;
+  }
+
   // Get the storage location of u_ModelMatrix
   u_ModelMatrix = gl.getUniformLocation(gl.program, 'u_ModelMatrix');
   if (!u_ModelMatrix) {

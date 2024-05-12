@@ -2,16 +2,17 @@
 
 // ----- initTextures -----
 function initTextures() {
-  createAndLoadTexture(0, '../resources/debug-floor-middle-lines.png');
-  createAndLoadTexture(1, '../resources/my-sky.jpg');
+  createAndLoadTexture(0, '../resources/my-grass.png');
+  createAndLoadTexture(1, '../resources/my-sky.png');
 
   createAndLoadTexture(2, '../resources/oak-wood.png');
   createAndLoadTexture(3, '../resources/oak-wood-dark.png');
   createAndLoadTexture(4, '../resources/cobble.jpg');
   createAndLoadTexture(5, '../resources/cobble-dark.jpg');
-  
-  //createAndLoadTexture(5, '../resources/dirt.jpg');
-  //createAndLoadTexture(5, '../resources/bricks.jpg');
+  createAndLoadTexture(6, '../resources/dirt.jpg');
+  createAndLoadTexture(7, '../resources/dirt-dark.jpg');
+  createAndLoadTexture(8, '../resources/bricks.jpg');
+  createAndLoadTexture(9, '../resources/bricks-dark.jpg');
   
   return true;
 }
@@ -81,6 +82,14 @@ function getTexture(index) {
       return gl.TEXTURE4;
     case 5:
       return gl.TEXTURE5;
+    case 6:
+      return gl.TEXTURE6;
+    case 7:
+      return gl.TEXTURE7;
+    case 8:
+      return gl.TEXTURE8;
+    case 9:
+      return gl.TEXTURE9;
     default:
       return null;
   }
@@ -102,6 +111,14 @@ function getSampler(index) {
       return u_Sampler4;
     case 5:
       return u_Sampler5;
+    case 6:
+      return u_Sampler6;
+    case 7:
+      return u_Sampler7;
+    case 8:
+      return u_Sampler8;
+    case 9:
+      return u_Sampler9;
     default:
       return null;
   }

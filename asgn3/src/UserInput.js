@@ -23,6 +23,8 @@ var BREAK = 2;
 var g_buildMode = NOBUILD;
 var WOOD = 2;
 var COBBLE = 4;
+var DIRT = 6;
+var BRICKS = 8;
 var g_blockType = WOOD;
 var g_selected = null;
 
