@@ -211,6 +211,18 @@ function keydown(ev) {
     if (g_buildMode === BREAK) {
       g_buildMode = NOBUILD;
     }
+  } else
+  if (ev.keyCode == 49) {
+    g_blockType = WOOD;
+  } else
+  if (ev.keyCode == 50) {
+    g_blockType = COBBLE;
+  } else
+  if (ev.keyCode == 51) {
+    g_blockType = DIRT;
+  } else
+  if (ev.keyCode == 52) {
+    g_blockType = BRICKS;
   }
 
   console.log("key: ", ev.keyCode);

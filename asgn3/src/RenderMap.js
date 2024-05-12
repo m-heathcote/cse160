@@ -86,11 +86,7 @@ function drawMap() {
   for (x = 0; x < 32; x++) {
     for (z = 0; z < 32; z++) {
       for (i = 0; i < g_map[z][x]; i++) {
-
-        console.log("tex: ", g_mapTexList[z][x][i]);
-
         if (g_mapTexList[z][x].length > 0) {
-
           if (g_selected != null && g_selected[0] === z && g_selected[1] === x) {
             block.textureNum = g_mapTexList[z][x][i] + 1;
           }
