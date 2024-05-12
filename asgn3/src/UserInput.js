@@ -194,6 +194,18 @@ function keydown(ev) {
   if (ev.keyCode == 9) {  // tab
     // faster speed
     camera.speed = 0.4;
+  } else
+  if (ev.keyCode == 66) {  // B
+    // toggle build mode
+    if (g_buildMode === NOBUILD) {
+      g_buildMode = BUILD;
+    } else
+    if (g_buildMode === BUILD) {
+      g_buildMode = BREAK;
+    } else
+    if (g_buildMode === BREAK) {
+      g_buildMode = NOBUILD;
+    }
   }
 
   console.log("key: ", ev.keyCode);
