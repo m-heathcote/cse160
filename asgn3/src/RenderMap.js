@@ -37,11 +37,12 @@ var g_map = [                                                  //  //
 ];
 
 function toMapCoords(num) {
-  if (num < -7) {
+  if (num < -8) {
     return 0;
   }
   else {
-    return Math.round((num + 7) * 2 + 1);
+    //return Math.round((num + 7) * 2 + 1);
+    return Math.round((num + 8) * 2);
   }
 }
 

@@ -74,15 +74,13 @@ function main() {
   camera = new Camera();
 
   // Register click function
-  //canvas.onmousedown = click;
-  //canvas.onmousemove = function(ev) {if (ev.buttons == 1) { drag(ev) }};
+  canvas.onmousedown = click;
 
   // Register keydown/keyup functions
   document.onkeydown = keydown;
   document.onkeyup = keyup;
 
   // Register mousemove function
-  //canvas.onmousemove = mousemove;
   document.onmousemove = mousemove;
 
   // Initialize Textures

@@ -36,6 +36,14 @@ function addActionsForHtmlUI() {
     camera.setSkyView();
   };
 
+  // Build Mode Buttons
+  document.getElementById('buildButton').onclick = function() {
+    g_buildMode = BUILD;
+  };
+  document.getElementById('breakButton').onclick = function() {
+    g_buildMode = BREAK;
+  };
+
   // Animation Speed Slider
   document.getElementById("animationSlide").addEventListener("mousemove", function() {
     g_animationSpeed = this.value;
