@@ -241,19 +241,13 @@ function mousemove(ev) {
 // ----- end mousemove -----
 
 // -- Globals for Building --
-var BUILD = 0;
-var BREAK = 1;
-var g_buildMode = BUILD;
+var NOBUILD = 0;
+var BUILD = 1;
+var BREAK = 2;
+var g_buildMode = NOBUILD;
 
 // ----- click -----
 function click(ev) {
-  console.log("eye: ", camera.eye.elements);
-  console.log("  converted x: ", toMapCoords(camera.eye.elements[0]));
-  console.log("  converted z: ", toMapCoords(camera.eye.elements[2]));
-  console.log("at: ", camera.at.elements);
-  console.log("  converted x: ", toMapCoords(camera.at.elements[0]));
-  console.log("  converted z: ", toMapCoords(camera.at.elements[2]));
-
   let atX = toMapCoords(camera.at.elements[0]);
   let atZ = toMapCoords(camera.at.elements[2]);
 

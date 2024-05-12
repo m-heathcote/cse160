@@ -37,6 +37,9 @@ function addActionsForHtmlUI() {
   };
 
   // Build Mode Buttons
+  document.getElementById('noBuildButton').onclick = function() {
+    g_buildMode = NOBUILD;
+  };
   document.getElementById('buildButton').onclick = function() {
     g_buildMode = BUILD;
   };
