@@ -21,6 +21,9 @@ var NOBUILD = 0;
 var BUILD = 1;
 var BREAK = 2;
 var g_buildMode = NOBUILD;
+var WOOD = 3; // start with darker shade
+var COBBLE = 5;
+var g_blockType = WOOD;
 var g_prevAt = null;
 
 // ----- convertCoordinatesEventToGL -----
@@ -318,7 +321,7 @@ function click() {
   if (atZ < 32 && atX < 32) {
     if (g_buildMode === BUILD) {
       g_map[atZ][atX] += 1;
-      g_mapTex[atZ][atX] = 5;
+      g_mapTex[atZ][atX] = g_blockType;
     } else
     if (g_buildMode === BREAK && g_map[atZ][atX] > 0) {
       g_map[atZ][atX] -= 1;

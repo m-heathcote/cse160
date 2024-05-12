@@ -56,6 +56,14 @@ function addActionsForHtmlUI() {
     selectBlocks();
   };
 
+  // Block Type Buttons
+  document.getElementById('woodButton').onclick = function() {
+    g_blockType = WOOD;
+  };
+  document.getElementById('cobbleButton').onclick = function() {
+    g_blockType = COBBLE;
+  };
+
   // Animation Speed Slider
   document.getElementById("animationSlide").addEventListener("mousemove", function() {
     g_animationSpeed = this.value;
