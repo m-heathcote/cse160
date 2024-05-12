@@ -24,7 +24,6 @@ var g_buildMode = NOBUILD;
 var WOOD = 2;
 var COBBLE = 4;
 var g_blockType = WOOD;
-var g_prevAt = null;
 var g_selected = null;
 
 // ----- convertCoordinatesEventToGL -----
@@ -279,44 +278,12 @@ function selectBlocks() {
     let atZ = toMapCoords(camera.at.elements[2]);
 
     if (atZ < 32 && atX < 32) {   // if in range
-      // deselect prev block
-      /*
-      if (g_prevAt != null) {
-        if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 2 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 3) {   // if oak-wood
-          g_mapTex[g_prevAt[0]][g_prevAt[1]] = 2;
-        } else
-        if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 4 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 5) {   // if cobble
-          g_mapTex[g_prevAt[0]][g_prevAt[1]] = 4;
-        }
-      }
-      */
-
       // select current block
-      /*
-      if (g_mapTex[atZ][atX] === 2 || g_mapTex[atZ][atX] === 3) {   // if oak-wood
-        g_mapTex[atZ][atX] = 3;
-        g_prevAt = [atZ, atX];
-      } else
-      if (g_mapTex[atZ][atX] === 4 || g_mapTex[atZ][atX] === 5) {   // if cobble
-        g_mapTex[atZ][atX] = 5;
-        g_prevAt = [atZ, atX];
-      }
-      */
-     g_selected = [atZ, atX];
+      g_selected = [atZ, atX];
     }
   }
   else {
     // deselect prev block
-    /*
-    if (g_prevAt != null) {
-      if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 2 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 3) {   // if oak-wood
-        g_mapTex[g_prevAt[0]][g_prevAt[1]] = 2;
-      } else
-      if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 4 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 5) {   // if cobble
-        g_mapTex[g_prevAt[0]][g_prevAt[1]] = 4;
-      }
-    }
-    */
     g_selected = null;
   }
 }
@@ -330,17 +297,11 @@ function click() {
   if (atZ < 32 && atX < 32) {
     if (g_buildMode === BUILD) {
       g_map[atZ][atX] += 1;
-      //g_mapTex[atZ][atX] = g_blockType;
       g_mapTexList[atZ][atX].push(g_blockType);
     } else
     if (g_buildMode === BREAK && g_map[atZ][atX] > 0) {
       g_map[atZ][atX] -= 1;
-      /*
-      if (g_map[atZ][atX] === 0) {
-        g_mapTex[atZ][atX] = 0;
-      }
-      */
-     g_mapTexList[atZ][atX].pop();
+      g_mapTexList[atZ][atX].pop();
     } 
   }
 }
