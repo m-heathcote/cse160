@@ -85,13 +85,13 @@ function drawMap() {
   var block = new Cube();
   for (x = 0; x < 32; x++) {
     for (z = 0; z < 32; z++) {
-      for (i = 0; i < g_map[z][x]; i++) {
+      for (y = 0; y < g_map[z][x]; y++) {
         if (g_mapTexList[z][x].length > 0) {
-          if (g_selected != null && g_selected[0] === z && g_selected[1] === x) {
-            block.textureNum = g_mapTexList[z][x][i] + 1;
+          if (g_selected != null && g_selected[0] === z && g_selected[1] === x && g_selected[2] == y) {
+            block.textureNum = g_mapTexList[z][x][y] + 1;
           }
           else {
-            block.textureNum = g_mapTexList[z][x][i];
+            block.textureNum = g_mapTexList[z][x][y];
           }
         } else {
           block.textureNum = -2;
@@ -101,7 +101,7 @@ function drawMap() {
         block.matrix.setIdentity();
         block.matrix.translate(0, -0.75, 0);
         block.matrix.scale(0.5, 0.5, 0.5);
-        block.matrix.translate(x - 16, i, z - 16);
+        block.matrix.translate(x - 16, y, z - 16);
         block.render();
       }
     }

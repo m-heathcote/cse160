@@ -289,15 +289,26 @@ function mousemove(ev) {
 function selectBlocks() {
   if (g_buildMode != NOBUILD) {
     let atX = toMapCoords(camera.at.elements[0]);
+    let atY = toMapCoords(camera.at.elements[1]) - 15;
     let atZ = toMapCoords(camera.at.elements[2]);
+    let closestY;
+
+    // find closest Y to looked at
+    if (g_mapTexList[atZ][atX].length > 0) {
+      if (g_mapTexList[atZ][atX].length > atY) {
+        closestY = atY;
+      } else {
+        closestY = g_mapTexList[atZ][atX].length - 1;
+      }
+    }
 
     if (atZ < 32 && atX < 32) {   // if in range
       // select current block
-      g_selected = [atZ, atX];
+      g_selected = [atZ, atX, closestY];  // South/North, East/West, Up/Down
     }
   }
   else {
-    // deselect prev block
+    // deselect
     g_selected = null;
   }
 }
