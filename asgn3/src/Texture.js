@@ -2,15 +2,16 @@
 
 // ----- initTextures -----
 function initTextures() {
-  //createAndLoadTexture(0, '../resources/grass-top.png');
-  //createAndLoadTexture(0, '../resources/grass-top-2.jpg');
-  //createAndLoadTexture(0, '../resources/debug-floor.png');
   createAndLoadTexture(0, '../resources/debug-floor-middle-lines.png');
   createAndLoadTexture(1, '../resources/my-sky.jpg');
-  createAndLoadTexture(2, '../resources/dirt.jpg');
-  createAndLoadTexture(3, '../resources/oak-wood.png');
+
+  createAndLoadTexture(2, '../resources/oak-wood.png');
+  createAndLoadTexture(3, '../resources/oak-wood-dark.png');
   createAndLoadTexture(4, '../resources/cobble.jpg');
-  createAndLoadTexture(5, '../resources/bricks.jpg');
+  createAndLoadTexture(5, '../resources/cobble-dark.jpg');
+  
+  //createAndLoadTexture(5, '../resources/dirt.jpg');
+  //createAndLoadTexture(5, '../resources/bricks.jpg');
   
   return true;
 }
