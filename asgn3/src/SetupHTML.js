@@ -39,12 +39,21 @@ function addActionsForHtmlUI() {
   // Build Mode Buttons
   document.getElementById('noBuildButton').onclick = function() {
     g_buildMode = NOBUILD;
+
+    // deselect blocks
+    selectBlocks();
   };
   document.getElementById('buildButton').onclick = function() {
     g_buildMode = BUILD;
+
+    // select blocks
+    selectBlocks();
   };
   document.getElementById('breakButton').onclick = function() {
     g_buildMode = BREAK;
+
+    // select blocks
+    selectBlocks();
   };
 
   // Animation Speed Slider

@@ -16,6 +16,13 @@ var g_turtleX = 0;
 var g_turtleZ = 0;
 var g_turtleRot = 90;
 
+// -- Globals for Building --
+var NOBUILD = 0;
+var BUILD = 1;
+var BREAK = 2;
+var g_buildMode = NOBUILD;
+var g_prevAt = null;
+
 // ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
 function convertCoordinatesEventToGL(ev) {
@@ -37,21 +44,27 @@ var intervals = {};
 var keyFunc = {
   87: function() {                  // W
     camera.moveForward();
+    selectBlocks();
   },
   65: function() {                  // A
     camera.moveLeft();
+    selectBlocks();
   },
   83: function() {                  // S
     camera.moveBackward();
+    selectBlocks();
   },
   68: function() {                  // D
     camera.moveRight();
+    selectBlocks();
   },
   32: function() {                  // space
     camera.moveUp();
+    selectBlocks();
   },
   16: function() {                  // shift
     camera.moveDown();
+    selectBlocks();
   },
   38: function() {                  // up arrow
     g_animation = ON;
@@ -236,27 +249,70 @@ function mousemove(ev) {
     if (yDiff > 0) {
       camera.panUp(panY);
     }
+
+    // change looked-at block texture
+    selectBlocks();
   }
 }
 // ----- end mousemove -----
 
-// -- Globals for Building --
-var NOBUILD = 0;
-var BUILD = 1;
-var BREAK = 2;
-var g_buildMode = NOBUILD;
+// ----- selectBlocks -----
+function selectBlocks() {
+  if (g_buildMode != NOBUILD) {
+    let atX = toMapCoords(camera.at.elements[0]);
+    let atZ = toMapCoords(camera.at.elements[2]);
+
+    if (atZ < 32 && atX < 32) {   // if in range
+      // deselect prev block
+      if (g_prevAt != null) {
+        if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 2 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 3) {   // if oak-wood
+          g_mapTex[g_prevAt[0]][g_prevAt[1]] = 2;
+        } else
+        if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 4 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 5) {   // if cobble
+          g_mapTex[g_prevAt[0]][g_prevAt[1]] = 4;
+        }
+      }
+
+      // select current block
+      if (g_mapTex[atZ][atX] === 2 || g_mapTex[atZ][atX] === 3) {   // if oak-wood
+        g_mapTex[atZ][atX] = 3;
+        g_prevAt = [atZ, atX];
+      } else
+      if (g_mapTex[atZ][atX] === 4 || g_mapTex[atZ][atX] === 5) {   // if cobble
+        g_mapTex[atZ][atX] = 5;
+        g_prevAt = [atZ, atX];
+      }
+    }
+  }
+  else {
+    // deselect prev block
+    if (g_prevAt != null) {
+      if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 2 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 3) {   // if oak-wood
+        g_mapTex[g_prevAt[0]][g_prevAt[1]] = 2;
+      } else
+      if (g_mapTex[g_prevAt[0]][g_prevAt[1]] === 4 || g_mapTex[g_prevAt[0]][g_prevAt[1]] === 5) {   // if cobble
+        g_mapTex[g_prevAt[0]][g_prevAt[1]] = 4;
+      }
+    }
+  }
+}
+// ----- end selectBlocks -----
 
 // ----- click -----
-function click(ev) {
+function click() {
   let atX = toMapCoords(camera.at.elements[0]);
   let atZ = toMapCoords(camera.at.elements[2]);
 
-  if (atZ < 31 && atX < 31) {
+  if (atZ < 32 && atX < 32) {
     if (g_buildMode === BUILD) {
       g_map[atZ][atX] += 1;
+      g_mapTex[atZ][atX] = 5;
     } else
-    if (g_buildMode === BREAK) {
+    if (g_buildMode === BREAK && g_map[atZ][atX] > 0) {
       g_map[atZ][atX] -= 1;
+      if (g_map[atZ][atX] === 0) {
+        g_mapTex[atZ][atX] = 0;
+      }
     } 
   }
 }
