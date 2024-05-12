@@ -30,63 +30,20 @@ function addActionsForHtmlUI() {
 
   // Camera View Buttons
   document.getElementById('view1Button').onclick = function() {
-    console.log("ground view");
     camera.setGroundView();
   };
   document.getElementById('view2Button').onclick = function() {
-    console.log("sky view");
     camera.setSkyView();
   };
-
-  /*
-  // Global Angle Slider
-  document.getElementById("angleSlide").addEventListener("mousemove", function() {
-    g_globalAngle_y = -this.value;
-    renderAllShapes();
-  });
-  
-  // Global Angle Slider 2
-  document.getElementById("angleSlide2").addEventListener("mousemove", function() {
-    g_globalAngle_x = this.value;
-    renderAllShapes();
-  });
-  */
 
   // Animation Speed Slider
   document.getElementById("animationSlide").addEventListener("mousemove", function() {
     g_animationSpeed = this.value;
     renderAllShapes();
   });
-  
-  /*
-  // Head Slider
-  document.getElementById("headSlide").addEventListener("mousemove", function() {
-    g_headX = this.value * 0.01;
-    renderAllShapes();
-  });
-  
-  // Joint 1 Slider
-  document.getElementById("j1Slide").addEventListener("mousemove", function() {
-    g_j1Angle = -this.value;
-    renderAllShapes();
-  });
-  
-  // Joint 2 Slider
-  document.getElementById("j2Slide").addEventListener("mousemove", function() {
-    g_j2Angle = -this.value;
-    renderAllShapes();
-  });
-  
-  // Joint 3 Slider
-  document.getElementById("j3Slide").addEventListener("mousemove", function() {
-    g_j3Angle = -this.value;
-    renderAllShapes();
-  });
-  */
 }
 // ----- end addActionsForHtmlUI -----
 
-/*
 // ----- fixSlider -----
 function fixSlider(id, val) {
   // get slder
@@ -96,7 +53,6 @@ function fixSlider(id, val) {
   slider.value = val;
 }
 // ----- end fixSlider -----
-*/
 
 // ----- sendTextToHTML -----
 // Set the text of an HTML element

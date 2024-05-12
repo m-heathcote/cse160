@@ -16,22 +16,20 @@ function renderTurtle(scale, loc, rot) {
   // Center of Rotation
   var center = new Cube();
   center.color = shell2;
-  center.matrix.translate(-0.18 + loc[0], -0.45 + g_baseY*0.7 + loc[1], -0.14 + loc[2]);
+  //center.matrix.translate(-0.18 + loc[0], -0.45 + g_baseY*0.7 + loc[1], -0.14 + loc[2]);
+  center.matrix.translate(loc[0], -0.45 + g_baseY*0.7 + loc[1], loc[2]);
   center.matrix.rotate(rot, 0, 1, 0);
   center.matrix.rotate(g_swayAngle*0.05, 1, 0, 0);
   center.matrix.scale(scale, scale, scale);
   var centerCoords = new Matrix4(center.matrix);
-  //center.matrix.scale(0.5, 0.05, 0.2);
-  center.matrix.scale(0.05, 1, 0.05);
+  center.matrix.scale(0.05, 0.05, 0.05);
   center.render();
 
   // Base of Shell
   var shell_base = new Cube();
   shell_base.color = shell2;
   shell_base.matrix = new Matrix4(centerCoords);
-  //shell_base.matrix.translate(-0.25, 0, -0.3);
-  //shell_base.matrix.translate(-0.6, 0, -0.47);
-  shell_base.matrix.translate(-0.8, 0, -0.47);
+  shell_base.matrix.translate(-0.5, 0, -0.47);
   var baseCoords = new Matrix4(shell_base.matrix);
   shell_base.matrix.scale(1, 0.1, 1);
   shell_base.render();

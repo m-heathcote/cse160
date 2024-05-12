@@ -55,45 +55,29 @@ var keyFunc = {
   },
   38: function() {                  // up arrow
     g_animation = ON;
-    //console.log("turtle coords: ", [g_turtleX, 0, g_turtleZ]);
-    console.log("    converted: ", [toMapCoords(g_turtleX), 0, toMapCoords(g_turtleZ)]);
-    console.log("   map at coords: ", g_map[toMapCoords(g_turtleZ)][toMapCoords(g_turtleX)]);
     
     let mapZ = toMapCoords(g_turtleZ);
     let mapX = toMapCoords(g_turtleX);
     
     switch(g_facing) {
       case N:
-        console.log("checking: ", g_map[mapZ - 1][mapX]);
         if (!g_map[mapZ - 1][mapX]) {
           g_turtleZ -= 0.1;
-        }
-        else {
-          console.log("hit a wall");
         }
         break;
       case E:
         if (!g_map[mapZ][mapX + 1]) {
           g_turtleX += 0.1;
         }
-        else {
-          console.log("hit a wall");
-        }
         break;
       case S:
         if (!g_map[mapZ + 1][mapX]) {
           g_turtleZ += 0.1;
         }
-        else {
-          console.log("hit a wall");
-        }
         break;
       case W:
         if (!g_map[mapZ][mapX - 1]) {
           g_turtleX -= 0.1;
-        }
-        else {
-          console.log("hit a wall");
         }
         break;
     }
@@ -129,32 +113,20 @@ var keyFunc = {
         if (!g_map[mapZ + 1][mapX]) {
           g_turtleZ += 0.1;
         }
-        else {
-          console.log("hit a wall");
-        }
         break;
       case E:
         if (!g_map[mapZ][mapX - 1]) {
           g_turtleX -= 0.1;
-        }
-        else {
-          console.log("hit a wall");
         }
         break;
       case S:
         if (!g_map[mapZ - 1][mapX]) {
           g_turtleZ -= 0.1;
         }
-        else {
-          console.log("hit a wall");
-        }
         break;
       case W:
         if (!g_map[mapZ][mapX + 1]) {
           g_turtleX += 0.1;
-        }
-        else {
-          console.log("hit a wall");
         }
         break;
     }
