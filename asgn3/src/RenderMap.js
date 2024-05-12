@@ -46,6 +46,7 @@ function toMapCoords(num) {
 }
 
 function drawMap() {
+  //var block = new Cube();
   for (x = 0; x < 32; x++) {
     for (z = 0; z < 32; z++) {
       for (i = 0; i < g_map[z][x]; i++) {
