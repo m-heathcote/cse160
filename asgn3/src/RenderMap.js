@@ -94,6 +94,7 @@ function drawMap() {
             block.textureNum = g_mapTexList[z][x][y];
           }
         } else {
+          // no texture info for block
           block.textureNum = -2;
           block.color = [1, 1, 1, 1];  // white
         }
@@ -102,6 +103,18 @@ function drawMap() {
         block.matrix.translate(0, -0.75, 0);
         block.matrix.scale(0.5, 0.5, 0.5);
         block.matrix.translate(x - 16, y, z - 16);
+        block.render();
+      }
+
+      // if column selected but no blocks in column
+      if (g_selected != null && g_selected[0] === z && g_selected[1] === x && g_selected[2] == -1) {
+        // highlight square on floor
+        block.textureNum = -2;
+        block.color = [70/255, 103/255, 70/255, 1];
+        block.matrix.setIdentity();
+        block.matrix.translate(0, -0.75, 0);
+        block.matrix.scale(0.5, 0.01, 0.5);
+        block.matrix.translate(x - 16, -0.55, z - 16);
         block.render();
       }
     }

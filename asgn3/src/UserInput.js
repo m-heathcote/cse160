@@ -301,6 +301,9 @@ function selectBlocks() {
         closestY = g_mapTexList[atZ][atX].length - 1;
       }
     }
+    else {
+      closestY = -1;
+    }
 
     if (atZ < 32 && atX < 32) {   // if in range
       // select current block
