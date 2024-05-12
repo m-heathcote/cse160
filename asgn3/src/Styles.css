@@ -36,7 +36,7 @@ h1 {
     align-items: center;
     /*justify-content: center; /* Horizontal centering */
     /* margin: 0 auto;*/
-    width: 400px;
+    width: 500px;
     height: 70px; /* Just for demonstration */
     /*border: 1px solid black; /* Just for demonstration */
 }
@@ -45,7 +45,7 @@ h1 {
     /* Optional: If you want to center the text within the heading */
     text-align: center;
     /* Optional: If you want to control the width of the heading */
-    width: 400px;
+    width: 500px;
 }
 
 .slider-container {

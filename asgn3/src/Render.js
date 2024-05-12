@@ -98,7 +98,7 @@ function renderAllShapes() {
 
   // ---------- TURTLE ----------
   var turtleLoc = [g_turtleX, 0, g_turtleZ];
-  var shellTopCoords = renderTurtle(0.6, turtleLoc, g_turtleRot);
+  var shellTopCoords = renderTurtle(0.8, turtleLoc, g_turtleRot);
 
   // ---------- DUCK ----------
   renderDuck(1, shellTopCoords);

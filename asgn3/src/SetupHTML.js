@@ -28,6 +28,16 @@ function addActionsForHtmlUI() {
     g_animation = POKE;
   };
 
+  // Camera View Buttons
+  document.getElementById('view1Button').onclick = function() {
+    console.log("ground view");
+    camera.setGroundView();
+  };
+  document.getElementById('view2Button').onclick = function() {
+    console.log("sky view");
+    camera.setSkyView();
+  };
+
   /*
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
