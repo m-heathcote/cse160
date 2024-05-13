@@ -75,6 +75,14 @@ var keyFunc = {
     camera.moveDown();
     selectBlocks();
   },
+  81: function() {                  // Q
+    camera.panLeft(-5);
+    selectBlocks();
+  },
+  69: function() {                  // E
+    camera.panRight(5);
+    selectBlocks();
+  },
   38: function() {                  // up arrow
     g_animation = ON;
     
@@ -176,8 +184,8 @@ var keyFunc = {
 };
 
 // set up looping interval for these functions (until key released)
-var loopedKeys = [87, 65, 83, 68,  32,    16,  38, 40];
-//                 W   A   S   D  space  shift  ^   v
+var loopedKeys = [87, 65, 83, 68,  32,    16,  38, 40, 81, 69];
+//                 W   A   S   D  space  shift  ^   v   Q   E
 
 // run these once when clicked
 var clickedKeys = [37, 39];
