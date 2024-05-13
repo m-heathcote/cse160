@@ -1,10 +1,5 @@
 // Render.js
 
-// -- Globals for Camera View --
-var g_eye = [0, 0, 3];
-var g_at = [0, 0, -100];
-var g_up = [0, 1, 0];
-
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
@@ -12,15 +7,9 @@ function renderAllShapes() {
   var startTime = performance.now();
 
   // Pass the Projection matrix
-  //var projMat = new Matrix4();
-  //projMat.setPerspective(60, canvas.width/canvas.height, 0.1, 100)   // (degrees wide, aspect, near, far)
-  //gl.uniformMatrix4fv(u_ProjectionMatrix, false, projMat.elements);
   gl.uniformMatrix4fv(u_ProjectionMatrix, false, camera.projMat.elements);
 
   // Pass the View matrix
-  //var viewMat = new Matrix4();
-  //viewMat.setLookAt(g_eye[0],g_eye[1],g_eye[2],  g_at[0],g_at[1],g_at[2],  g_up[0],g_up[1],g_up[2]);   // (eye, at, up)
-  //gl.uniformMatrix4fv(u_ViewMatrix, false, viewMat.elements);
   gl.uniformMatrix4fv(u_ViewMatrix, false, camera.viewMat.elements);
 
   // Pass a matrix to u_GlobalRotateMatrix attribute
@@ -40,7 +29,7 @@ function renderAllShapes() {
 
   // yee ol ground cube
   var ground = new Cube();
-  ground.textureNum = 0;  // ****
+  ground.textureNum = 0;
   ground.color = grass;
   ground.matrix.translate(0, -0.75, 0);
   ground.matrix.scale(16, 0, 16);

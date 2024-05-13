@@ -12,8 +12,8 @@ var W = 2;  // west
 var N = 3;  // north
 var g_facing = S;
 var g_turtleRot = -90;
-var g_turtleX = 0.3;
-var g_turtleZ = -3.4;
+var g_turtleX = 0.5;
+var g_turtleZ = -3.5;
 
 // -- Globals for Building --
 var T = 4;  // top     (for getting face of cube looked at)
@@ -328,6 +328,9 @@ function closestKey(object, x) {
 // ----- selectBlocks -----
 function selectBlocks() {
   if (g_buildMode != NOBUILD) {
+    //let addX = (camera.at.elements[0] - camera.eye.elements[0]) < 1 ? -1 : (camera.at.elements[0] - camera.eye.elements[0]) > 1 ? 1 : 0;
+    //let addZ = (camera.at.elements[2] - camera.eye.elements[2]) < 1 ? -1 : (camera.at.elements[2] - camera.eye.elements[2]) > 1 ? 1 : 0;
+
     let atX = toMapCoords(camera.at.elements[0]);
     let atY = toMapCoords(camera.at.elements[1]) - 15;
     let atZ = toMapCoords(camera.at.elements[2]);
@@ -353,7 +356,7 @@ function whichFace() {
   deltaY = camera.at.elements[1] - camera.eye.elements[1];
   deltaZ = camera.at.elements[2] - camera.eye.elements[2];
 
-  let topBias = deltaY < 0 ? 0.1 : 0;
+  let topBias = deltaY < 0 ? 0.2 : 0;
 
   d = [Math.abs(deltaX), Math.abs(deltaY) + topBias, Math.abs(deltaZ)];
   let maxIndex = d.indexOf(Math.max(...d));
@@ -372,6 +375,9 @@ function whichFace() {
 
 // ----- click -----
 function click() {
+  //let addX = (camera.at.elements[0] - camera.eye.elements[0]) < 1 ? -1 : (camera.at.elements[0] - camera.eye.elements[0]) > 1 ? 1 : 0;
+  //let addZ = (camera.at.elements[2] - camera.eye.elements[2]) < 1 ? -1 : (camera.at.elements[2] - camera.eye.elements[2]) > 1 ? 1 : 0;
+
   let atX = toMapCoords(camera.at.elements[0]);
   let atY = toMapCoords(camera.at.elements[1]) - 15;
   let atZ = toMapCoords(camera.at.elements[2]);

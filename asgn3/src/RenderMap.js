@@ -144,17 +144,156 @@ function addHouse(x, z) {
   g_map[z+2][x+3][3] = LOG;
 }
 
+function addHouse2(x, z) {
+  // back
+
+  g_map[z][x][0] = COBBLE;
+  g_map[z][x+1][0] = COBBLE;
+  g_map[z][x+2][0] = COBBLE;
+  g_map[z][x+3][0] = COBBLE;
+  g_map[z][x+4][0] = COBBLE;
+  g_map[z][x+5][0] = COBBLE;
+
+  g_map[z][x][1] = WOOD;
+  g_map[z][x+1][1] = WOOD;
+  g_map[z][x+2][1] = WOOD;
+  g_map[z][x+3][1] = WOOD;
+  g_map[z][x+4][1] = WOOD;
+  g_map[z][x+5][1] = WOOD;
+
+  g_map[z][x][3] = LOG;
+  g_map[z][x+1][2] = WOOD;
+  g_map[z][x+2][2] = WOOD;
+  g_map[z][x+3][2] = WOOD;
+  g_map[z][x+4][2] = WOOD;
+  g_map[z][x+5][3] = LOG;
+
+  g_map[z][x+1][4] = LOG;
+  g_map[z][x+2][5] = LOG;
+  g_map[z][x+3][5] = LOG;
+  g_map[z][x+4][4] = LOG;
+
+  g_map[z][x+2][3] = WOOD;
+  g_map[z][x+3][3] = WOOD;
+
+  g_map[z][x+2][4] = WOOD;
+  g_map[z][x+3][4] = WOOD;
+  g_map[z][x+4][3] = WOOD;
+  g_map[z][x+1][3] = WOOD;
+  
+  g_map[z][x+1][2] = WOOD;
+  g_map[z][x+5][2] = WOOD;
+
+  // left side
+
+  g_map[z+1][x][0] = COBBLE;
+  g_map[z+2][x][0] = COBBLE;
+  g_map[z+3][x][0] = COBBLE;
+
+  g_map[z+3][x][1] = WOOD;
+  g_map[z+3][x][2] = WOOD;
+
+  //g_map[z+1][x][3] = LOG;
+  g_map[z+2][x][3] = LOG;
+  g_map[z+3][x][3] = LOG;
+
+  g_map[z+1][x-1][2] = LOG;
+  g_map[z+2][x-1][2] = LOG;
+  g_map[z+3][x-1][2] = LOG;
+
+  g_map[z+1][x][3] = BRICKS;
+  g_map[z+1][x][4] = BRICKS;
+  g_map[z+1][x][5] = BRICKS;
+
+  // right side
+
+  g_map[z+1][x+5][0] = COBBLE;
+  g_map[z+2][x+5][0] = COBBLE;
+  g_map[z+3][x+5][0] = COBBLE;
+
+  g_map[z+3][x+5][1] = WOOD;
+  g_map[z+3][x+5][2] = WOOD;
+
+  g_map[z+1][x+5][3] = LOG;
+  g_map[z+2][x+5][3] = LOG;
+  g_map[z+3][x+5][3] = LOG;
+
+  g_map[z+1][x+6][2] = LOG;
+  g_map[z+2][x+6][2] = LOG;
+  g_map[z+3][x+6][2] = LOG;
+
+  // front
+
+  g_map[z+3][x+1][0] = COBBLE;
+  g_map[z+3][x+4][0] = COBBLE;
+
+  g_map[z+3][x+1][1] = WOOD;
+  g_map[z+3][x+4][1] = WOOD;
+
+  g_map[z+3][x+1][2] = WOOD;
+  //g_map[z+3][x+2][2] = WOOD;
+  //g_map[z+3][x+3][2] = WOOD;
+  g_map[z+3][x+4][2] = WOOD;
+
+  g_map[z+3][x+1][4] = LOG;
+  g_map[z+3][x+2][5] = LOG;
+  g_map[z+3][x+3][5] = LOG;
+  g_map[z+3][x+4][4] = LOG;
+
+  g_map[z+3][x+2][3] = WOOD;
+  g_map[z+3][x+3][3] = WOOD;
+
+  g_map[z+3][x+2][4] = WOOD;
+  g_map[z+3][x+3][4] = WOOD;
+  g_map[z+3][x+4][3] = WOOD;
+  g_map[z+3][x+1][3] = WOOD;
+
+  // roof
+
+  g_map[z+1][x+1][4] = LOG;
+  g_map[z+1][x+2][5] = LOG;
+  g_map[z+1][x+3][5] = LOG;
+  g_map[z+1][x+4][4] = LOG;
+
+  g_map[z+2][x+1][4] = LOG;
+  g_map[z+2][x+2][5] = LOG;
+  g_map[z+2][x+3][5] = LOG;
+  g_map[z+2][x+4][4] = LOG;
+
+  g_map[z-1][x][3] = LOG;
+  g_map[z-1][x+1][4] = LOG;
+  g_map[z-1][x+2][5] = LOG;
+  g_map[z-1][x+3][5] = LOG;
+  g_map[z-1][x+4][4] = LOG;
+  g_map[z-1][x+5][3] = LOG;
+
+  g_map[z+4][x][3] = LOG;
+  g_map[z+4][x+1][4] = LOG;
+  g_map[z+4][x+2][5] = LOG;
+  g_map[z+4][x+3][5] = LOG;
+  g_map[z+4][x+4][4] = LOG;
+  g_map[z+4][x+5][3] = LOG;
+
+  g_map[z-1][x-1][2] = LOG;
+  g_map[z][x-1][2] = LOG;
+  g_map[z+4][x-1][2] = LOG;
+  g_map[z-1][x+6][2] = LOG;
+  g_map[z][x+6][2] = LOG;
+  g_map[z+4][x+6][2] = LOG;
+}
+
 function initMap() {
   clearMap();
 
   if (g_buildTrees) {
-    addTree(5, 5);
+    addTree(8, 5);
+    addTree(4, 10);
     addTree(27, 27);
-    //addTree(17, 26);
   }
 
   if (g_buildHouse) {
-    addHouse(14, 6);
+    //addHouse(14, 6);
+    addHouse2(14, 6);
   }
 }
 
