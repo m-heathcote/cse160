@@ -84,7 +84,7 @@ var keyFunc = {
         }
         break;
       case E:
-        if (!g_map[mapZ][mapX + 1][0] && !g_map[mapZ][mapX + 1]) {
+        if (!g_map[mapZ][mapX + 1][0] && !g_map[mapZ][mapX + 1][1]) {
           g_turtleX += 0.1;
         }
         break;
