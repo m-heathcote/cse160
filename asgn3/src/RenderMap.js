@@ -86,6 +86,11 @@ function create3DMap(map, size) {
   }
 }
 
+function clearMap() {
+  g_map = [];
+  create3DMap(g_map, 32);
+}
+
 function initMap() {
   create3DMap(g_map, 32);  // 32 x 32 matrix filled with empty dictionaries {} used to store 3rd dimension
 }

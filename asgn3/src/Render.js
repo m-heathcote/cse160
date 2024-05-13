@@ -64,7 +64,7 @@ function renderAllShapes() {
   /*
   // test cube 1
   var testCube1 = new Cube();
-  testCube1.textureNum = 2;
+  testCube1.textureNum = -2;
   testCube1.color = [1, 0, 0, 1];  // red
   testCube1.matrix.translate(-1, -0.7, -0.1);
   testCube1.matrix.scale(0.4, 0.4, 0.4);
@@ -72,27 +72,11 @@ function renderAllShapes() {
 
   // test cube 2
   var testCube2 = new Cube();
-  testCube2.textureNum = 3;
-  testCube2.color = [1, 0, 0, 1];  // red
+  testCube2.textureNum = -2;
+  testCube2.color = [1, 0, 0, 0.1];  // red
   testCube2.matrix.translate(-0.5, -0.7, -0.1);
   testCube2.matrix.scale(0.4, 0.4, 0.4);
   testCube2.render();
-
-  // test cube 3
-  var testCube3 = new Cube();
-  testCube3.textureNum = 4;
-  testCube3.color = [1, 0, 0, 1];  // red
-  testCube3.matrix.translate(0, -0.7, -0.1);
-  testCube3.matrix.scale(0.4, 0.4, 0.4);
-  testCube3.render();
-
-  // test cube 4
-  var testCube4 = new Cube();
-  testCube4.textureNum = 5;
-  testCube4.color = [1, 0, 0, 1];  // red
-  testCube4.matrix.translate(0.5, -0.7, -0.1);
-  testCube4.matrix.scale(0.4, 0.4, 0.4);
-  testCube4.render();
   */
 
 
