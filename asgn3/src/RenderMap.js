@@ -4,7 +4,7 @@ var g_map = [];  // g_map[z][x][y]
 var g_mapInitialized = false;
 
 var g_buildTrees = true;
-var g_buildHouse = false;
+var g_buildHouse = true;
 
 function create3DMap(map, size) {
   for (i = 0; i < size; i++) {
