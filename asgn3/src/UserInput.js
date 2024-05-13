@@ -17,6 +17,8 @@ var g_turtleZ = 0;
 var g_turtleRot = 90;
 
 // -- Globals for Building --
+var T = 4;  // top     (for getting face of cube looked at)
+var B = 5;  // bottom  (used with N,E,S,W above)
 var NOBUILD = 0;
 var BUILD = 1;
 var BREAK = 2;
@@ -27,6 +29,7 @@ var DIRT = 6;
 var BRICKS = 8;
 var g_blockType = WOOD;
 var g_selected = null;
+var g_buildHeight = 50;
 
 // ----- convertCoordinatesEventToGL -----
 // Extract the event click and return it in WebGL coordinates
@@ -331,6 +334,29 @@ function selectBlocks() {
 }
 // ----- end selectBlocks -----
 
+// ----- whichFace -----
+function whichFace() {
+  deltaX = camera.at.elements[0] - camera.eye.elements[0];
+  deltaY = camera.at.elements[1] - camera.eye.elements[1];
+  deltaZ = camera.at.elements[2] - camera.eye.elements[2];
+
+  let topBias = deltaY < 0 ? 0.1 : 0;
+
+  d = [Math.abs(deltaX), Math.abs(deltaY) + topBias, Math.abs(deltaZ)];
+  let maxIndex = d.indexOf(Math.max(...d));
+
+  if (maxIndex === 0) {
+    return deltaX > 0 ? W : E;
+  } else
+  if (maxIndex === 1) {
+    return deltaY > 0 ? B : T;
+  } else
+  if (maxIndex === 2) {
+    return deltaZ > 0 ? N : S;
+  }
+}
+// ----- end whichFace -----
+
 // ----- click -----
 function click() {
   let atX = toMapCoords(camera.at.elements[0]);
@@ -342,7 +368,44 @@ function click() {
 
   if (atZ < 32 && atX < 32) {
     if (g_buildMode === BUILD) {
-      g_map[atZ][atX][closestY + 1] = g_blockType;  // build 1 above selected
+      //g_map[atZ][atX][closestY + 1] = g_blockType;  // build 1 above selected
+
+      var side = whichFace();
+      if (closestY === -1) {
+        side = T;
+      }
+
+      if (side === N) {  // North
+        if (atZ > 0 && closestY >= 0) {
+          g_map[atZ - 1][atX][closestY] = g_blockType;
+        }
+      } else
+      if (side === E && closestY >= 0) {  // East
+        if (atX < 31) {
+          g_map[atZ][atX + 1][closestY] = g_blockType;
+        }
+      } else
+      if (side === S && closestY >= 0) {  // South
+        if (atZ < 31) {
+          g_map[atZ + 1][atX][closestY] = g_blockType;
+        }
+      } else
+      if (side === W && closestY >= 0) {  // West
+        if (atX > 0) {
+          g_map[atZ][atX - 1][closestY] = g_blockType;
+        }
+      } else
+      if (side === T) {  // Top
+        if (closestY < g_buildHeight - 1) {
+          g_map[atZ][atX][closestY + 1] = g_blockType;
+        }
+      } else
+      if (side === B) {  // Bottom
+        if (closestY >= 0) {
+          g_map[atZ][atX][closestY - 1] = g_blockType;
+        }
+      }
+
     } else
     if (g_buildMode === BREAK) {
       delete g_map[atZ][atX][closestY];  // delete selected
