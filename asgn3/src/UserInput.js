@@ -79,22 +79,22 @@ var keyFunc = {
     
     switch(g_facing) {
       case N:
-        if (!g_map[mapZ - 1][mapX]) {
+        if (!g_map[mapZ - 1][mapX][0] && !g_map[mapZ - 1][mapX][1]) {  // turtle is 2 blocks tall
           g_turtleZ -= 0.1;
         }
         break;
       case E:
-        if (!g_map[mapZ][mapX + 1]) {
+        if (!g_map[mapZ][mapX + 1][0] && !g_map[mapZ][mapX + 1]) {
           g_turtleX += 0.1;
         }
         break;
       case S:
-        if (!g_map[mapZ + 1][mapX]) {
+        if (!g_map[mapZ + 1][mapX][0] && !g_map[mapZ + 1][mapX][1]) {
           g_turtleZ += 0.1;
         }
         break;
       case W:
-        if (!g_map[mapZ][mapX - 1]) {
+        if (!g_map[mapZ][mapX - 1][0] && !g_map[mapZ][mapX - 1][1]) {
           g_turtleX -= 0.1;
         }
         break;
@@ -128,22 +128,22 @@ var keyFunc = {
 
     switch(g_facing) {
       case N:
-        if (!g_map[mapZ + 1][mapX]) {
+        if (!g_map[mapZ + 1][mapX][0] && !g_map[mapZ + 1][mapX][1]) {
           g_turtleZ += 0.1;
         }
         break;
       case E:
-        if (!g_map[mapZ][mapX - 1]) {
+        if (!g_map[mapZ][mapX - 1][0] && !g_map[mapZ][mapX - 1][1]) {
           g_turtleX -= 0.1;
         }
         break;
       case S:
-        if (!g_map[mapZ - 1][mapX]) {
+        if (!g_map[mapZ - 1][mapX][0] && !g_map[mapZ - 1][mapX][1]) {
           g_turtleZ -= 0.1;
         }
         break;
       case W:
-        if (!g_map[mapZ][mapX + 1]) {
+        if (!g_map[mapZ][mapX + 1][0] && !g_map[mapZ][mapX + 1][1]) {
           g_turtleX += 0.1;
         }
         break;
@@ -285,25 +285,39 @@ function mousemove(ev) {
 }
 // ----- end mousemove -----
 
+// ----- closestKey -----
+function closestKey(object, x) {
+  var keys = Object.keys(object);
+
+  // if no keys (empty)
+  if (keys.length === 0) {
+    return -1;
+  }
+
+  // convert keys to numbers
+  var numericalKeys = keys.map(key => parseInt(key));
+
+  // iterate and find closest
+  let closest = numericalKeys[0];
+  numericalKeys.forEach(key => {
+    if (key <= x && key > closest) {
+      closest = key;
+    }
+  });
+
+  return closest === undefined ? -1 : closest;
+}
+// ----- end closestKey -----
+
 // ----- selectBlocks -----
 function selectBlocks() {
   if (g_buildMode != NOBUILD) {
     let atX = toMapCoords(camera.at.elements[0]);
     let atY = toMapCoords(camera.at.elements[1]) - 15;
     let atZ = toMapCoords(camera.at.elements[2]);
-    let closestY;
 
     // find closest Y to looked at
-    if (g_mapTexList[atZ][atX].length > 0) {
-      if (g_mapTexList[atZ][atX].length > atY) {
-        closestY = atY;
-      } else {
-        closestY = g_mapTexList[atZ][atX].length - 1;
-      }
-    }
-    else {
-      closestY = -1;
-    }
+    let closestY = closestKey(g_map[atZ][atX], atY);
 
     if (atZ < 32 && atX < 32) {   // if in range
       // select current block
@@ -320,16 +334,18 @@ function selectBlocks() {
 // ----- click -----
 function click() {
   let atX = toMapCoords(camera.at.elements[0]);
+  let atY = toMapCoords(camera.at.elements[1]) - 15;
   let atZ = toMapCoords(camera.at.elements[2]);
+
+  // find closest Y to looked at
+  let closestY = closestKey(g_map[atZ][atX], atY);
 
   if (atZ < 32 && atX < 32) {
     if (g_buildMode === BUILD) {
-      g_map[atZ][atX] += 1;
-      g_mapTexList[atZ][atX].push(g_blockType);
+      g_map[atZ][atX][closestY + 1] = g_blockType;  // build 1 above selected
     } else
-    if (g_buildMode === BREAK && g_map[atZ][atX] > 0) {
-      g_map[atZ][atX] -= 1;
-      g_mapTexList[atZ][atX].pop();
+    if (g_buildMode === BREAK) {
+      delete g_map[atZ][atX][closestY];  // delete selected
     } 
   }
 }
