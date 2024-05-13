@@ -13,6 +13,14 @@ let u_Sampler2;
 let u_Sampler3;
 let u_Sampler4;
 let u_Sampler5;
+let u_Sampler6;
+let u_Sampler7;
+let u_Sampler8;
+let u_Sampler9;
+let u_Sampler10;
+let u_Sampler11;
+let u_Sampler12;
+let u_Sampler13;
 let u_Size;
 let u_ModelMatrix;
 let u_ProjectionMatrix;
@@ -72,73 +80,75 @@ function connectVariablesToGLSL() {
     return false;
   }
 
-  // Get the storage location of u_Sampler0
+  // Get the storage location of u_Sampler0 - u_Sampler13
   u_Sampler0 = gl.getUniformLocation(gl.program, 'u_Sampler0');
   if (!u_Sampler0) {
     console.log('Failed to get the storage location of u_Sampler0');
     return false;
   }
-
-  // Get the storage location of u_Sampler1
   u_Sampler1 = gl.getUniformLocation(gl.program, 'u_Sampler1');
   if (!u_Sampler1) {
     console.log('Failed to get the storage location of u_Sampler1');
     return false;
   }
-
-  // Get the storage location of u_Sampler2
   u_Sampler2 = gl.getUniformLocation(gl.program, 'u_Sampler2');
   if (!u_Sampler2) {
     console.log('Failed to get the storage location of u_Sampler2');
     return false;
   }
-
-  // Get the storage location of u_Sampler3
   u_Sampler3 = gl.getUniformLocation(gl.program, 'u_Sampler3');
   if (!u_Sampler3) {
     console.log('Failed to get the storage location of u_Sampler3');
     return false;
   }
-
-  // Get the storage location of u_Sampler4
   u_Sampler4 = gl.getUniformLocation(gl.program, 'u_Sampler4');
   if (!u_Sampler4) {
     console.log('Failed to get the storage location of u_Sampler4');
     return false;
   }
-
-  // Get the storage location of u_Sampler5
   u_Sampler5 = gl.getUniformLocation(gl.program, 'u_Sampler5');
   if (!u_Sampler5) {
     console.log('Failed to get the storage location of u_Sampler5');
     return false;
   }
-
-  // Get the storage location of u_Sampler6
   u_Sampler6 = gl.getUniformLocation(gl.program, 'u_Sampler6');
   if (!u_Sampler6) {
     console.log('Failed to get the storage location of u_Sampler6');
     return false;
   }
-
-  // Get the storage location of u_Sampler7
   u_Sampler7 = gl.getUniformLocation(gl.program, 'u_Sampler7');
   if (!u_Sampler7) {
     console.log('Failed to get the storage location of u_Sampler7');
     return false;
   }
-
-  // Get the storage location of u_Sampler8
   u_Sampler8 = gl.getUniformLocation(gl.program, 'u_Sampler8');
   if (!u_Sampler8) {
     console.log('Failed to get the storage location of u_Sampler8');
     return false;
   }
-
-  // Get the storage location of u_Sampler9
   u_Sampler9 = gl.getUniformLocation(gl.program, 'u_Sampler9');
   if (!u_Sampler9) {
     console.log('Failed to get the storage location of u_Sampler9');
+    return false;
+  }
+  u_Sampler10 = gl.getUniformLocation(gl.program, 'u_Sampler10');
+  if (!u_Sampler10) {
+    console.log('Failed to get the storage location of u_Sampler10');
+    return false;
+  }
+  u_Sampler11 = gl.getUniformLocation(gl.program, 'u_Sampler11');
+  if (!u_Sampler11) {
+    console.log('Failed to get the storage location of u_Sampler11');
+    return false;
+  }
+  u_Sampler12 = gl.getUniformLocation(gl.program, 'u_Sampler12');
+  if (!u_Sampler12) {
+    console.log('Failed to get the storage location of u_Sampler12');
+    return false;
+  }
+  u_Sampler13 = gl.getUniformLocation(gl.program, 'u_Sampler13');
+  if (!u_Sampler13) {
+    console.log('Failed to get the storage location of u_Sampler13');
     return false;
   }
 

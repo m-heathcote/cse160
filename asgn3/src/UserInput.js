@@ -27,6 +27,8 @@ var WOOD = 2;
 var COBBLE = 4;
 var DIRT = 6;
 var BRICKS = 8;
+var LOG = 10;
+var LEAVES = 12;
 var g_blockType = WOOD;
 var g_selected = null;
 var g_buildHeight = 50;
@@ -226,7 +228,14 @@ function keydown(ev) {
   } else
   if (ev.keyCode == 52) {
     g_blockType = BRICKS;
+  } else
+  if (ev.keyCode == 53) {
+    g_blockType = LOG;
+  } else
+  if (ev.keyCode == 54) {
+    g_blockType = LEAVES;
   }
+  
 
   console.log("key: ", ev.keyCode);
 }

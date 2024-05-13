@@ -13,6 +13,10 @@ function initTextures() {
   createAndLoadTexture(7, '../resources/dirt-dark.jpg');
   createAndLoadTexture(8, '../resources/bricks.jpg');
   createAndLoadTexture(9, '../resources/bricks-dark.jpg');
+  createAndLoadTexture(10, '../resources/log.jpg');
+  createAndLoadTexture(11, '../resources/log-dark.jpg');
+  createAndLoadTexture(12, '../resources/leaves.png');
+  createAndLoadTexture(13, '../resources/leaves-dark.png');
   
   return true;
 }
@@ -90,6 +94,14 @@ function getTexture(index) {
       return gl.TEXTURE8;
     case 9:
       return gl.TEXTURE9;
+    case 10:
+      return gl.TEXTURE10;
+    case 11:
+      return gl.TEXTURE11;
+    case 12:
+      return gl.TEXTURE12;
+    case 13:
+      return gl.TEXTURE13;
     default:
       return null;
   }
@@ -119,6 +131,14 @@ function getSampler(index) {
       return u_Sampler8;
     case 9:
       return u_Sampler9;
+    case 10:
+      return u_Sampler10;
+    case 11:
+      return u_Sampler11;
+    case 12:
+      return u_Sampler12;
+    case 13:
+      return u_Sampler13;
     default:
       return null;
   }
