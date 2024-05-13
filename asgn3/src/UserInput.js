@@ -205,17 +205,14 @@ function keydown(ev) {
     // faster speed
     camera.speed = 0.4;
   } else
+  if (ev.keyCode == 86) {  // V
+    g_buildMode = NOBUILD;
+  } else
   if (ev.keyCode == 66) {  // B
-    // toggle build mode
-    if (g_buildMode === NOBUILD) {
-      g_buildMode = BUILD;
-    } else
-    if (g_buildMode === BUILD) {
-      g_buildMode = BREAK;
-    } else
-    if (g_buildMode === BREAK) {
-      g_buildMode = NOBUILD;
-    }
+    g_buildMode = BUILD;
+  } else
+  if (ev.keyCode == 78) {  // N
+    g_buildMode = BREAK;
   } else
   if (ev.keyCode == 49) {
     g_blockType = WOOD;
@@ -310,7 +307,7 @@ function closestKey(object, x) {
   var numericalKeys = keys.map(key => parseInt(key));
 
   // iterate and find closest
-  let closest = numericalKeys[0];
+  let closest = -1;
   numericalKeys.forEach(key => {
     if (key <= x && key > closest) {
       closest = key;

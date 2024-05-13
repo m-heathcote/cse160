@@ -14,26 +14,37 @@ let g_animation = OFF;
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
-  
-  // Animation Buttons
-  document.getElementById('offButton').onclick = function() {
-    g_wasON = false;
-    g_animation = OFF;
-  };
-  document.getElementById('onButton').onclick = function() {
-    g_wasON = true;
-    g_animation = ON;
-  };
-  document.getElementById('pokeButton').onclick = function() {
-    g_animation = POKE;
-  };
 
   // Camera View Buttons
+  document.getElementById('mouseButton').onclick = function() {
+    g_lookWithMouse = !g_lookWithMouse;
+
+    if (g_lookWithMouse) {
+      [x, y] = convertCoordinatesEventToGL(ev);
+      g_prevX = x;
+      g_prevY = y;
+    }
+  };
   document.getElementById('view1Button').onclick = function() {
     camera.setGroundView();
   };
   document.getElementById('view2Button').onclick = function() {
     camera.setSkyView();
+  };
+
+  // Map Buttons
+  document.getElementById('clearMapButton').onclick = function() {
+    g_buildTrees = false;
+    g_buildHouse = false;
+    g_mapInitialized = false;
+  };
+  document.getElementById('treesButton').onclick = function() {
+    g_buildTrees = !g_buildTrees;
+    g_mapInitialized = false;
+  };
+  document.getElementById('houseButton').onclick = function() {
+    g_buildHouse = !g_buildHouse;
+    g_mapInitialized = false;
   };
 
   // Build Mode Buttons
@@ -75,12 +86,6 @@ function addActionsForHtmlUI() {
   document.getElementById('leavesButton').onclick = function() {
     g_blockType = LEAVES;
   };
-
-  // Animation Speed Slider
-  document.getElementById("animationSlide").addEventListener("mousemove", function() {
-    g_animationSpeed = this.value;
-    renderAllShapes();
-  });
 }
 // ----- end addActionsForHtmlUI -----
 

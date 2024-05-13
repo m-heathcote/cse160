@@ -3,6 +3,9 @@
 var g_map = [];  // g_map[z][x][y]
 var g_mapInitialized = false;
 
+var g_buildTrees = true;
+var g_buildHouse = false;
+
 function create3DMap(map, size) {
   for (i = 0; i < size; i++) {
     map.push([]);        // rows
@@ -14,7 +17,7 @@ function create3DMap(map, size) {
 
 function clearMap() {
   g_map = [];
-  create3DMap(g_map, 32);
+  create3DMap(g_map, 32);  // 32 x 32 matrix filled with empty dictionaries {} used to store 3rd dimension
 }
 
 function addTree(x, z) {
@@ -142,13 +145,17 @@ function addHouse(x, z) {
 }
 
 function initMap() {
-  create3DMap(g_map, 32);  // 32 x 32 matrix filled with empty dictionaries {} used to store 3rd dimension
+  clearMap();
 
-  addTree(5, 5);
-  addTree(27, 27);
-  //addTree(17, 26);
+  if (g_buildTrees) {
+    addTree(5, 5);
+    addTree(27, 27);
+    //addTree(17, 26);
+  }
 
-  addHouse(14, 6);
+  if (g_buildHouse) {
+    addHouse(14, 6);
+  }
 }
 
 function toMapCoords(num) {
@@ -163,6 +170,7 @@ function toMapCoords(num) {
 function drawMap() {
   if (!g_mapInitialized) {
     initMap();
+    g_mapInitialized = true;
   }
 
   var block = new Cube();
