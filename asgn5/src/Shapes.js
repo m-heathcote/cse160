@@ -215,7 +215,6 @@ export function createBigTree() {
   const l_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const l_leaves_3 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const l_leaves_4 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
-  const l_leaves_5 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   
   const rr_leaves_1 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const rr_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
