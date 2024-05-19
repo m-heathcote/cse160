@@ -45,6 +45,7 @@ function main() {
   Shapes.createGround();
   Shapes.createBigTree();
   Shapes.createSwing();
+  Shapes.addFireflies();
 
   // Objects
   Objects.createDoor();

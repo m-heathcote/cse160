@@ -257,8 +257,7 @@ export function createSwing() {
   const height = 18;
   const radialSegments = 6; 
   const heightSegments = 1;
-  const openEnded = false; // Whether the ends of the cylinder are open or capped
-
+  const openEnded = false;  // Whether the ends of the cylinder are open or capped
   const cyl_geo = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded);
 
   // create cube geometry
@@ -302,4 +301,59 @@ export function createSwing() {
   seat.scale.set(3, 0.35, 1.5);
   seat.position.set(1.1, -17.5, 0);
   left_pivot.add(seat);
+}
+
+function addFirefly() {
+  const scale = 0.4;
+
+  // create sphere geometry
+  const radius = scale;
+  const widthSegments = 10;
+  const s_heightSegments = 10;
+  const sphere_geo = new THREE.SphereGeometry(radius, widthSegments, s_heightSegments);
+
+  /*
+  // create cylinder geometry
+  const radiusTop = scale * 0.6;
+  const radiusBottom = scale * 0.6;
+  const height = scale * 0.2;
+  const radialSegments = 20; 
+  const c_heightSegments = 1;
+  const openEnded = false;  // Whether the ends of the cylinder are open or capped
+  const cyl_geo = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, c_heightSegments, openEnded);
+
+  
+  const head = makeInstance(sphere_geo, 0xB8DCDB);
+  const l_wing = makeInstance(cyl_geo, 0xF8F8F8);
+  const r_wing = makeInstance(cyl_geo, 0xF8F8F8);
+  */
+
+  const bug = makeInstance(sphere_geo, 0xF1E56C);
+
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(150));
+
+  bug.position.set(x, y, z);
+
+  /*
+  head.position.set(x, y, z + (scale*0.75));
+  l_wing.position.set(x - (scale*1.1), y + (scale*0.95), z - (scale*0.2));
+  r_wing.position.set(x + (scale*1.1), y + (scale*0.95), z - (scale*0.2));
+
+  head.scale.set(0.6, 0.6, 0.6);
+  l_wing.scale.set(1, 1, 2);
+  r_wing.scale.set(1, 1, 2);
+
+  l_wing.rotation.y = Math.PI / 8;
+  r_wing.rotation.y = - Math.PI / 8;
+
+  l_wing.rotation.x = Math.PI / 10;
+  r_wing.rotation.x = Math.PI / 10;
+
+  l_wing.rotation.z = - Math.PI / 8;
+  r_wing.rotation.z = Math.PI / 8;
+  */
+}
+
+export function addFireflies() {
+  Array(150).fill().forEach(addFirefly);
 }
