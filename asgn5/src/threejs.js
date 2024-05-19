@@ -50,23 +50,6 @@ function main() {
   Objects.createDoor();
   Objects.createWindows();
 
-  /*
-  // create checkered floor
-  Shapes.createPlane();
-
-  // create room walls
-  Shapes.createWalls();
-  
-  // create bookshelf obj
-  Objects.createBookshelf();
-
-  // create books obj
-  Objects.createBooks();
-
-  // create dice
-  Shapes.createDice();
-  */
-
   // ---------- Animation ----------
 
   // begin animation
