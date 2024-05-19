@@ -55,6 +55,9 @@ export function render(time) {
   // render the scene
   SetUp.renderer.render(SetUp.scene, SetUp.camera);
 
+  // update controls
+  SetUp.controls.update();
+
   // animate
   requestAnimationFrame(render);
 }

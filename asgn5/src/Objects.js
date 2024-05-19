@@ -75,3 +75,7 @@ export function createWindows() {
   var pos = new THREE.Vector3(-1.15, 5.8, -3.15);
   createWindow(pos, Math.PI / 2);
 }
+
+export function createLanturn() {
+  console.log("...");
+}

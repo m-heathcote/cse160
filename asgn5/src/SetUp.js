@@ -6,6 +6,7 @@ export var canvas;
 export var renderer;
 export var camera;
 export var scene;
+export var controls;
 
 export function setCanvas() {
   canvas = document.querySelector('#c');
@@ -28,9 +29,22 @@ export function initCamera() {
 	camera.position.set(0, 15, 60);
 
   // orbit controls
-	const controls = new OrbitControls(camera, canvas);
+	controls = new OrbitControls(camera, canvas);
 	controls.target.set(0, 5, 0);
+  controls.enableDamping = true;
 	controls.update();
+
+  // don't allow user to pan below y = 0
+  controls.addEventListener('change', () => {
+      // Ensure camera doesn't go below y=0
+      const { x, y, z } = camera.position;
+      if (y < 1) {
+          camera.position.set(x, 1, z);
+      }
+  });
+
+  // ensure zooming (scroll to zoom) is enabled
+  controls.enableZoom = true;
 }
 
 export function createScene() {
