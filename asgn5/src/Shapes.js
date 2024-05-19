@@ -198,14 +198,27 @@ export function createBigTree() {
   const r_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
   const r_branch_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
+  const rr_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
+
   const l_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
   const l_branch_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
   const r_leaves_1 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const r_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const r_leaves_3 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const r_leaves_4 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const r_leaves_5 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
 
   const l_leaves_1 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const l_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const l_leaves_3 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const l_leaves_4 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const l_leaves_5 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  
+  const rr_leaves_1 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const rr_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const rr_leaves_3 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
+  const rr_leaves_4 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
 
   // trunk base coords
   const x = 0;
@@ -230,12 +243,12 @@ export function createBigTree() {
   r_trunk_5.scale.set(2, 10, 3.5);
   r_trunk_5.position.set(x + 2.5, y + (r_trunk_5.scale.y*0.49), z + 1.5);
 
-  r_trunk_6.scale.set(2, 8, 5);
-  r_trunk_6.position.set(x + 2.5, y + (r_trunk_6.scale.y*0.49) + 15, z);
-  r_trunk_7.scale.set(2, 5, 3);
-  r_trunk_7.position.set(x + 3, y + (r_trunk_7.scale.y*0.49) + 17, z - 0.5);
-  r_trunk_8.scale.set(2, 3.5, 2);
-  r_trunk_8.position.set(x + 3.25, y + (r_trunk_8.scale.y*0.49) + 18, z - 0.75);
+  r_trunk_6.scale.set(2, 10, 5);
+  r_trunk_6.position.set(x + 2.5, y + (r_trunk_6.scale.y*0.49) + 14, z);
+  r_trunk_7.scale.set(2, 7.5, 4.5);
+  r_trunk_7.position.set(x + 3.5, y + (r_trunk_7.scale.y*0.49) + 15, z);
+  r_trunk_8.scale.set(3, 5, 3.5);
+  r_trunk_8.position.set(x + 4.5, y + (r_trunk_8.scale.y*0.49) + 16, z + 0.2);
 
   // left
   l_trunk_1.scale.set(2, 8, 3.5);
@@ -282,27 +295,55 @@ export function createBigTree() {
   const z2 = z;
 
   // right branch
-  r_branch_1.scale.set(4, 8, 4);
+  r_branch_1.scale.set(4.8, 7, 4);
   r_branch_1.rotation.x = - Math.PI / 2;  // -90 degrees
   r_branch_1.position.set(x2 + 2, y2 + (r_branch_1.scale.y*0.49), z2 - 4);
   r_branch_2.scale.set(3.5, 8, 3.5);
-  r_branch_2.position.set(x2 + 2, y2 + (r_branch_2.scale.y*0.49) + 2, z2 - 8);
+  r_branch_2.position.set(x2 + 2, y2 + (r_branch_2.scale.y*0.49) + 2.5, z2 - 8);
+
+  // *right* right branch
+  rr_branch_1.scale.set(3.5, 6, 2.5);
+  rr_branch_1.rotation.z = Math.PI / 2;  // 90 degrees
+  rr_branch_1.position.set(x2 + 6, y2 + (rr_branch_1.scale.y*0.49) - 5, z2 + 0.2);
 
   // left branch
   l_branch_1.scale.set(4, 10, 4);
   l_branch_1.rotation.z = - Math.PI / 2;  // -90 degrees
-  l_branch_1.position.set(x2 - 8, y2 + (l_branch_1.scale.y*0.49) - 3, z2 + 0.75);
+  l_branch_1.position.set(x2 - 7, y2 + (l_branch_1.scale.y*0.49) - 3, z2 + 0.75);
   l_branch_2.scale.set(3.5, 8, 3.5);
-  l_branch_2.position.set(x2 - 12, y2 + (l_branch_2.scale.y*0.49), z2 + 0.75);
+  l_branch_2.position.set(x2 - 12, y2 + (l_branch_2.scale.y*0.49) + 0.5, z2 + 0.75);
 
   // right leaves
-  r_leaves_1.scale.set(12, 12, 12);
+  r_leaves_1.scale.set(12, 13, 12);
   r_leaves_1.position.set(x2 + 2, y2 + (r_leaves_1.scale.y*0.49) + 7.5, z2 - 8);
-  r_leaves_2.scale.set(10, 10, 10);
-  r_leaves_2.position.set(x2 + 4, y2 + (r_leaves_2.scale.y*0.49) + 6, z2 - 1);
+  r_leaves_2.scale.set(12, 11.5, 10.5);
+  r_leaves_2.position.set(x2 + 4, y2 + (r_leaves_2.scale.y*0.49) + 6.5, z2 - 1);
+  r_leaves_3.scale.set(11, 12, 11);
+  r_leaves_3.position.set(x2, y2 + (r_leaves_3.scale.y*0.49) + 11, z2 - 12);
+  r_leaves_4.scale.set(12, 13, 14.5);
+  r_leaves_4.position.set(x2 - 3, y2 + (r_leaves_4.scale.y*0.49) + 8.5, z2 - 4.5);
+  r_leaves_5.scale.set(9, 10, 9);
+  r_leaves_5.position.set(x2 - 3, y2 + (r_leaves_5.scale.y*0.49) + 9.5, z2 + 3);
+
+  // *right* right leaves
+  rr_leaves_1.scale.set(8, 8, 8);
+  rr_leaves_1.position.set(x2 + 11, y2 + (rr_leaves_1.scale.y*0.49) - 5, z2 + 1);
+  rr_leaves_2.scale.set(11, 11, 11);
+  rr_leaves_2.position.set(x2 + 15, y2 + (rr_leaves_2.scale.y*0.49) - 6, z2 + 0.5);
+  rr_leaves_3.scale.set(10, 10, 10);
+  rr_leaves_3.position.set(x2 + 19, y2 + (rr_leaves_3.scale.y*0.49) - 3, z2 - 3);
+  rr_leaves_4.scale.set(8, 8, 8);
+  rr_leaves_4.position.set(x2 + 22, y2 + (rr_leaves_4.scale.y*0.49) + 1, z2 - 6);
 
   // left leaves
   l_leaves_1.scale.set(12, 12, 12);
-  l_leaves_1.position.set(x2 - 12, y2 + (l_leaves_1.scale.y*0.49) + 2, z2 + 0.75);
-
+  l_leaves_1.position.set(x2 - 12.5, y2 + (l_leaves_1.scale.y*0.49) + 2, z2 + 0.75);
+  l_leaves_2.scale.set(10, 10, 10);
+  l_leaves_2.position.set(x2 - 16.5, y2 + (l_leaves_1.scale.y*0.49) + 5, z2 + 6);
+  l_leaves_3.scale.set(8, 8, 8);
+  l_leaves_3.position.set(x2 - 12.5, y2 + (l_leaves_3.scale.y*0.49) + 4, z2 - 4.5);
+  l_leaves_4.scale.set(7, 7, 7);
+  l_leaves_4.position.set(x2 - 20.5, y2 + (l_leaves_4.scale.y*0.49) + 10, z2 + 9);
+  l_leaves_4.scale.set(9, 5, 9);
+  l_leaves_4.position.set(x2 - 10.5, y2 + (l_leaves_4.scale.y*0.49) + 13, z2);
 }
