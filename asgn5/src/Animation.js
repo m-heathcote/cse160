@@ -28,11 +28,13 @@ export function render(time) {
   const speed = 1.5;
   const rot = time * speed;
 
+  /*
   // set rotations (in radians)
   Shapes.d20.rotation.x = rot;
   Shapes.d20.rotation.y = rot;
   Shapes.d12.rotation.x = rot;
   Shapes.d12.rotation.y = rot;
+  */
 
   // render the scene
   SetUp.renderer.render(SetUp.scene, SetUp.camera);

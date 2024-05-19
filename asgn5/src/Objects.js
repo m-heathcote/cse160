@@ -35,9 +35,6 @@ export function createBookshelf() {
       const newPosition = new THREE.Vector3(6.4, 2, -6.4);
       root.position.copy(newPosition);
 
-      // turn on shadows
-      root.recieveShadow = true;
-
       // add to scene
       SetUp.scene.add(root);
     });

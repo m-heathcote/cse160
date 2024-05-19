@@ -12,8 +12,10 @@ export function setCanvas() {
 }
 
 export function createRenderer() {
-  renderer = new THREE.WebGLRenderer({antialias: true, canvas});
-  renderer.shadowMap.enabled = true; // Enable shadow mapping
+  renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    canvas,
+  });
 }
 
 export function initCamera() {
@@ -21,14 +23,13 @@ export function initCamera() {
 	var fov = 45;
 	var aspect = 2; // the canvas default
 	var near = 0.1;
-	var far = 100;
+	var far = 400;
 	camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 	camera.position.set(0, 10, 40);
 
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
 	controls.target.set(0, 5, 0);
-	//controls.target.set(5.4, 5.86, -7.9);
 	controls.update();
 }
 

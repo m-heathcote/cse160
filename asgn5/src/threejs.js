@@ -1,9 +1,11 @@
+import * as THREE from 'three';
 import * as SetUp from "./SetUp.js"
 import * as Lighting from "./Lighting.js"
 import * as Shapes from "./Shapes.js"
 import * as Objects from "./Objects.js"
 import * as Animation from "./Animation.js"
 
+var showGrid = false;
 
 function main() {
 
@@ -22,12 +24,27 @@ function main() {
   SetUp.createScene();
 
   // create lights
-  var lights = Lighting.createLights();
+  Lighting.createLights();
+
+  // ---------- Grid Helper ----------
+
+  if (showGrid) {
+    // Create a grid helper
+    const size = 100; // Size of the grid
+    const divisions = 50; // Number of divisions
+    const gridHelper = new THREE.GridHelper(size, divisions);
+    SetUp.scene.add(gridHelper);
+  }
 	
   // ---------- Geometry Objects ----------
 
+  // create environment
+  Shapes.createGround();
+  Shapes.createBigTree();
+
+  /*
   // create checkered floor
-  var checkeredFloor = Shapes.createPlane();
+  Shapes.createPlane();
 
   // create room walls
   Shapes.createWalls();
@@ -40,6 +57,7 @@ function main() {
 
   // create dice
   Shapes.createDice();
+  */
 
   // ---------- Animation ----------
 
