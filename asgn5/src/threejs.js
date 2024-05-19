@@ -23,6 +23,9 @@ function main() {
   // create a scene
   SetUp.createScene();
 
+  // add fog
+  SetUp.addFog();
+
   // create lights
   Lighting.createLights();
 

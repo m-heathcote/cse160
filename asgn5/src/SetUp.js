@@ -48,3 +48,11 @@ export function createScene() {
   ]);
   scene.background = texture;
 }
+
+export function addFog() {
+  // Add linear fog to the scene
+  const fogColor = 0x0B0C2D; // Color of the fog
+  const fogNear = 300; // The distance at which the fog starts
+  const fogFar = 350; // The distance at which the fog completely covers objects
+  scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+}

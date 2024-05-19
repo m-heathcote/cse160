@@ -151,7 +151,7 @@ export function createDice() {
 
 export function createGround() {
   // define size
-  const radius = 70;
+  const radius = 100;
   const segments = 40;
 
   // create circle
