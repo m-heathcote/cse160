@@ -35,5 +35,16 @@ export function initCamera() {
 
 export function createScene() {
   scene = new THREE.Scene();
-	scene.background = new THREE.Color(0xADD9FF);
+	//scene.background = new THREE.Color(0xADD9FF);
+
+  const loader = new THREE.CubeTextureLoader();
+  const texture = loader.load([
+    '../imgs/cubemaps/stars-3.png',
+    '../imgs/cubemaps/stars-3.png',
+    '../imgs/cubemaps/stars-3.png',
+    '../imgs/cubemaps/stars-3.png',
+    '../imgs/cubemaps/stars-3.png',
+    '../imgs/cubemaps/stars-3.png'
+  ]);
+  scene.background = texture;
 }
