@@ -197,11 +197,13 @@ export function createBigTree() {
 
   const r_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
   const r_branch_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
+  const r_branch_3 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
   const rr_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
   const l_branch_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
   const l_branch_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
+  const l_branch_3 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
   const r_leaves_1 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
   const r_leaves_2 = makeInstTextured(cube_geo, '../imgs/grass-8.jpg', 1);
@@ -228,8 +230,8 @@ export function createBigTree() {
   // center
   c_trunk_1.scale.set(6, 25, 6);
   c_trunk_1.position.set(x, y + (c_trunk_1.scale.y*0.49), z);
-  c_trunk_2.scale.set(4.5, 1.5, 4.5);
-  c_trunk_2.position.set(x, y + (c_trunk_2.scale.y*0.49) + 24.5, z);
+  //c_trunk_2.scale.set(4.5, 1.5, 4.5);
+  //c_trunk_2.position.set(x, y + (c_trunk_2.scale.y*0.49) + 24.5, z);
 
   // right
   r_trunk_1.scale.set(4, 6.6, 4.4);
@@ -244,9 +246,9 @@ export function createBigTree() {
   r_trunk_5.position.set(x + 2.5, y + (r_trunk_5.scale.y*0.49), z + 1.5);
 
   r_trunk_6.scale.set(2, 10, 5);
-  r_trunk_6.position.set(x + 2.5, y + (r_trunk_6.scale.y*0.49) + 14, z);
+  r_trunk_6.position.set(x + 2.5, y + (r_trunk_6.scale.y*0.49) + 13, z);
   r_trunk_7.scale.set(2, 7.5, 4.5);
-  r_trunk_7.position.set(x + 3.5, y + (r_trunk_7.scale.y*0.49) + 15, z);
+  r_trunk_7.position.set(x + 3.5, y + (r_trunk_7.scale.y*0.49) + 14.5, z);
   r_trunk_8.scale.set(3, 5, 3.5);
   r_trunk_8.position.set(x + 4.5, y + (r_trunk_8.scale.y*0.49) + 16, z + 0.2);
 
@@ -269,8 +271,10 @@ export function createBigTree() {
   l_trunk_7.position.set(x - 5.25, y + (l_trunk_7.scale.y*0.49), z + 0.7);
 
   // front
-  f_trunk_1.scale.set(2, 3.5, 1.5);
-  f_trunk_1.position.set(x - 1, y + (f_trunk_1.scale.y*0.49), z + 2.6);
+  //f_trunk_1.scale.set(2, 3.5, 1.5);
+  //f_trunk_1.position.set(x - 1, y + (f_trunk_1.scale.y*0.49), z + 2.6);
+  f_trunk_1.scale.set(3, 6, 2);
+  f_trunk_1.position.set(x - 1, y + (f_trunk_1.scale.y*0.49), z + 2.65);
   f_trunk_2.scale.set(2, 8, 1.5);
   f_trunk_2.position.set(x - 1, y + (f_trunk_2.scale.y*0.49) + 11, z + 2.7);
   f_trunk_3.scale.set(2, 8, 1.5);
@@ -297,9 +301,11 @@ export function createBigTree() {
   // right branch
   r_branch_1.scale.set(4.8, 7, 4);
   r_branch_1.rotation.x = - Math.PI / 2;  // -90 degrees
-  r_branch_1.position.set(x2 + 2, y2 + (r_branch_1.scale.y*0.49), z2 - 4);
-  r_branch_2.scale.set(3.5, 8, 3.5);
-  r_branch_2.position.set(x2 + 2, y2 + (r_branch_2.scale.y*0.49) + 2.5, z2 - 8);
+  r_branch_1.position.set(x2 + 1, y2 + (r_branch_1.scale.y*0.49) - 1, z2 - 4);
+  r_branch_2.scale.set(3, 8, 3.5);
+  r_branch_2.position.set(x2 + 1, y2 + (r_branch_2.scale.y*0.49) + 2.5, z2 - 8);
+  r_branch_3.scale.set(4, 4, 4);
+  r_branch_3.position.set(x2 + 1, y2 + (r_branch_2.scale.y*0.49) - 0.5, z2 - 7);
 
   // *right* right branch
   rr_branch_1.scale.set(3.5, 6, 2.5);
@@ -309,9 +315,11 @@ export function createBigTree() {
   // left branch
   l_branch_1.scale.set(4, 10, 4);
   l_branch_1.rotation.z = - Math.PI / 2;  // -90 degrees
-  l_branch_1.position.set(x2 - 7, y2 + (l_branch_1.scale.y*0.49) - 3, z2 + 0.75);
+  l_branch_1.position.set(x2 - 7, y2 + (l_branch_1.scale.y*0.49) - 4, z2 + 0.25);
   l_branch_2.scale.set(3.5, 8, 3.5);
-  l_branch_2.position.set(x2 - 12, y2 + (l_branch_2.scale.y*0.49) + 0.5, z2 + 0.75);
+  l_branch_2.position.set(x2 - 12, y2 + (l_branch_2.scale.y*0.49) + 0.5, z2 + 0.25);
+  l_branch_3.scale.set(3, 5.5, 4.5);
+  l_branch_3.position.set(x2 - 3, y2 + (l_branch_3.scale.y*0.49) -2, z2 + 0.25);
 
   // right leaves
   r_leaves_1.scale.set(12, 13, 12);

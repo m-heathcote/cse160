@@ -6,7 +6,7 @@ var showHelper = true;
 export function createLights() {
   // -- Ambient Light --
   var a_color = 0x404040;
-  var a_intensity = 0.5;
+  var a_intensity = 1;
   const a_light = new THREE.AmbientLight(a_color, a_intensity); // Soft white light
   SetUp.scene.add(a_light);
 
@@ -21,8 +21,7 @@ export function createLights() {
   var d_color = 0xFFFFFF;
   var d_intensity = 1;
   const d_light = new THREE.DirectionalLight(d_color, d_intensity);
-  //d_light.position.set(-20, 10, 10);
-  d_light.position.set(-30, 5, 30);
+  d_light.position.set(-30, 15, 30);
   SetUp.scene.add(d_light);
   SetUp.scene.add(d_light.target);
 

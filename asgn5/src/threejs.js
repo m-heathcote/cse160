@@ -36,11 +36,15 @@ function main() {
     SetUp.scene.add(gridHelper);
   }
 	
-  // ---------- Geometry Objects ----------
+  // ---------- Objects ----------
 
-  // create environment
+  // Shapes
   Shapes.createGround();
   Shapes.createBigTree();
+
+  // Objects
+  Objects.createDoor();
+  Objects.createWindows();
 
   /*
   // create checkered floor
