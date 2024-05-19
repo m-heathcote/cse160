@@ -303,18 +303,41 @@ export function createSwing() {
   left_pivot.add(seat);
 }
 
+export var fireflies = [];
+
 function addFirefly() {
-  // create sphere geometry
-  const radius = 0.3;
-  const widthSegments = 10;
-  const s_heightSegments = 10;
-  const sphere_geo = new THREE.SphereGeometry(radius, widthSegments, s_heightSegments);
+  // get randomized position
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+  const size = THREE.MathUtils.randFloatSpread(2) + 1.5;
 
-  const bug = makeInstance(sphere_geo, 0xF1E56C);
+  // load glow texture
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load('../imgs/glow.png');
+	
+	// use sprite because it appears the same from all angles
+	var spriteMaterial = new THREE.SpriteMaterial( { 
+		map: texture,
+    color: 0xFFEC90,
+    transparent: true,
+    blending: THREE.AdditiveBlending
+	});
 
-  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(150));
+	// create the sprite
+  const sprite = new THREE.Sprite(spriteMaterial);
+  var s = size * 0.6;
+  sprite.scale.set(s, s, s); // Scale the sprite
+  sprite.position.set(x, y + 40, z);
+  SetUp.scene.add(sprite);
 
-  bug.position.set(x, y + 40, z);
+  // Add velocity for movement
+  sprite.velocity = new THREE.Vector3(
+    THREE.MathUtils.randFloatSpread(0.2),
+    THREE.MathUtils.randFloatSpread(0.2),
+    THREE.MathUtils.randFloatSpread(0.2)
+  );
+
+  // add to array
+  fireflies.push(sprite);
 }
 
 export function addFireflies() {
