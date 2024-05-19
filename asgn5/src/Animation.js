@@ -15,6 +15,12 @@ function resizeRendererToDisplaySize(renderer) {
   return needResize;
 }
 
+// animation vars
+let angle = 0;
+let direction = 1;
+let amplitude = Math.PI / 8;  // max rotation angle
+let frequency = 2.5;
+
 // animation loop
 export function render(time) {
   if (resizeRendererToDisplaySize(SetUp.renderer)) {
@@ -28,13 +34,12 @@ export function render(time) {
   const speed = 1.5;
   const rot = time * speed;
 
-  /*
-  // set rotations (in radians)
-  Shapes.d20.rotation.x = rot;
-  Shapes.d20.rotation.y = rot;
-  Shapes.d12.rotation.x = rot;
-  Shapes.d12.rotation.y = rot;
-  */
+  // calculate rotation angle using sine function
+  angle = amplitude * Math.sin(frequency * time);
+
+  // apply rotation
+  Shapes.left_pivot.rotation.x = angle;
+  Shapes.right_pivot.rotation.x = angle;
 
   // render the scene
   SetUp.renderer.render(SetUp.scene, SetUp.camera);

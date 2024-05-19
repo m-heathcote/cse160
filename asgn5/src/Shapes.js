@@ -354,3 +354,60 @@ export function createBigTree() {
   l_leaves_4.scale.set(9, 5, 9);
   l_leaves_4.position.set(x2 - 10.5, y2 + (l_leaves_4.scale.y*0.49) + 13, z2);
 }
+
+export var left_pivot;
+export var right_pivot;
+
+export function createSwing() {
+  // create cylinder geomentry
+  const radiusTop = 0.11; // Radius at the top of the cylinder
+  const radiusBottom = 0.11; // Radius at the bottom of the cylinder
+  const height = 18; // Height of the cylinder
+  const radialSegments = 6; // Number of segmented faces around the circumference of the cylinder
+  const heightSegments = 1; // Number of rows of faces along the height of the cylinder
+  const openEnded = false; // Whether the ends of the cylinder are open or capped
+
+  const cyl_geo = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments, openEnded);
+
+  // create cube geometry
+  const cube_geo = new THREE.BoxGeometry(1, 1, 1);
+
+  // create instances
+  const left_rope = makeInstance(cyl_geo, 0x9F8F6B);
+  const right_rope = makeInstance(cyl_geo, 0x9F8F6B);
+  const seat = makeInstance(cube_geo, 0xC93218);
+
+  // base coords for swing
+  var x = -9.5;
+  var y = 20;
+  var z = 0.25;
+
+  // create pivot points for the ropes
+  left_pivot = new THREE.Object3D();
+  right_pivot = new THREE.Object3D();
+
+  // position the pivots
+  left_pivot.position.set(x - 1.1, y, z);
+  right_pivot.position.set(x + 1.1, y, z);
+
+  // add the pivots to the scene
+  SetUp.scene.add(left_pivot);
+  SetUp.scene.add(right_pivot);
+
+  // position the ropes relative to their pivots
+  left_rope.position.set(0, -height / 2, 0);
+  right_rope.position.set(0, -height / 2, 0);
+
+  // scale the ropes
+  left_rope.scale.set(1, 1, 1);
+  right_rope.scale.set(1, 1, 1);
+
+  // add the ropes to their pivots
+  left_pivot.add(left_rope);
+  right_pivot.add(right_rope);
+
+  // scale and position the seat
+  seat.scale.set(3, 0.35, 1.5);
+  seat.position.set(1.1, -17.5, 0);
+  left_pivot.add(seat);
+}

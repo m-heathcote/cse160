@@ -3,14 +3,13 @@ import { RectAreaLightUniformsLib } from '../three/RectAreaLightUniformsLib.js';
 import { RectAreaLightHelper } from '../three/RectAreaLightHelper.js';
 import * as SetUp from "./SetUp.js"
 
-var showDirHelper = true;
+var showDirHelper = false;
 var showRectHelpers = true;
 
 function createRectLight(x, y, z, at) {
   // Create a RectAreaLight
   const rectLight = new THREE.RectAreaLight(0xFFD18C, 0.1, 2, 2); // Color, Intensity, Width, Height
   rectLight.position.set(x, y, z);
-  //rectLight.rotation.y = rot;
 
   if (at == 1) {
     rectLight.lookAt(x, y, z + 10);

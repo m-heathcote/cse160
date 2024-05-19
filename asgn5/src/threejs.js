@@ -44,6 +44,7 @@ function main() {
   // Shapes
   Shapes.createGround();
   Shapes.createBigTree();
+  Shapes.createSwing();
 
   // Objects
   Objects.createDoor();
