@@ -25,7 +25,7 @@ export function initCamera() {
 	var near = 0.1;
 	var far = 400;
 	camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-	camera.position.set(0, 10, 40);
+	camera.position.set(0, 15, 60);
 
   // orbit controls
 	const controls = new OrbitControls(camera, canvas);
