@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import * as Shapes from "./Shapes.js"
 import * as SetUp from "./SetUp.js"
 
 var showLightHelper = false;
@@ -79,11 +80,33 @@ export function createWindows() {
   createWindow(pos, Math.PI / 2);
 }
 
+export function createFrog() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Frog/Frog.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    model.position.set(1.1, -17.25, 0); // x, y, z coordinates
+    model.rotation.y = - Math.PI / 2;
+    model.scale.set(0.1, 0.1, 0.1); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+    // add to swing pivot
+    Shapes.left_pivot.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+}
+
 export function createLanturn() {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
 
-  loader.load('../objs/Lantern/PostLantern.glb', (gltf) => {
+  loader.load('../objs/Lights/PostLantern.glb', (gltf) => {
     const model = gltf.scene;
 
     // Change the position of the model
