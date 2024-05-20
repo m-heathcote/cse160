@@ -48,13 +48,13 @@ export function createLights() {
   // -- Hemisphere Light --
   var h_skyColor = 0x714C88;
   var h_groundColor = 0x4B5D3F;
-  var h_intensity = 0.3;
+  var h_intensity = 0.4;
   const h_light = new THREE.HemisphereLight(h_skyColor, h_groundColor, h_intensity);
   SetUp.scene.add(h_light);
 
   // -- Directional Light --
   var d_color = 0x6A8BE9;
-  var d_intensity = 0.85;
+  var d_intensity = 0.95;
   const d_light = new THREE.DirectionalLight(d_color, d_intensity);
   d_light.position.set(-50, 20, 20);
   SetUp.scene.add(d_light);

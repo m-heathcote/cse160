@@ -122,7 +122,7 @@ export function createMat() {
   });
 }
 
-export function createFrame() {
+export function createFrame1() {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
 
@@ -130,7 +130,8 @@ export function createFrame() {
     const model = gltf.scene;
 
     // set position, scale, and rotation
-    model.position.set(4.1, 5.3, 2); // x, y, z coordinates
+    //model.position.set(4.1, 5.3, 2.5); // x, y, z coordinates
+    model.position.set(5.6, 3, 3.1); // x, y, z coordinates
     //model.rotation.y = - Math.PI / 2;
     model.scale.set(3.2, 3.2, 2.3); // x, y, z scale factors
 
@@ -148,8 +149,43 @@ export function createFrame() {
   const heightSegments = 1;
   const plane_geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 
-  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly.jpg', 1);
-  photo.position.set(4.18, 5.35, 1.9);
+  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly-2.png', 1);
+  //photo.position.set(4.18, 5.35, 2.4);
+  photo.position.set(5.68, 3.05, 3);
+  photo.rotation.y = Math.PI / 2;
+  photo.scale.set(1.4, 1.4, 1.4);
+}
+
+export function createFrame2() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Frame/PictureFrame.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    //model.position.set(5.6, 3.5, 1.5); // x, y, z coordinates
+    model.position.set(5.6, 2.5, 1.15); // x, y, z coordinates
+    //model.rotation.y = - Math.PI / 2;
+    model.scale.set(3.2, 3.2, 2.3); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create an image to go in the frame
+  const width = 1;
+  const height = 1;
+  const widthSegments = 1;
+  const heightSegments = 1;
+  const plane_geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+
+  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/frog.png', 1);
+  //photo.position.set(5.68, 3.55, 1.4);
+  photo.position.set(5.68, 2.55, 1.05);
   photo.rotation.y = Math.PI / 2;
   photo.scale.set(1.4, 1.4, 1.4);
 }
@@ -186,4 +222,47 @@ export function createLanturn() {
     const pointLightHelper = new THREE.PointLightHelper(pointLight);
     SetUp.scene.add(pointLightHelper);
   }
+}
+
+function createBulb(x, y, z) {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Lights/LightBulb.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position of the model
+    model.position.set(x, y, z);
+
+    // Change the scale of the model
+    model.scale.set(0.2, 0.2, 0.2); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create a point light (for the lantern light)
+  const color = 0xF6D45D;
+  const intensity = 10;
+  const distance = 15;
+  const pointLight = new THREE.PointLight(color, intensity, distance);
+  pointLight.position.set(x, y, z);
+
+  SetUp.scene.add(pointLight);
+
+  if (showLightHelper) {
+    const pointLightHelper = new THREE.PointLightHelper(pointLight);
+    SetUp.scene.add(pointLightHelper);
+  }
+}
+
+export function createAllBulbs() {
+  createBulb(11, 13.3, 0.5);
+  createBulb(19.5, 13.3, 0.5);
+
+  createBulb(15.25, 13.3, 5);
+  createBulb(15.25, 13.3, -4);
 }

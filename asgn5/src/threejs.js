@@ -52,8 +52,10 @@ function main() {
   Objects.createWindows();
   Objects.createFrog();
   Objects.createMat();
-  Objects.createFrame();
+  Objects.createFrame1();
+  Objects.createFrame2();
   Objects.createLanturn();
+  //Objects.createAllBulbs();
 
   // ---------- Animation ----------
 
