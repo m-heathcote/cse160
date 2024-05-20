@@ -80,9 +80,52 @@ export function createWindows() {
   createWindow(pos, Math.PI / 2);
 }
 
+function loadGLB(path) {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  return new Promise((resolve, reject) => {
+    loader.load(path, (gltf) => {
+      const model = gltf.scene;
+  
+      // Add the model to the scene
+      SetUp.scene.add(model);
+  
+      console.log("returning model");
+  
+      resolve(model);
+  
+    }, undefined, (error) => {
+      console.error(error);
+  
+      reject(error);
+    });
+  });
+}
+
 export function createFrog() {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
+
+  /*
+  const model = loadGLB('../objs/Frog/Frog.glb');
+
+  loadGLB('../objs/Frog/Frog.glb')
+  .then((model) => {
+    console.log("Frog model loaded:", model);
+
+    // set position, scale, and rotation
+    model.position.set(1.1, -17.25, 0); // x, y, z coordinates
+    model.rotation.y = - Math.PI / 2;
+    model.scale.set(0.1, 0.1, 0.1); // x, y, z scale factors
+
+    // add to swing pivot
+    Shapes.left_pivot.add(model);
+  })
+  .catch((error) => {
+    console.error("Error occurred while loading the frog model:", error);
+  });
+  */
 
   loader.load('../objs/Frog/Frog.glb', (gltf) => {
     const model = gltf.scene;
