@@ -80,52 +80,9 @@ export function createWindows() {
   createWindow(pos, Math.PI / 2);
 }
 
-function loadGLB(path) {
-  // GLTFLoader to load the .glb file
-  const loader = new GLTFLoader();
-
-  return new Promise((resolve, reject) => {
-    loader.load(path, (gltf) => {
-      const model = gltf.scene;
-  
-      // Add the model to the scene
-      SetUp.scene.add(model);
-  
-      console.log("returning model");
-  
-      resolve(model);
-  
-    }, undefined, (error) => {
-      console.error(error);
-  
-      reject(error);
-    });
-  });
-}
-
 export function createFrog() {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
-
-  /*
-  const model = loadGLB('../objs/Frog/Frog.glb');
-
-  loadGLB('../objs/Frog/Frog.glb')
-  .then((model) => {
-    console.log("Frog model loaded:", model);
-
-    // set position, scale, and rotation
-    model.position.set(1.1, -17.25, 0); // x, y, z coordinates
-    model.rotation.y = - Math.PI / 2;
-    model.scale.set(0.1, 0.1, 0.1); // x, y, z scale factors
-
-    // add to swing pivot
-    Shapes.left_pivot.add(model);
-  })
-  .catch((error) => {
-    console.error("Error occurred while loading the frog model:", error);
-  });
-  */
 
   loader.load('../objs/Frog/Frog.glb', (gltf) => {
     const model = gltf.scene;
@@ -143,6 +100,58 @@ export function createFrog() {
   }, undefined, (error) => {
     console.error(error);
   });
+}
+
+export function createMat() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Mat/DoorMat.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    model.position.set(-0.5, 0, 6); // x, y, z coordinates
+    model.rotation.y = - Math.PI / 2;
+    model.scale.set(0.09, 0.09, 0.08); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+}
+
+export function createFrame() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Frame/PictureFrame.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    model.position.set(4.1, 5.3, 2); // x, y, z coordinates
+    //model.rotation.y = - Math.PI / 2;
+    model.scale.set(3.2, 3.2, 2.3); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create an image to go in the frame
+  const width = 1;
+  const height = 1;
+  const widthSegments = 1;
+  const heightSegments = 1;
+  const plane_geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+
+  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly.jpg', 1);
+  photo.position.set(4.18, 5.35, 1.9);
+  photo.rotation.y = Math.PI / 2;
+  photo.scale.set(1.4, 1.4, 1.4);
 }
 
 export function createLanturn() {

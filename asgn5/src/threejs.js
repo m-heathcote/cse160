@@ -51,6 +51,8 @@ function main() {
   Objects.createDoor();
   Objects.createWindows();
   Objects.createFrog();
+  Objects.createMat();
+  Objects.createFrame();
   Objects.createLanturn();
 
   // ---------- Animation ----------

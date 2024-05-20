@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import * as SetUp from "./SetUp.js"
 
 // make a geometry object and add it to the scene
-function makeInstance(geometry, color) {
+export function makeInstance(geometry, color) {
   // create a material and set its color
   // MeshPhongMaterial IS affected by lights
   const material = new THREE.MeshPhongMaterial({color});
@@ -18,7 +18,7 @@ function makeInstance(geometry, color) {
 }
 
 // make a textured geometry object and add it to the scene
-function makeInstTextured(geometry, path, num) {
+export function makeInstTextured(geometry, path, num) {
   // load the texture
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load(path);
