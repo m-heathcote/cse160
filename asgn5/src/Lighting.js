@@ -8,7 +8,10 @@ var showRectHelpers = true;
 
 function createRectLight(x, y, z, at) {
   // Create a RectAreaLight
-  const rectLight = new THREE.RectAreaLight(0xFFD18C, 0.1, 2, 2); // Color, Intensity, Width, Height
+  const color = 0xFFD18C;
+  const intensity = 0.07;
+  const size = 2;
+  const rectLight = new THREE.RectAreaLight(color, intensity, size, size);
   rectLight.position.set(x, y, z);
 
   if (at == 1) {
@@ -38,20 +41,20 @@ function addRectLightHelper(light) {
 export function createLights() {
   // -- Ambient Light --
   var a_color = 0x76629F;
-  var a_intensity = 1;
+  var a_intensity = 0.9;
   const a_light = new THREE.AmbientLight(a_color, a_intensity); // Soft white light
   SetUp.scene.add(a_light);
 
   // -- Hemisphere Light --
   var h_skyColor = 0x714C88;
   var h_groundColor = 0x4B5D3F;
-  var h_intensity = 0.5;
+  var h_intensity = 0.3;
   const h_light = new THREE.HemisphereLight(h_skyColor, h_groundColor, h_intensity);
   SetUp.scene.add(h_light);
 
   // -- Directional Light --
-  var d_color = 0xFFFFFF;
-  var d_intensity = 1;
+  var d_color = 0x6A8BE9;
+  var d_intensity = 0.85;
   const d_light = new THREE.DirectionalLight(d_color, d_intensity);
   d_light.position.set(-50, 20, 20);
   SetUp.scene.add(d_light);

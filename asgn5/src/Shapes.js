@@ -48,7 +48,7 @@ export function createGround() {
 
   // create circle
   const grass_geo = new THREE.CircleGeometry(radius, segments);
-  const grass = makeInstTextured(grass_geo, '../imgs/grass-2.png', 4);
+  const grass = makeInstTextured(grass_geo, '../imgs/grass-2.png', 5);
   grass.rotation.x = - Math.PI / 2;  // -90 degrees
 }
 

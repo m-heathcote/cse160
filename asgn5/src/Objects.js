@@ -1,7 +1,10 @@
 import * as THREE from 'three';
 import {OBJLoader} from 'three/addons/loaders/OBJLoader.js';
 import {MTLLoader} from 'three/addons/loaders/MTLLoader.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import * as SetUp from "./SetUp.js"
+
+var showLightHelper = false;
 
 export function createDoor() {
   // load the MTL file
@@ -77,5 +80,35 @@ export function createWindows() {
 }
 
 export function createLanturn() {
-  console.log("...");
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Lantern/PostLantern.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position of the model
+    model.position.set(3, 0, 5.5); // x, y, z coordinates
+
+    // Change the scale of the model
+    model.scale.set(1.8, 1.8, 1.8); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create a point light (for the lantern light)
+  const color = 0xF6D45D;
+  const intensity = 10;
+  const distance = 15;
+  const pointLight = new THREE.PointLight(color, intensity, distance);
+  pointLight.position.set(3, 4, 7.4);
+
+  SetUp.scene.add(pointLight);
+
+  if (showLightHelper) {
+    const pointLightHelper = new THREE.PointLightHelper(pointLight);
+    SetUp.scene.add(pointLightHelper);
+  }
 }
