@@ -8,8 +8,8 @@ class Camera {
   constructor() {
     this.type = 'camera';
     this.fov = 60;
-    this.eye = new Vector3([0, 1.2, 4]);
-    this.at = new Vector3([0, 0, -50]);
+    this.eye = new Vector3([0, 1, 3.4]);
+    this.at = new Vector3([0, 0, -20]);
     this.up = new Vector3([0, 1, 0]);
     this.speed = 0.1;
     this.alpha = 1.1;
@@ -20,6 +20,26 @@ class Camera {
                            this.up.elements[0], this.up.elements[1], this.up.elements[2]);
     this.projMat = new Matrix4();
     this.projMat.setPerspective(this.fov, canvas.width/canvas.height, 0.1, 100);
+  }
+
+  setGroundView() {
+    this.eye = new Vector3([0, 1, 3.4]);
+    this.at = new Vector3([0, 0, -20]);
+    this.up = new Vector3([0, 1, 0]);
+
+    this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
+                           this.at.elements[0], this.at.elements[1], this.at.elements[2],
+                           this.up.elements[0], this.up.elements[1], this.up.elements[2]);
+  }
+
+  setSkyView() {
+    this.eye = new Vector3([0, 7.7, 0]);
+    this.at = new Vector3([0, -100, 0]);
+    this.up = new Vector3([0, 0, -1]);
+
+    this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
+                           this.at.elements[0], this.at.elements[1], this.at.elements[2],
+                           this.up.elements[0], this.up.elements[1], this.up.elements[2]);
   }
 
   moveIfInBounds(toAdd) {
@@ -37,26 +57,6 @@ class Camera {
     }
     //console.log("OUT OF BOUNDS");
     return false;
-  }
-
-  setGroundView() {
-    this.eye = new Vector3([0, 0, 3]);
-    this.at = new Vector3([0, 0, -100]);
-    this.up = new Vector3([0, 1, 0]);
-
-    this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
-                           this.at.elements[0], this.at.elements[1], this.at.elements[2],
-                           this.up.elements[0], this.up.elements[1], this.up.elements[2]);
-  }
-
-  setSkyView() {
-    this.eye = new Vector3([0, 15, 0]);
-    this.at = new Vector3([0, -100, 0]);
-    this.up = new Vector3([0, 0, -1]);
-
-    this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
-                           this.at.elements[0], this.at.elements[1], this.at.elements[2],
-                           this.up.elements[0], this.up.elements[1], this.up.elements[2]);
   }
 
   moveForward() {

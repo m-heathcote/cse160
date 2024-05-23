@@ -356,7 +356,7 @@ function whichFace() {
   deltaY = camera.at.elements[1] - camera.eye.elements[1];
   deltaZ = camera.at.elements[2] - camera.eye.elements[2];
 
-  let topBias = deltaY < 0 ? 0.2 : 0;
+  let topBias = deltaY < 0 ? 0.3 : 0;
 
   d = [Math.abs(deltaX), Math.abs(deltaY) + topBias, Math.abs(deltaZ)];
   let maxIndex = d.indexOf(Math.max(...d));
