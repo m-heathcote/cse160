@@ -90,8 +90,8 @@ const ON = 1;
 const POKE = 2;
 
 // -- Globals for UI elements --
-let g_globalAngle = 0;   // rotate around y axis
-let g_globalAngle_2 = 0; // rotate around x axis
+let g_globalAngle_y = 0;   // rotate around y axis
+let g_globalAngle_x = 0;   // rotate around x axis
 let g_animationSpeed = 4;
 let g_animation = OFF;
 
@@ -115,13 +115,13 @@ function addActionsForHtmlUI() {
   /*
   // Global Angle Slider
   document.getElementById("angleSlide").addEventListener("mousemove", function() {
-    g_globalAngle = -this.value;
+    g_globalAngle_y = -this.value;
     renderAllShapes();
   });
   
   // Global Angle Slider 2
   document.getElementById("angleSlide2").addEventListener("mousemove", function() {
-    g_globalAngle_2 = this.value;
+    g_globalAngle_x = this.value;
     renderAllShapes();
   });
   */
@@ -255,8 +255,8 @@ function tick() {
 // -- Global Mouse Position Variables --
 var g_clickX = 0;
 var g_clickY = 0;
-var g_initialRotation = g_globalAngle;
-var g_initialRotation_2 = g_globalAngle_2;
+var g_initialRotation_y = g_globalAngle_y;
+var g_initialRotation_x = g_globalAngle_x;
 
 // ----- click -----
 function click(ev) {
@@ -270,8 +270,8 @@ function click(ev) {
     // save in global variables
     g_clickX = x;
     g_clickY = y;
-    g_initialRotation = g_globalAngle;
-    g_initialRotation_2 = g_globalAngle_2;
+    g_initialRotation_y = g_globalAngle_y;
+    g_initialRotation_x = g_globalAngle_x;
   }
 }
 // ----- end click -----
@@ -292,17 +292,17 @@ function drag(ev) {
   let yDiff = y - g_clickY;
 
   // Rotate around y axis
-  g_globalAngle = convertTo360(g_initialRotation - (xDiff * 100));
-  //fixSlider("angleSlide", -g_globalAngle);
+  g_globalAngle_y = convertTo360(g_initialRotation_y - (xDiff * 100));
+  //fixSlider("angleSlide", -g_globalAngle_y);
 
   // Rotate around x axis
-  if (g_initialRotation > 90 && g_initialRotation < 270) {
-    g_globalAngle_2 = convertTo360(g_initialRotation_2 - (yDiff * 100));
+  if (g_initialRotation_y > 90 && g_initialRotation_y < 270) {
+    g_globalAngle_x = convertTo360(g_initialRotation_x - (yDiff * 100));
   }
   else {
-    g_globalAngle_2 = convertTo360(g_initialRotation_2 + (yDiff * 100));
+    g_globalAngle_x = convertTo360(g_initialRotation_x + (yDiff * 100));
   }
-  //fixSlider("angleSlide2", g_globalAngle_2);
+  //fixSlider("angleSlide2", g_globalAngle_x);
 
   // Redraw
   renderAllShapes();
