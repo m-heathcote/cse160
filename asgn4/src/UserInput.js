@@ -13,7 +13,7 @@ var N = 3;  // north
 var g_facing = S;
 var g_turtleRot = -90;
 var g_turtleX = 0.5;
-var g_turtleZ = -3.5;
+var g_turtleZ = -0.8;
 
 // -- Globals for Building --
 var T = 4;  // top     (for getting face of cube looked at)

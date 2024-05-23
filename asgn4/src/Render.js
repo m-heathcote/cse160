@@ -40,7 +40,7 @@ function renderAllShapes() {
   var sky_box = new Cube();
   sky_box.textureNum = 1;
   sky_box.color = sky;
-  sky_box.matrix.scale(50, 50, 50);
+  sky_box.matrix.scale(16, 16, 16);
   sky_box.matrix.translate(-0.5, -0.5, -0.5);
   sky_box.render();
 

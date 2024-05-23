@@ -8,8 +8,8 @@ class Camera {
   constructor() {
     this.type = 'camera';
     this.fov = 60;
-    this.eye = new Vector3([0, 0, 3]);
-    this.at = new Vector3([0, 0, -100]);
+    this.eye = new Vector3([0, 1.2, 4]);
+    this.at = new Vector3([0, 0, -50]);
     this.up = new Vector3([0, 1, 0]);
     this.speed = 0.1;
     this.alpha = 1.1;
@@ -20,6 +20,23 @@ class Camera {
                            this.up.elements[0], this.up.elements[1], this.up.elements[2]);
     this.projMat = new Matrix4();
     this.projMat.setPerspective(this.fov, canvas.width/canvas.height, 0.1, 100);
+  }
+
+  moveIfInBounds(toAdd) {
+    var future = new Vector3(this.eye.elements);
+    future.add(toAdd);
+
+    if (-7.8 < future.elements[0] && future.elements[0] < 7.8) {
+      if (0 < future.elements[1] && future.elements[1] < 7.8) {
+        if (-7.8 < future.elements[2] && future.elements[2] < 7.8) {
+          //console.log("in bounds");
+          this.eye.set(future);
+          return true;
+        }
+      }
+    }
+    //console.log("OUT OF BOUNDS");
+    return false;
   }
 
   setGroundView() {
@@ -49,8 +66,12 @@ class Camera {
     f.normalize();
     f.mul(this.speed);
 
-    this.eye.add(f);
-    this.at.add(f);
+    if (this.moveIfInBounds(f)) {
+      this.at.add(f);
+    }
+
+    //this.eye.add(f);
+    //this.at.add(f);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
@@ -64,8 +85,12 @@ class Camera {
     b.normalize();
     b.mul(this.speed);
 
-    this.eye.add(b);
-    this.at.add(b);
+    if (this.moveIfInBounds(b)) {
+      this.at.add(b);
+    }
+
+    //this.eye.add(b);
+    //this.at.add(b);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
@@ -83,8 +108,12 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    this.eye.add(s);
-    this.at.add(s);
+    if (this.moveIfInBounds(s)) {
+      this.at.add(s);
+    }
+
+    //this.eye.add(s);
+    //this.at.add(s);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
@@ -102,8 +131,12 @@ class Camera {
     s.normalize();
     s.mul(this.speed);
 
-    this.eye.add(s);
-    this.at.add(s);
+    if (this.moveIfInBounds(s)) {
+      this.at.add(s);
+    }
+
+    //this.eye.add(s);
+    //this.at.add(s);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
@@ -114,8 +147,12 @@ class Camera {
     let f = new Vector3([0, 1, 0]);
     f.mul(this.speed);
 
-    this.eye.add(f);
-    this.at.add(f);
+    if (this.moveIfInBounds(f)) {
+      this.at.add(f);
+    }
+
+    //this.eye.add(f);
+    //this.at.add(f);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
@@ -126,8 +163,12 @@ class Camera {
     let f = new Vector3([0, -1, 0]);
     f.mul(this.speed);
 
-    this.eye.add(f);
-    this.at.add(f);
+    if (this.moveIfInBounds(f)) {
+      this.at.add(f);
+    }
+
+    //this.eye.add(f);
+    //this.at.add(f);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
                            this.at.elements[0],this.at.elements[1],this.at.elements[2],
