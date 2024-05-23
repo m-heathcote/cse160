@@ -1,5 +1,12 @@
 // Animation.js
 
+// -- Animation Constants/Globals --
+const OFF = 0;
+const ON = 1;
+const POKE = 2;
+let g_animationSpeed = 4;
+let g_animation = OFF;
+
 // -- Global Time Variables --
 var g_startTime = performance.now() / 1000.0;
 var g_seconds = (performance.now() / 1000.0) - g_startTime;
@@ -89,7 +96,6 @@ function updateAnimationXY() {
 
     if (inc < 0.34) {
       g_headX = -inc;
-      //fixSlider("headSlide", 100 * -inc);
 
       g_moveY = 0.6 * inc;
       g_moveY2 = 0.6 * inc;
@@ -111,17 +117,3 @@ function updateAnimationAngles() {
   }
 }
 // ----- end updateAnimationAngles -----
-
-/* add these later??
-// ----- rotate90 -----
-function rotate90() {
-
-}
-// ----- end rotate90 -----
-
-// ----- bobbing -----
-function bobbing() {
-
-}
-// ----- end bobbing -----
-*/

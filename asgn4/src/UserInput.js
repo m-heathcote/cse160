@@ -180,6 +180,18 @@ var keyFunc = {
         g_turtleRot = 270;
         break;
     }
+  },
+  80: function() {                  // P
+    g_animation = POKE;
+  },
+  79: function() {                  // O
+    console.log("current g_animation = ", g_animation);
+    if(g_animation == ON) {
+      g_animation = OFF;
+    } else
+    if (g_animation == OFF) {
+      g_animation = ON;
+    }
   }
 };
 
@@ -188,8 +200,8 @@ var loopedKeys = [87, 65, 83, 68,  32,    16,  38, 40, 81, 69];
 //                 W   A   S   D  space  shift  ^   v   Q   E
 
 // run these once when clicked
-var clickedKeys = [37, 39];
-//                  <   >
+var clickedKeys = [37, 39, 80, 79];
+//                  <   >   P   O
 
 // ----- keydown -----
 function keydown(ev) {
