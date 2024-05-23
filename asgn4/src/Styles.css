@@ -1,0 +1,118 @@
+/* Styles.css */
+
+
+/* body style */
+
+body {
+  background-color: #9db6dc;
+}
+
+h1 {
+  /*font-family: "Gill Sans", sans-serif;*/
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* canvas style */
+
+#webgl {
+    border: 2px solid black;
+}
+
+
+/* container style */
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.container2 {
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    /*justify-content: center; /* Horizontal centering */
+    /* margin: 0 auto;*/
+    width: 400px;
+    height: 70px; /* Just for demonstration */
+    /*border: 1px solid black; /* Just for demonstration */
+}
+
+.container2 h1 {
+    /* Optional: If you want to center the text within the heading */
+    text-align: center;
+    /* Optional: If you want to control the width of the heading */
+    width: 400px;
+}
+
+.slider-container {
+  margin-left: 30px;
+}
+
+
+/* slider style from: https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 300px;
+  height: 15px;
+  border-radius: 5px;
+  background: #e3e5ee;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #19629f;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #19629f;
+  cursor: pointer;
+}
+
+
+/* button style with help from ChatGPT */
+
+.rounded-button {
+    background-color: #19629f;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none; /* Remove default button border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.rounded-button:hover {
+    background-color: #19629f; /* Change background color on hover */
+    transform: translateY(-2px);
+}
+
+.rounded-button:active {
+    background-color: #1d5585;
+    transform: translateY(2px);
+}
+
+

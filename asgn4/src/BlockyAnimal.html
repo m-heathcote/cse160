@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Blocky Animal</title>
+    <link rel="stylesheet" type="text/css" href="Styles.css">
+  </head>
+
+  <body onload="main()">
+    
+    <!--<div class="container2">-->
+    <div class="container2">
+      <h1>Toby Turtle and Dilly Duck</h1>
+    </div>
+    <!--</div>-->
+
+    <div class="container">
+      <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports "canvas"
+      </canvas>
+
+      <div class="slider-container">
+        Turtle Head:   <input type="range" min="-31.5" max="28" value="0"
+                              class="slider" id="headSlide">
+        <p>
+        <br><br>
+        Bird Joint 1: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j1Slide">
+        <br><br>
+        Bird Joint 2: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j2Slide">
+        <br><br>
+        Bird Joint 3: <input type="range" min="-25" max="25" value="0"
+                             class="slider" id="j3Slide">
+        </p>
+      </div>
+
+    </div>
+
+    <div class="container">
+    <p id="numdot" style="font-size:8px; ">&nbsp;</p>
+    </div>
+
+    <div class="container">
+      <p>
+    Animation:
+    <button type="button" class="rounded-button" id="offButton">OFF</button>
+    <button type="button" class="rounded-button" id="onButton">ON</button>
+    &nbsp; &nbsp; &nbsp;
+    <button type="button" class="rounded-button" id="pokeButton">POKE</button>
+    (or try shift + click)
+
+    <br><br>
+    Animation Speed: <input type="range" min="1" max="20" value="4"
+                            class="slider" id="animationSlide">
+    </p>
+    </div>
+
+    <!--
+    <p>
+    <br><br>
+    Y Rotation: <input type="range" min="-180" max="180" value="0"
+                       class="slider" id="angleSlide">
+    <br><br>
+    X Rotation: <input type="range" min="-180" max="180" value="0"
+                       class="slider" id="angleSlide2">
+    </p>
+    -->
+    
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="Point.js"></script>
+    <script src="Triangle.js"></script>
+    <script src="Circle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Pyramid.js"></script>
+    <script src="Render.js"></script>
+    <script src="BlockyAnimal.js"></script>
+  </body>
+</html>
