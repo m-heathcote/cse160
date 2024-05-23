@@ -5,6 +5,7 @@ class Pyramid {
   constructor() {
     this.type='pyramid';
     this.color = [1.0, 1.0, 1.0, 1.0];
+    this.textureNum = -2;
     this.segments = 6;
     this.matrix = new Matrix4();
   }
@@ -15,6 +16,15 @@ class Pyramid {
 
     // Pass the matrix to u_ModelMatrix attribute
     gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+
+    // Pass the texture number to u_WhichTexture
+    // (1i = 1 integer)
+    if (g_normalsOn) {
+      gl.uniform1i(u_WhichTexture, -3);
+    }
+    else {
+      gl.uniform1i(u_WhichTexture, this.textureNum);
+    }
 
     // Light Level
     var light = 1;
@@ -37,8 +47,12 @@ class Pyramid {
       gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
     
       // Part of Base
-      drawTriangle3D([xy[0],xy[1],xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]]);
-      
+      drawTriangle3DUVNormal(
+        [xy[0],xy[1],xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]],
+        [0,0, 0,0, 0,0],
+        [xy[0],xy[1],xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]]
+      );
+
       // Set Light
       if (count == 4) { light = 1; }
       else if (count == 3 || count == 5) { light = 0.9; }
@@ -47,10 +61,14 @@ class Pyramid {
 
       // Pass the color of a point to u_FragColor variable
       gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
-      
+
       // Part of Point
-      drawTriangle3D([xy[0],1,xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]]);
-      
+      drawTriangle3DUVNormal(
+        [xy[0],1,xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]],
+        [0,0, 0,0, 0,0],
+        [xy[0],1,xy[2],  pt1[0],pt1[1],pt1[2],  pt2[0],pt2[1],pt2[2]]
+      );
+
       // Increment loop count
       count += 1;
     }

@@ -47,7 +47,7 @@ class Camera {
     future.add(toAdd);
 
     if (-7.8 < future.elements[0] && future.elements[0] < 7.8) {
-      if (0 < future.elements[1] && future.elements[1] < 7.8) {
+      if (-0.5 < future.elements[1] && future.elements[1] < 7.8) {
         if (-7.8 < future.elements[2] && future.elements[2] < 7.8) {
           //console.log("in bounds");
           this.eye.set(future);

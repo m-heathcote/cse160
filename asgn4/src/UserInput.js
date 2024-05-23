@@ -10,10 +10,10 @@ var E = 0;  // east
 var S = 1;  // south
 var W = 2;  // west
 var N = 3;  // north
-var g_facing = S;
-var g_turtleRot = -90;
-var g_turtleX = 0.5;
-var g_turtleZ = -2;
+var g_facing = E;  // also adjust g_turtleRot if you change this
+var g_turtleRot = 0;  // S = -90
+var g_turtleX = -1;
+var g_turtleZ = 0.6;
 
 // -- Globals for Building --
 var T = 4;  // top     (for getting face of cube looked at)
