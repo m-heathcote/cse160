@@ -269,7 +269,7 @@ function keyup(ev) {
   } else
   if (ev.keyCode == 9) {  // tab
     // normal speed
-    camera.speed = 0.1;
+    camera.speed = 0.2;
   }
 }
 // ----- end keyup -----

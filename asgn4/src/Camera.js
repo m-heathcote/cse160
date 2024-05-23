@@ -11,7 +11,7 @@ class Camera {
     this.eye = new Vector3([0, 0.5, 3.4]);
     this.at = new Vector3([0, -2, -20]);
     this.up = new Vector3([0, 1, 0]);
-    this.speed = 0.1;
+    this.speed = 0.2;
     this.alpha = 1.1;
 
     this.viewMat = new Matrix4();
