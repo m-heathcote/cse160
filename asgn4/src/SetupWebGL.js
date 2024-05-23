@@ -22,6 +22,7 @@ let u_Sampler10;
 let u_Sampler11;
 let u_Sampler12;
 let u_Sampler13;
+let u_LightPos;
 let u_Size;
 let u_ModelMatrix;
 let u_ProjectionMatrix;
@@ -158,6 +159,13 @@ function connectVariablesToGLSL() {
   if (!u_Sampler13) {
     console.log('Failed to get the storage location of u_Sampler13');
     return false;
+  }
+
+  // Get the storage location of u_LightPos
+  u_LightPos = gl.getUniformLocation(gl.program, 'u_LightPos');
+  if (!u_LightPos) {
+    console.log('Failed to get the storage location of u_LightPos');
+    return;
   }
 
   // Get the storage location of u_ModelMatrix

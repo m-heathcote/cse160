@@ -74,6 +74,9 @@ function renderAllShapes() {
   light.matrix.translate(-0.5, -0.5, -0.5);
   light.render();
 
+  // pass the light position to GLSL
+  gl.uniform3f(u_LightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]);
+
 
   // ---------- FORBIDDEN MINECRAFT SPHERE ----------
   

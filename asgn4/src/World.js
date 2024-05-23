@@ -8,6 +8,7 @@ var VSHADER_SOURCE = `
   attribute vec3 a_Normal;
   varying vec2 v_UV;
   varying vec3 v_Normal;
+  varying vec4 v_VertPos;
 
   uniform mat4 u_ModelMatrix;           // sets where shape located
   uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
@@ -20,6 +21,7 @@ var VSHADER_SOURCE = `
     
     v_UV = a_UV;
     v_Normal = a_Normal;
+    v_VertPos = u_ModelMatrix * a_Position;
   }`
 
 // Fragment shader program
@@ -29,6 +31,8 @@ var FSHADER_SOURCE = `
   varying vec3 v_Normal;
 
   uniform vec4 u_FragColor;
+  uniform int u_WhichTexture;
+
   uniform sampler2D u_Sampler0;
   uniform sampler2D u_Sampler1;
   uniform sampler2D u_Sampler2;
@@ -44,7 +48,8 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler12;
   uniform sampler2D u_Sampler13;
 
-  uniform int u_WhichTexture;
+  uniform vec3 u_LightPos;
+  varying vec4 v_VertPos;
 
   void main() {
 
@@ -84,6 +89,14 @@ var FSHADER_SOURCE = `
       gl_FragColor = texture2D(u_Sampler13, v_UV);
     } else {                                        // Error: use red
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
+    }
+
+    vec3 lightVector = vec3(v_VertPos) - u_LightPos;
+    float r = length(lightVector);
+    if (r < 1.0) {
+      gl_FragColor = vec4(1, 0.9, 0.7, 1);
+    } else if (r < 2.0) {
+      gl_FragColor = vec4(1, 0.7, 0, 1);
     }
   }`
 
