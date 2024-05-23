@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My World</title>
+    <link rel="stylesheet" type="text/css" href="Styles.css">
+  </head>
+
+  <body onload="main()">
+    
+    <!--<div class="container2">-->
+    <div class="container2">
+      <h1>Build a House for Toby Turtle and Dilly Duck!</h1>
+    </div>
+    <!--</div>-->
+
+    <div class="container">
+      <canvas id="webgl" width="900" height="500">
+      Please use a browser that supports "canvas"
+      </canvas>
+
+      <div class="slider-container">
+        <h1>Click the [House] button to hide the house and build your own!</h1>
+        <h2>(or build anything else)</h2>
+        <p>
+        
+        <h1>Camera Controls:</h1>
+        W-A-S-D: to move<br>
+        [space]/[L-shift]: to fly up/down<br>
+        Q/E: to pan left/right<br>
+        [esc]: to toggle panning with mouse<br>
+        hold [tab]: to move faster<br>
+        
+        <h1>Turtle Controls:</h1>
+        [&varr;]: move forward/back<br>
+        [&larr;]: turn left<br>
+        [&rarr;]: turn right<br>
+        
+        <h1>Build Controls:</h1>
+        V: turn off build/break mode<br>
+        B: build mode (left click)<br>
+        N: break mode (left click)<br>
+        1-6: select building block<br>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="container">
+    <p id="numdot" style="font-size:10px; ">&nbsp;</p>
+    </div>
+
+    <div class="container">
+    <p>
+    Camera:
+    <button type="button" class="rounded-button" id="mouseButton">Look w/ Mouse (esc)</button>
+    &nbsp; &nbsp; &nbsp;
+    <button type="button" class="rounded-button" id="view1Button">Ground View</button>
+    <button type="button" class="rounded-button" id="view2Button">Sky View</button>
+
+    <br><br>
+    Map:
+    <button type="button" class="rounded-button" id="clearMapButton">Clear</button>
+    <button type="button" class="rounded-button" id="treesButton">Trees</button>
+    <button type="button" class="rounded-button" id="houseButton">House</button>
+    (warning: these will delete any blocks you have added)
+
+    <br><br>
+    Build Mode:
+    <button type="button" class="rounded-button" id="noBuildButton">Off (V)</button>
+    <button type="button" class="rounded-button" id="buildButton">Build (B)</button>
+    <button type="button" class="rounded-button" id="breakButton">Break (N)</button>
+
+    <br><br>
+    Block Type:
+    <button type="button" class="rounded-button" id="woodButton">Wood (1)</button>
+    <button type="button" class="rounded-button" id="cobbleButton">Cobble (2)</button>
+    <button type="button" class="rounded-button" id="dirtButton">Dirt (3)</button>
+    <button type="button" class="rounded-button" id="bricksButton">Bricks (4)</button>
+    <button type="button" class="rounded-button" id="logButton">Log (5)</button>
+    <button type="button" class="rounded-button" id="leavesButton">Leaves (6)</button>
+
+    </p>
+    </div>
+    
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+
+    <!--<script src="Point.js"></script>-->
+    <!--<script src="Circle.js"></script>-->
+    <script src="Triangle.js"></script>
+    <script src="Cube.js"></script>
+    <script src="Pyramid.js"></script>
+
+    <script src="Render.js"></script>
+    <script src="RenderTurtle.js"></script>
+    <script src="RenderDuck.js"></script>
+    <script src="RenderMap.js"></script>
+    <script src="Animation.js"></script>
+    
+    <script src="Texture.js"></script>
+
+    <script src="SetupHTML.js"></script>
+    <script src="SetupWebGL.js"></script>
+    
+    <script src="Camera.js"></script>
+    <script src="UserInput.js"></script>
+    <script src="World.js"></script>
+  </body>
+</html>
