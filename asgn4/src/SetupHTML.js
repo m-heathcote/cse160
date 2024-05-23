@@ -32,6 +32,9 @@ function addActionsForHtmlUI() {
   document.getElementById('view2Button').onclick = function() {
     camera.setSkyView();
   };
+  document.getElementById('view3Button').onclick = function() {
+    camera.setCornerView();
+  };
 
   // Map Buttons
   document.getElementById('clearMapButton').onclick = function() {
