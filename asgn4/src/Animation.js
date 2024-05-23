@@ -49,6 +49,11 @@ function tick() {
   updateAnimationAngles();
   updateAnimationXY();
 
+  // Update Light Animation
+  if (g_animateLight) {
+    animateLight();
+  }
+
   // Draw Everything
   renderAllShapes();
 
@@ -57,7 +62,53 @@ function tick() {
 }
 // ----- end tick -----
 
-// -- Global Animation Variables --
+// -- Global for Light Animation
+let g_animateLight = false;
+let g_lightDir = W;  // reuse N-E-W-S globals
+let g_lightSpeed = 0.15;
+
+// ----- animateLight -----
+function animateLight() {
+  if (g_lightDir == W) {
+    if (g_lightPos[0] > -7) {
+      g_lightPos[0] -= g_lightSpeed;
+      fixSlider("lightSlideX", g_lightPos[0] * 10);
+    }
+    else {
+      g_lightDir = S;
+    }
+  } else
+  if (g_lightDir == S) {
+    if (g_lightPos[2] < 7) {
+      g_lightPos[2] += g_lightSpeed;
+      fixSlider("lightSlideZ", g_lightPos[2] * 10);
+    }
+    else {
+      g_lightDir = E;
+    }
+  } else
+  if (g_lightDir == E) {
+    if (g_lightPos[0] < 7) {
+      g_lightPos[0] += g_lightSpeed;
+      fixSlider("lightSlideX", g_lightPos[0] * 10);
+    }
+    else {
+      g_lightDir = N;
+    }
+  } else
+  if (g_lightDir == N) {
+    if (g_lightPos[2] > -7) {
+      g_lightPos[2] -= g_lightSpeed;
+      fixSlider("lightSlideZ", g_lightPos[2] * 10);
+    }
+    else {
+      g_lightDir = W;
+    }
+  }
+}
+// ----- end animateLight -----
+
+// -- Global Blocky Animal Animation Variables --
 let g_frAngle = 0;
 let g_brAngle = 0;
 let g_flAngle = 0;

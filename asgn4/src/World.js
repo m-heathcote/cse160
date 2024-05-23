@@ -93,9 +93,11 @@ var FSHADER_SOURCE = `
 
     vec3 lightVector = vec3(v_VertPos) - u_LightPos;
     float r = length(lightVector);
-    if (r < 1.0) {
+    if (r < 1.5) {
+      gl_FragColor = vec4(1, 1, 0.9, 1);
+    } else if (r < 3.0) {
       gl_FragColor = vec4(1, 0.9, 0.7, 1);
-    } else if (r < 2.0) {
+    } else if (r < 5.0) {
       gl_FragColor = vec4(1, 0.7, 0, 1);
     }
   }`

@@ -1,7 +1,7 @@
 // Render.js
 
 // -- Position Globals --
-var g_lightPos = [4, 5, -3];
+var g_lightPos = [7, 6.5, -7];
 
 // -- Globals for Turtle Movement --
 var E = 0;  // east

@@ -286,7 +286,7 @@ function initMap() {
   clearMap();
 
   if (g_buildTrees) {
-    addTree(8, 5);
+    //addTree(8, 5);
     addTree(4, 10);
     addTree(27, 27);
   }

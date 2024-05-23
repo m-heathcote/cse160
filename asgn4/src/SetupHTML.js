@@ -13,6 +13,9 @@ function addActionsForHtmlUI() {
   document.getElementById('normalsButton').onclick = function() {
     g_normalsOn = !g_normalsOn;
   };
+  document.getElementById('lightAnimateButton').onclick = function() {
+    g_animateLight = !g_animateLight;
+  };
 
   // Light Sliders
   document.getElementById("lightSlideX").addEventListener("mousemove", function() {
