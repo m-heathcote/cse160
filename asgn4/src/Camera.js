@@ -55,11 +55,13 @@ class Camera {
         }
       }
     }
-    //console.log("OUT OF BOUNDS");
+    console.log("OUT OF BOUNDS");
     return false;
   }
 
   moveForward() {
+    console.log("moving forward");
+
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);

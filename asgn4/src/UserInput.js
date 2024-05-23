@@ -5,16 +5,6 @@ g_prevX = 0;
 g_prevY = 0;
 g_lookWithMouse = false;
 
-// -- Globals for Turtle Movement --
-var E = 0;  // east
-var S = 1;  // south
-var W = 2;  // west
-var N = 3;  // north
-var g_facing = E;  // also adjust g_turtleRot if you change this
-var g_turtleRot = 0;  // S = -90
-var g_turtleX = -1;
-var g_turtleZ = 0.6;
-
 // -- Globals for Building --
 var T = 4;  // top     (for getting face of cube looked at)
 var B = 5;  // bottom  (used with N,E,S,W above)
@@ -185,7 +175,6 @@ var keyFunc = {
     g_animation = POKE;
   },
   79: function() {                  // O
-    console.log("current g_animation = ", g_animation);
     if(g_animation == ON) {
       g_animation = OFF;
     } else
@@ -205,7 +194,13 @@ var clickedKeys = [37, 39, 80, 79];
 
 // ----- keydown -----
 function keydown(ev) {
-  if (loopedKeys.includes(ev.keyCode) && !intervals[ev.keyCode]) {
+  if (loopedKeys.includes(ev.keyCode)) {
+    // clear interval if it exists
+    if (intervals[ev.keyCode]) {
+      clearInterval(intervals[ev.keyCode]);
+    }
+    // start new interval
+    keyFunc[ev.keyCode]();  // extra call to fix weird movement glitch
     intervals[ev.keyCode] = setInterval(keyFunc[ev.keyCode], 50);
   } else
   if (clickedKeys.includes(ev.keyCode)) {
@@ -252,7 +247,6 @@ function keydown(ev) {
     g_blockType = LEAVES;
   }
   
-
   console.log("key: ", ev.keyCode);
 }
 // ----- end keydown -----

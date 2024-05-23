@@ -14,6 +14,17 @@ function addActionsForHtmlUI() {
     g_normalsOn = !g_normalsOn;
   };
 
+  // Light Sliders
+  document.getElementById("lightSlideX").addEventListener("mousemove", function() {
+    g_lightPos[0] = this.value/10;
+  });
+  document.getElementById("lightSlideY").addEventListener("mousemove", function() {
+    g_lightPos[1] = this.value/10;
+  });
+  document.getElementById("lightSlideZ").addEventListener("mousemove", function() {
+    g_lightPos[2] = this.value/10;
+  });
+
   // Camera View Buttons
   document.getElementById('view1Button').onclick = function() {
     camera.setGroundView();

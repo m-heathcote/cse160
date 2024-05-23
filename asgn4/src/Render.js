@@ -1,5 +1,19 @@
 // Render.js
 
+// -- Position Globals --
+var g_lightPos = [4, 5, -3];
+
+// -- Globals for Turtle Movement --
+var E = 0;  // east
+var S = 1;  // south
+var W = 2;  // west
+var N = 3;  // north
+var g_facing = E;  // also adjust g_turtleRot if you change this
+var g_turtleRot = 0;  // S = -90
+var g_turtleX = -1;
+var g_turtleZ = 0.6;
+
+
 // ----- renderAllShapes -----
 // Draw every shape that is supposed to be in the canvas
 function renderAllShapes() {
@@ -30,7 +44,6 @@ function renderAllShapes() {
   // yee ol ground cube
   var ground = new Cube();
   ground.textureNum = 0;
-  //ground.textureNum = g_normalsOn ? -3 : 0;
   ground.color = grass;
   ground.matrix.translate(0, -0.75, 0);
   ground.matrix.scale(16, 0, 16);
@@ -40,7 +53,6 @@ function renderAllShapes() {
   // yee ol sky box
   var sky_box = new Cube();
   sky_box.textureNum = 1;
-  //sky_box.textureNum = g_normalsOn ? -3 : 1;
   sky_box.color = sky;
   sky_box.matrix.scale(-16, -16, -16);
   sky_box.matrix.translate(-0.5, -0.5, -0.5);
@@ -51,11 +63,23 @@ function renderAllShapes() {
   drawMap();
 
 
+  // ---------- Light ----------
+  var sun = [255/255, 224/255, 130/255, 1];
+
+  var light = new Cube();
+  light.textureNum = -2;
+  light.color = sun;
+  light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]);
+  light.matrix.scale(0.3, 0.3, 0.3);
+  light.matrix.translate(-0.5, -0.5, -0.5);
+  light.render();
+
+
   // ---------- FORBIDDEN MINECRAFT SPHERE ----------
   
   // sphere
   var test_sphere = new Sphere();
-  test_sphere.textureNum = -2;
+  test_sphere.textureNum = 8;
   test_sphere.color = [184/255, 121/255, 194/255, 1];
   test_sphere.matrix.translate(2, 0, 0.5);
   test_sphere.matrix.scale(0.6, 0.6, 0.6);
