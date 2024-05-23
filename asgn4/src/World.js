@@ -5,7 +5,9 @@ var VSHADER_SOURCE = `
   precision mediump float;
   attribute vec4 a_Position;
   attribute vec2 a_UV;
+  attribute vec3 a_Normal;
   varying vec2 v_UV;
+  varying vec3 v_Normal;
 
   uniform mat4 u_ModelMatrix;           // sets where shape located
   uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
@@ -15,13 +17,16 @@ var VSHADER_SOURCE = `
   void main() {
     gl_Position = u_ProjectionMatrix * u_ViewMatrix * u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     //gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
+    
     v_UV = a_UV;
+    v_Normal = a_Normal;
   }`
 
 // Fragment shader program
 var FSHADER_SOURCE = `
   precision mediump float;
   varying vec2 v_UV;
+  varying vec3 v_Normal;
 
   uniform vec4 u_FragColor;
   uniform sampler2D u_Sampler0;
@@ -42,7 +47,10 @@ var FSHADER_SOURCE = `
   uniform int u_WhichTexture;
 
   void main() {
-    if (u_WhichTexture == -2) {                     // Use color
+
+    if (u_WhichTexture == -3) {                     // Use normal debug color
+      gl_FragColor = vec4((v_Normal + 1.0)/2.0, 1.0);
+    } else if (u_WhichTexture == -2) {              // Use color
       gl_FragColor = u_FragColor;
     } else if (u_WhichTexture == -1) {              // Use UV debug color
       gl_FragColor = vec4(v_UV, 1.0, 1.0);

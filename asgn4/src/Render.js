@@ -30,6 +30,7 @@ function renderAllShapes() {
   // yee ol ground cube
   var ground = new Cube();
   ground.textureNum = 0;
+  //ground.textureNum = g_normalsOn ? -3 : 0;
   ground.color = grass;
   ground.matrix.translate(0, -0.75, 0);
   ground.matrix.scale(16, 0, 16);
@@ -39,8 +40,9 @@ function renderAllShapes() {
   // yee ol sky box
   var sky_box = new Cube();
   sky_box.textureNum = 1;
+  //sky_box.textureNum = g_normalsOn ? -3 : 1;
   sky_box.color = sky;
-  sky_box.matrix.scale(16, 16, 16);
+  sky_box.matrix.scale(-16, -16, -16);
   sky_box.matrix.translate(-0.5, -0.5, -0.5);
   sky_box.render();
 
