@@ -49,7 +49,8 @@ function renderAllShapes() {
   drawMap();
 
 
-  // ---------- TEST CUBES ----------
+  // ---------- TEST SHAPES ----------
+  
   /*
   // test cube 1
   var testCube1 = new Cube();
@@ -73,6 +74,7 @@ function renderAllShapes() {
   var turtleLoc = [g_turtleX, 0, g_turtleZ];
   var shellTopCoords = renderTurtle(0.8, turtleLoc, g_turtleRot);
 
+  
   // ---------- DUCK ----------
   renderDuck(1, shellTopCoords);
 

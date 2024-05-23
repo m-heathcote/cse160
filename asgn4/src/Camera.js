@@ -8,8 +8,8 @@ class Camera {
   constructor() {
     this.type = 'camera';
     this.fov = 60;
-    this.eye = new Vector3([0, 1, 3.4]);
-    this.at = new Vector3([0, 0, -20]);
+    this.eye = new Vector3([0, 0.5, 3.4]);
+    this.at = new Vector3([0, -2, -20]);
     this.up = new Vector3([0, 1, 0]);
     this.speed = 0.1;
     this.alpha = 1.1;
@@ -23,8 +23,8 @@ class Camera {
   }
 
   setGroundView() {
-    this.eye = new Vector3([0, 1, 3.4]);
-    this.at = new Vector3([0, 0, -20]);
+    this.eye = new Vector3([0, 0.5, 3.4]);
+    this.at = new Vector3([0, -2, -20]);
     this.up = new Vector3([0, 1, 0]);
 
     this.viewMat.setLookAt(this.eye.elements[0],this.eye.elements[1],this.eye.elements[2],
