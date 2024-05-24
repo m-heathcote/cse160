@@ -1,7 +1,9 @@
 // Render.js
 
-// -- Position Globals --
+// -- Light Globals --
 var g_lightPos = [7, 6.5, -7];
+var g_lightOn = true;
+var g_normalsOn = false;
 
 // -- Globals for Turtle Movement --
 var E = 0;  // east
@@ -33,6 +35,9 @@ function renderAllShapes() {
 
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  // Pass Light Status
+  gl.uniform1i(u_LightOn, g_lightOn);
 
 
   // ---------- ENVIRONMENT ----------

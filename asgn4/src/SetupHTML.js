@@ -3,13 +3,15 @@
 // -- Globals for UI elements --
 let g_globalAngle_y = 0;    // rotate around y axis
 let g_globalAngle_x = 0;  // rotate around x axis
-let g_normalsOn = false;
 
 // ----- addActionsForHtmlUI -----
 // Set up actions for the HTML UI elements
 function addActionsForHtmlUI() {
 
   // Lighting Buttons
+  document.getElementById('lightButton').onclick = function() {
+    g_lightOn = !g_lightOn;
+  };
   document.getElementById('normalsButton').onclick = function() {
     g_normalsOn = !g_normalsOn;
   };

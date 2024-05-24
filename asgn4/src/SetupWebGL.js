@@ -24,6 +24,7 @@ let u_Sampler12;
 let u_Sampler13;
 let u_LightPos;
 let u_CameraPos;
+let u_LightOn;
 let u_HowShiny;
 let u_Size;
 let u_ModelMatrix;
@@ -174,6 +175,13 @@ function connectVariablesToGLSL() {
   u_CameraPos = gl.getUniformLocation(gl.program, 'u_CameraPos');
   if (!u_CameraPos) {
     console.log('Failed to get the storage location of u_CameraPos');
+    return;
+  }
+
+  // Get the storage location of u_LightOn
+  u_LightOn = gl.getUniformLocation(gl.program, 'u_LightOn');
+  if (!u_LightOn) {
+    console.log('Failed to get the storage location of u_LightOn');
     return;
   }
 

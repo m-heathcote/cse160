@@ -48,6 +48,7 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler12;
   uniform sampler2D u_Sampler13;
 
+  uniform bool u_LightOn;
   uniform float u_HowShiny;     // 0 = not shiny, 1 = shiny
   uniform vec3 u_LightPos;
   uniform vec3 u_CameraPos;
@@ -123,7 +124,9 @@ var FSHADER_SOURCE = `
     vec3 diffuse = vec3(gl_FragColor) * nDotL;
     vec3 ambient = vec3(gl_FragColor) * 0.3;
 
-    gl_FragColor = vec4((specular*u_HowShiny) + diffuse + ambient, 1.0);
+    if (u_LightOn) {
+      gl_FragColor = vec4((specular*u_HowShiny) + diffuse + ambient, 1.0);
+    }
   }`
 
 
