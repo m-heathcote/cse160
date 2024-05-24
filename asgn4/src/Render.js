@@ -1,7 +1,7 @@
 // Render.js
 
 // -- Light Globals --
-var g_lightPos = [7, 6.5, -7];
+var g_lightPos = [6, 6, -6];
 var g_lightOn = true;
 var g_normalsOn = false;
 
@@ -72,14 +72,14 @@ function renderAllShapes() {
 
 
   // ---------- Light ----------
-  var sun = [255/255, 224/255, 130/255, 1];
+  var sun = [255/255, 225/255, 130/255, 1];
 
   var light = new Cube();
   light.textureNum = -2;
   light.color = sun;
   light.updateNormals = false;
   light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]);
-  light.matrix.scale(-0.3, -0.3, -0.3);
+  light.matrix.scale(-0.2, -0.2, -0.2);
   light.matrix.translate(-0.5, -0.5, -0.5);
   light.render();
 

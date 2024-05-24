@@ -70,7 +70,7 @@ let g_lightSpeed = 0.15;
 // ----- animateLight -----
 function animateLight() {
   if (g_lightDir == W) {
-    if (g_lightPos[0] > -7) {
+    if (g_lightPos[0] > -6) {
       g_lightPos[0] -= g_lightSpeed;
       fixSlider("lightSlideX", g_lightPos[0] * 10);
     }
@@ -79,7 +79,7 @@ function animateLight() {
     }
   } else
   if (g_lightDir == S) {
-    if (g_lightPos[2] < 7) {
+    if (g_lightPos[2] < 6) {
       g_lightPos[2] += g_lightSpeed;
       fixSlider("lightSlideZ", g_lightPos[2] * 10);
     }
@@ -88,7 +88,7 @@ function animateLight() {
     }
   } else
   if (g_lightDir == E) {
-    if (g_lightPos[0] < 7) {
+    if (g_lightPos[0] < 6) {
       g_lightPos[0] += g_lightSpeed;
       fixSlider("lightSlideX", g_lightPos[0] * 10);
     }
@@ -97,7 +97,7 @@ function animateLight() {
     }
   } else
   if (g_lightDir == N) {
-    if (g_lightPos[2] > -7) {
+    if (g_lightPos[2] > -6) {
       g_lightPos[2] -= g_lightSpeed;
       fixSlider("lightSlideZ", g_lightPos[2] * 10);
     }
