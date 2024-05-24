@@ -6,10 +6,11 @@ class Pyramid {
     this.type='pyramid';
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.textureNum = -2;
+    this.useFakeLighting = false;
     this.segments = 6;
     this.matrix = new Matrix4();
   }
-
+  
   render() {
     var rgba = this.color;
     var segments = this.segments;
@@ -43,7 +44,7 @@ class Pyramid {
       let pt2 = [xy[0] + vec2[0], xy[1] + vec2[1], xy[2] + vec2[2]];
 
       // Pass the color of a point to u_FragColor variable
-      light = 0.6;
+      light = this.useFakeLighting ? 0.6 : 1;
       gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
     
       // Part of Base
@@ -54,10 +55,12 @@ class Pyramid {
       );
 
       // Set Light
-      if (count == 4) { light = 1; }
-      else if (count == 3 || count == 5) { light = 0.9; }
-      else if (count == 0 || count == 2) { light = 0.8; }
-      else if (count == 1) { light = 0.7; }
+      if(this.useFakeLighting) {
+        if (count == 4) { light = 1; }
+        else if (count == 3 || count == 5) { light = 0.9; }
+        else if (count == 0 || count == 2) { light = 0.8; }
+        else if (count == 1) { light = 0.7; }
+      }
 
       // Pass the color of a point to u_FragColor variable
       gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);

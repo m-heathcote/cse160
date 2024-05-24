@@ -6,6 +6,7 @@ class Cube {
     this.type='cube';
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.textureNum = -2;
+    this.useFakeLighting = false;
     this.matrix = new Matrix4();
   }
 
@@ -24,9 +25,9 @@ class Cube {
       gl.uniform1i(u_WhichTexture, this.textureNum);
     }
 
-    // lightest
+    // lighter
     // Pass the color of a point to u_FragColor variable
-    let light = 0.9;
+    let light = this.useFakeLighting ? 0.9 : 1;
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Front
@@ -39,9 +40,9 @@ class Cube {
       [0,0,  0,1,  1,1],
       [0,0,-1, 0,0,-1, 0,0,-1]);
 
-    // darkest
+    // darker
     // Pass the color of a point to u_FragColor variable
-    light = 0.7;
+    light = this.useFakeLighting ? 0.7 : 1;
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Back
@@ -56,7 +57,7 @@ class Cube {
 
     // lighter
     // Pass the color of a point to u_FragColor variable
-    light = 0.8;
+    light = this.useFakeLighting ? 0.8 : 1;
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Right
@@ -79,7 +80,7 @@ class Cube {
       [1,1,  0,0,  0,1],
       [-1,0,0, -1,0,0, -1,0,0]);
 
-    // darker
+    // lightest
     // Pass the color of a point to u_FragColor variable
     light = 1;
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
@@ -94,9 +95,9 @@ class Cube {
       [1,0,  0,1,  0,0],
       [0,1,0, 0,1,0, 0,1,0]);
     
-    // darker
+    // darkest
     // Pass the color of a point to u_FragColor variable
-    light = 0.6;
+    light = this.useFakeLighting ? 0.6 : 1;
     gl.uniform4f(u_FragColor, rgba[0]*light, rgba[1]*light, rgba[2]*light, rgba[3]);
    
     // Bottom

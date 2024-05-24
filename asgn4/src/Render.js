@@ -70,7 +70,7 @@ function renderAllShapes() {
   light.textureNum = -2;
   light.color = sun;
   light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]);
-  light.matrix.scale(0.3, 0.3, 0.3);
+  light.matrix.scale(-0.3, -0.3, -0.3);
   light.matrix.translate(-0.5, -0.5, -0.5);
   light.render();
 
