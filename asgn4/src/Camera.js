@@ -76,8 +76,6 @@ class Camera {
   }
 
   moveForward() {
-    console.log("moving forward");
-
     let f = new Vector3();
     f.set(this.at);
     f.sub(this.eye);
