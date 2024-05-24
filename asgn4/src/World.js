@@ -11,6 +11,7 @@ var VSHADER_SOURCE = `
   varying vec4 v_VertPos;
 
   uniform mat4 u_ModelMatrix;           // sets where shape located
+  uniform mat4 u_NormalMatrix;          // transforms normals based on rotation
   uniform mat4 u_GlobalRotateMatrix;    // sets global rotation
   uniform mat4 u_ViewMatrix;            // set by lookAt command
   uniform mat4 u_ProjectionMatrix;      // set by GL perspective command
@@ -20,7 +21,7 @@ var VSHADER_SOURCE = `
     //gl_Position = u_GlobalRotateMatrix * u_ModelMatrix * a_Position;
     
     v_UV = a_UV;
-    v_Normal = a_Normal;
+    v_Normal = normalize(vec3(u_NormalMatrix * vec4(a_Normal, 1)));
     v_VertPos = u_ModelMatrix * a_Position;
   }`
 

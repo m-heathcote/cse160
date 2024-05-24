@@ -7,8 +7,10 @@ class Cube {
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.textureNum = -2;
     this.useFakeLighting = false;
+    this.updateNormals = true;
     this.shiny = 0.5;
     this.matrix = new Matrix4();
+    this.normalMatrix = new Matrix4();
   }
 
   render() {
@@ -16,6 +18,14 @@ class Cube {
 
     // Pass the matrix to u_ModelMatrix attribute
     gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+
+    // Update normalMatrix
+    if (this.updateNormals) {
+      this.normalMatrix.setInverseOf(this.matrix).transpose();
+    }
+
+    // Pass the normalMatrix to u_NormalMatrix attribute
+    gl.uniformMatrix4fv(u_NormalMatrix, false, this.normalMatrix.elements);
 
     // Pass the texture number to u_WhichTexture
     // (1i = 1 integer)

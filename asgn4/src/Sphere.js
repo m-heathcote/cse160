@@ -16,6 +16,7 @@ class Sphere {
     this.textureNum = -2;
     this.shiny;
     this.matrix = new Matrix4();
+    this.normalMatrix = new Matrix4();
     this.verts32 = new Float32Array([]);
   }
 
@@ -27,6 +28,12 @@ class Sphere {
 
     // Pass the matrix to u_ModelMatrix attribute
     gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+
+    // Update normalMatrix
+    this.normalMatrix.setInverseOf(this.matrix).transpose();
+
+    // Pass the normalMatrix to u_NormalMatrix attribute
+    gl.uniformMatrix4fv(u_NormalMatrix, false, this.normalMatrix.elements);
 
     // Pass the texture number to u_WhichTexture
     // (1i = 1 integer)

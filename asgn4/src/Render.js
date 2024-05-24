@@ -61,6 +61,7 @@ function renderAllShapes() {
   sky_box.textureNum = 1;
   sky_box.color = sky;
   sky_box.shiny = 0;  // no shine
+  sky_box.updateNormals = false;
   sky_box.matrix.scale(-16, -16, -16);
   sky_box.matrix.translate(-0.5, -0.5, -0.5);
   sky_box.render();
@@ -76,6 +77,7 @@ function renderAllShapes() {
   var light = new Cube();
   light.textureNum = -2;
   light.color = sun;
+  light.updateNormals = false;
   light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]);
   light.matrix.scale(-0.3, -0.3, -0.3);
   light.matrix.translate(-0.5, -0.5, -0.5);
