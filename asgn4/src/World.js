@@ -48,7 +48,9 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler12;
   uniform sampler2D u_Sampler13;
 
+  uniform float u_HowShiny;     // 0 = not shiny, 1 = shiny
   uniform vec3 u_LightPos;
+  uniform vec3 u_CameraPos;
   varying vec4 v_VertPos;
 
   void main() {
@@ -111,9 +113,17 @@ var FSHADER_SOURCE = `
     vec3 N = normalize(v_Normal);
     float nDotL = max(dot(N,L), 0.0);
 
+    // Reflection
+    vec3 R = reflect(-L, N);
+
+    // eye
+    vec3 E = normalize(u_CameraPos - vec3(v_VertPos));
+
+    float specular = pow(max(dot(E, R), 0.0), 100.0);
     vec3 diffuse = vec3(gl_FragColor) * nDotL;
     vec3 ambient = vec3(gl_FragColor) * 0.3;
-    gl_FragColor = vec4(diffuse + ambient, 1.0);
+
+    gl_FragColor = vec4((specular*u_HowShiny) + diffuse + ambient, 1.0);
   }`
 
 

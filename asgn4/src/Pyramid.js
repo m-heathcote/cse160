@@ -7,6 +7,7 @@ class Pyramid {
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.textureNum = -2;
     this.useFakeLighting = false;
+    this.shiny = 0.5;
     this.segments = 6;
     this.matrix = new Matrix4();
   }
@@ -26,6 +27,9 @@ class Pyramid {
     else {
       gl.uniform1i(u_WhichTexture, this.textureNum);
     }
+
+    // Pass shiny-ness to u_HowShiny
+    gl.uniform1f(u_HowShiny, this.shiny);
 
     // Light Level
     var light = 1;

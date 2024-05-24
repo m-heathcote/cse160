@@ -23,6 +23,8 @@ let u_Sampler11;
 let u_Sampler12;
 let u_Sampler13;
 let u_LightPos;
+let u_CameraPos;
+let u_HowShiny;
 let u_Size;
 let u_ModelMatrix;
 let u_ProjectionMatrix;
@@ -165,6 +167,20 @@ function connectVariablesToGLSL() {
   u_LightPos = gl.getUniformLocation(gl.program, 'u_LightPos');
   if (!u_LightPos) {
     console.log('Failed to get the storage location of u_LightPos');
+    return;
+  }
+
+  // Get the storage location of u_CameraPos
+  u_CameraPos = gl.getUniformLocation(gl.program, 'u_CameraPos');
+  if (!u_CameraPos) {
+    console.log('Failed to get the storage location of u_CameraPos');
+    return;
+  }
+
+  // Get the storage location of u_HowShiny
+  u_HowShiny = gl.getUniformLocation(gl.program, 'u_HowShiny');
+  if (!u_HowShiny) {
+    console.log('Failed to get the storage location of u_HowShiny');
     return;
   }
 

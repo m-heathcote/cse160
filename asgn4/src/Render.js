@@ -45,6 +45,7 @@ function renderAllShapes() {
   var ground = new Cube();
   ground.textureNum = 0;
   ground.color = grass;
+  ground.shiny = 0;  // no shine
   ground.matrix.translate(0, -0.75, 0);
   ground.matrix.scale(16, 0, 16);
   ground.matrix.translate(-0.5, 0, -0.5);
@@ -54,6 +55,7 @@ function renderAllShapes() {
   var sky_box = new Cube();
   sky_box.textureNum = 1;
   sky_box.color = sky;
+  sky_box.shiny = 0;  // no shine
   sky_box.matrix.scale(-16, -16, -16);
   sky_box.matrix.translate(-0.5, -0.5, -0.5);
   sky_box.render();
@@ -74,16 +76,18 @@ function renderAllShapes() {
   light.matrix.translate(-0.5, -0.5, -0.5);
   light.render();
 
-  // pass the light position to GLSL
+  // pass the light and camera positions to GLSL
   gl.uniform3f(u_LightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]);
+  gl.uniform3f(u_CameraPos, camera.eye.elements[0], camera.eye.elements[1], camera.eye.elements[2]);
 
 
   // ---------- FORBIDDEN MINECRAFT SPHERE ----------
   
   // sphere
   var test_sphere = new Sphere();
-  test_sphere.textureNum = 8;
+  test_sphere.textureNum = -2;
   test_sphere.color = [184/255, 121/255, 194/255, 1];
+  test_sphere.shiny = 1;  // full shine
   test_sphere.matrix.translate(2, 0, 0.5);
   test_sphere.matrix.scale(0.6, 0.6, 0.6);
   test_sphere.render();

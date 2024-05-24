@@ -14,6 +14,7 @@ class Sphere {
     this.type='sphere';
     this.color = [1.0, 1.0, 1.0, 1.0];
     this.textureNum = -2;
+    this.shiny;
     this.matrix = new Matrix4();
     this.verts32 = new Float32Array([]);
   }
@@ -35,6 +36,9 @@ class Sphere {
     else {
       gl.uniform1i(u_WhichTexture, this.textureNum);
     }
+
+    // Pass shiny-ness to u_HowShiny
+    gl.uniform1f(u_HowShiny, this.shiny);
 
     var d = Math.PI/25;
     var dd = Math.PI/25;
