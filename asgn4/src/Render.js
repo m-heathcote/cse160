@@ -10,6 +10,8 @@ var g_spotIntensity = 0.5;
 var g_pointLightOn = true;
 var g_spotLightOn = false;
 var g_normalsOn = false;
+var g_spotRotX = -30;
+var g_spotRotZ = 30;
 
 // -- Globals for Turtle Movement --
 var E = 0;  // east
@@ -74,9 +76,9 @@ function renderAllShapes() {
   drawMap();
 
 
-  // ---------- Light ----------
+  // ---------- LIGHTS ----------
 
-  // Pass Light Status
+  // pass light status
   gl.uniform1i(u_PointLightOn, g_pointLightOn);
   gl.uniform1i(u_SpotLightOn, g_spotLightOn);
 
@@ -95,12 +97,25 @@ function renderAllShapes() {
   p_light.render();
 
   // spot light
+  /*
   var s_light = new Cube();
   s_light.textureNum = -2;
   s_light.color = spotlight;
   s_light.updateNormals = false;
   s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
   s_light.matrix.scale(0.2, 0.2, 0.2);
+  s_light.matrix.translate(-0.5, -0.5, -0.5);
+  s_light.render();
+  */
+
+  var s_light = new Pyramid();
+  s_light.textureNum = -2;
+  s_light.color = spotlight;
+  s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
+  s_light.matrix.rotate(g_spotRotZ, 0, 0, 1);  // look along X axis
+  console.log("drawing with rot = ", g_spotRotZ);
+  s_light.matrix.rotate(g_spotRotX, 1, 0, 0);  // look along Z axis
+  s_light.matrix.scale(0.25, 0.5, 0.25);
   s_light.matrix.translate(-0.5, -0.5, -0.5);
   s_light.render();
 

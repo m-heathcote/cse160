@@ -46,9 +46,12 @@ function addActionsForHtmlUI() {
     g_spotLightPos[2] = this.value/10;
   });
   document.getElementById("targetSlideX").addEventListener("mousemove", function() {
+    g_spotRotZ += (this.value/10 - g_spotTarget[0])*10;
+    console.log("adding: ", (this.value/10 - g_spotTarget[0])*10);
     g_spotTarget[0] = this.value/10;
   });
   document.getElementById("targetSlideZ").addEventListener("mousemove", function() {
+    g_spotRotX += (this.value/10 - g_spotTarget[2])*10;
     g_spotTarget[2] = this.value/10;
   });
   document.getElementById("cutoffSlide").addEventListener("mousemove", function() {
