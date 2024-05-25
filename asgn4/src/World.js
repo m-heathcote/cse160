@@ -58,6 +58,7 @@ var FSHADER_SOURCE = `
   uniform vec3 u_SpotTarget;
   uniform float u_SpotCosCutoff;
   uniform float u_SpotExp;
+  uniform float u_SpotIntensity;
   varying vec4 v_VertPos;
 
   void main() {
@@ -137,9 +138,7 @@ var FSHADER_SOURCE = `
 
     float spotFactor = 0.0;
     if (dDotL2 > u_SpotCosCutoff) {
-      spotFactor = pow(dDotL2, u_SpotExp); // put spot exponent here
-      
-      //spotFactor = 1.0;
+      spotFactor = pow(dDotL2, u_SpotExp) * u_SpotIntensity;
     }
 
     if (u_PointLightOn) {

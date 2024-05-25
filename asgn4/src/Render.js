@@ -2,12 +2,13 @@
 
 // -- Light Globals --
 var g_pointLightPos = [6, 6, -6];
-var g_spotLightPos = [-7, 7, -7];
+var g_spotLightPos = [-6, 6, -6];
 var g_spotTarget = [0, 0, 0];
 var g_spotAngleCutoff = 5;
 var g_spotExp = 100;
+var g_spotIntensity = 0.5;
 var g_pointLightOn = true;
-var g_spotLightOn = true;
+var g_spotLightOn = false;
 var g_normalsOn = false;
 
 // -- Globals for Turtle Movement --
@@ -79,8 +80,9 @@ function renderAllShapes() {
   gl.uniform1i(u_PointLightOn, g_pointLightOn);
   gl.uniform1i(u_SpotLightOn, g_spotLightOn);
 
-  // color
+  // colors
   var sun = [255/255, 225/255, 130/255, 1];
+  var spotlight = [100/255, 100/255, 100/255, 1];
 
   // point light
   var p_light = new Cube();
@@ -95,7 +97,7 @@ function renderAllShapes() {
   // spot light
   var s_light = new Cube();
   s_light.textureNum = -2;
-  s_light.color = sun;
+  s_light.color = spotlight;
   s_light.updateNormals = false;
   s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
   s_light.matrix.scale(0.2, 0.2, 0.2);
@@ -111,6 +113,7 @@ function renderAllShapes() {
   // pass other light settings to GLSL
   gl.uniform1f(u_SpotCosCutoff, Math.cos(g_spotAngleCutoff * (Math.PI/180)));
   gl.uniform1f(u_SpotExp, g_spotExp);
+  gl.uniform1f(u_SpotIntensity, g_spotIntensity);
   
 
   // ---------- FORBIDDEN MINECRAFT SPHERE ----------

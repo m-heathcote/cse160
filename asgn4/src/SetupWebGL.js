@@ -205,6 +205,13 @@ function connectVariablesToGLSL() {
     return;
   }
 
+  // Get the storage location of u_SpotIntensity
+  u_SpotIntensity = gl.getUniformLocation(gl.program, 'u_SpotIntensity');
+  if (!u_SpotIntensity) {
+    console.log('Failed to get the storage location of u_SpotIntensity');
+    return;
+  }
+
   // Get the storage location of u_CameraPos
   u_CameraPos = gl.getUniformLocation(gl.program, 'u_CameraPos');
   if (!u_CameraPos) {

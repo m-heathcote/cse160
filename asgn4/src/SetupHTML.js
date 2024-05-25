@@ -45,12 +45,22 @@ function addActionsForHtmlUI() {
   document.getElementById("spotSlideZ").addEventListener("mousemove", function() {
     g_spotLightPos[2] = this.value/10;
   });
+  document.getElementById("targetSlideX").addEventListener("mousemove", function() {
+    g_spotTarget[0] = this.value/10;
+  });
+  document.getElementById("targetSlideZ").addEventListener("mousemove", function() {
+    g_spotTarget[2] = this.value/10;
+  });
   document.getElementById("cutoffSlide").addEventListener("mousemove", function() {
     g_spotAngleCutoff = this.value;
   });
   document.getElementById("exponentSlide").addEventListener("mousemove", function() {
     g_spotExp = this.value;
   });
+  document.getElementById("intensitySlide").addEventListener("mousemove", function() {
+    g_spotIntensity = this.value/100;
+  });
+
 
   // Camera View Buttons
   document.getElementById('view1Button').onclick = function() {

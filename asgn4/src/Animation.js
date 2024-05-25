@@ -72,7 +72,7 @@ function animateLight() {
   if (g_lightDir == W) {
     if (g_pointLightPos[0] > -6) {
       g_pointLightPos[0] -= g_lightSpeed;
-      fixSlider("lightSlideX", g_pointLightPos[0] * 10);
+      fixSlider("pointSlideX", g_pointLightPos[0] * 10);
     }
     else {
       g_lightDir = S;
@@ -81,7 +81,7 @@ function animateLight() {
   if (g_lightDir == S) {
     if (g_pointLightPos[2] < 6) {
       g_pointLightPos[2] += g_lightSpeed;
-      fixSlider("lightSlideZ", g_pointLightPos[2] * 10);
+      fixSlider("pointSlideZ", g_pointLightPos[2] * 10);
     }
     else {
       g_lightDir = E;
@@ -90,7 +90,7 @@ function animateLight() {
   if (g_lightDir == E) {
     if (g_pointLightPos[0] < 6) {
       g_pointLightPos[0] += g_lightSpeed;
-      fixSlider("lightSlideX", g_pointLightPos[0] * 10);
+      fixSlider("pointSlideX", g_pointLightPos[0] * 10);
     }
     else {
       g_lightDir = N;
@@ -99,7 +99,7 @@ function animateLight() {
   if (g_lightDir == N) {
     if (g_pointLightPos[2] > -6) {
       g_pointLightPos[2] -= g_lightSpeed;
-      fixSlider("lightSlideZ", g_pointLightPos[2] * 10);
+      fixSlider("pointSlideZ", g_pointLightPos[2] * 10);
     }
     else {
       g_lightDir = W;
