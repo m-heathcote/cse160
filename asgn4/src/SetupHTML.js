@@ -34,6 +34,9 @@ function addActionsForHtmlUI() {
   document.getElementById("pointSlideZ").addEventListener("mousemove", function() {
     g_pointLightPos[2] = this.value/10;
   });
+  document.getElementById("pColorSlide").addEventListener("mousemove", function() {
+    g_pointColor = hueToRGB(this.value);
+  });
 
   // Spot Light Sliders
   document.getElementById("spotSlideX").addEventListener("mousemove", function() {
@@ -46,12 +49,9 @@ function addActionsForHtmlUI() {
     g_spotLightPos[2] = this.value/10;
   });
   document.getElementById("targetSlideX").addEventListener("mousemove", function() {
-    g_spotRotZ += (this.value/10 - g_spotTarget[0])*10;
-    console.log("adding: ", (this.value/10 - g_spotTarget[0])*10);
     g_spotTarget[0] = this.value/10;
   });
   document.getElementById("targetSlideZ").addEventListener("mousemove", function() {
-    g_spotRotX += (this.value/10 - g_spotTarget[2])*10;
     g_spotTarget[2] = this.value/10;
   });
   document.getElementById("cutoffSlide").addEventListener("mousemove", function() {
@@ -114,3 +114,33 @@ function sendTextToHTML(text, htmlID) {
   htmlElm.innerHTML = text;
 }
 // ----- end sendTextToHTML -----
+
+// ----- hueToRGB -----
+function hueToRGB(hue) {
+  let c = 1; // Chromaticity (maximum value)
+    let x = 1 - Math.abs((hue / 60) % 2 - 1); // Intermediate value
+    let m = 0; // Minimum value (offset)
+
+    let r, g, b;
+    if (0 <= hue && hue < 60) {
+        [r, g, b] = [c, x, m];
+    } else if (60 <= hue && hue < 120) {
+        [r, g, b] = [x, c, m];
+    } else if (120 <= hue && hue < 180) {
+        [r, g, b] = [m, c, x];
+    } else if (180 <= hue && hue < 240) {
+        [r, g, b] = [m, x, c];
+    } else if (240 <= hue && hue < 300) {
+        [r, g, b] = [x, m, c];
+    } else {
+        [r, g, b] = [c, m, x];
+    }
+
+    // Convert to RGB
+    return [
+      (r + m),
+      (g + m),
+      (b + m)
+    ];
+}
+// ----- end hueToRGB -----

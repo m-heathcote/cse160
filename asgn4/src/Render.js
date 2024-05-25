@@ -4,14 +4,13 @@
 var g_pointLightPos = [6, 6, -6];
 var g_spotLightPos = [-6, 6, -6];
 var g_spotTarget = [0, 0, 0];
+var g_pointColor = [1, 0, 0];
 var g_spotAngleCutoff = 5;
 var g_spotExp = 100;
 var g_spotIntensity = 0.5;
 var g_pointLightOn = true;
 var g_spotLightOn = false;
 var g_normalsOn = false;
-var g_spotRotX = -30;
-var g_spotRotZ = 30;
 
 // -- Globals for Turtle Movement --
 var E = 0;  // east
@@ -97,25 +96,12 @@ function renderAllShapes() {
   p_light.render();
 
   // spot light
-  /*
   var s_light = new Cube();
   s_light.textureNum = -2;
   s_light.color = spotlight;
   s_light.updateNormals = false;
   s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
   s_light.matrix.scale(0.2, 0.2, 0.2);
-  s_light.matrix.translate(-0.5, -0.5, -0.5);
-  s_light.render();
-  */
-
-  var s_light = new Pyramid();
-  s_light.textureNum = -2;
-  s_light.color = spotlight;
-  s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
-  s_light.matrix.rotate(g_spotRotZ, 0, 0, 1);  // look along X axis
-  console.log("drawing with rot = ", g_spotRotZ);
-  s_light.matrix.rotate(g_spotRotX, 1, 0, 0);  // look along Z axis
-  s_light.matrix.scale(0.25, 0.5, 0.25);
   s_light.matrix.translate(-0.5, -0.5, -0.5);
   s_light.render();
 
@@ -125,6 +111,9 @@ function renderAllShapes() {
   gl.uniform3f(u_SpotTarget, g_spotTarget[0], g_spotTarget[1], g_spotTarget[2]);
   gl.uniform3f(u_CameraPos, camera.eye.elements[0], camera.eye.elements[1], camera.eye.elements[2]);
   
+  // pass color to GLSL
+  gl.uniform3f(u_PointColor, g_pointColor[0], g_pointColor[1], g_pointColor[2]);
+
   // pass other light settings to GLSL
   gl.uniform1f(u_SpotCosCutoff, Math.cos(g_spotAngleCutoff * (Math.PI/180)));
   gl.uniform1f(u_SpotExp, g_spotExp);

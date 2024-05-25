@@ -56,6 +56,7 @@ var FSHADER_SOURCE = `
   uniform vec3 u_SpotLightPos;
   uniform vec3 u_CameraPos;
   uniform vec3 u_SpotTarget;
+  uniform vec3 u_PointColor;
   uniform float u_SpotCosCutoff;
   uniform float u_SpotExp;
   uniform float u_SpotIntensity;
@@ -133,7 +134,7 @@ var FSHADER_SOURCE = `
     vec3 E = normalize(u_CameraPos - vec3(v_VertPos));  // vertex -> eye
 
     float specular = pow(max(dot(E, R), 0.0), 100.0);
-    vec3 diffuse = vec3(gl_FragColor) * nDotL1;
+    vec3 diffuse = vec3(gl_FragColor) * nDotL1 * u_PointColor;
     vec3 ambient = vec3(gl_FragColor) * 0.3;
 
     float spotFactor = 0.0;
