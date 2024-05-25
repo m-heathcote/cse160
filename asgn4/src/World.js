@@ -49,10 +49,13 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler12;
   uniform sampler2D u_Sampler13;
 
-  uniform bool u_LightOn;
+  uniform bool u_PointLightOn;
+  uniform bool u_SpotLightOn;
   uniform float u_HowShiny;     // 0 = not shiny, 1 = shiny
-  uniform vec3 u_LightPos;
+  uniform vec3 u_PointLightPos;
+  uniform vec3 u_SpotLightPos;
   uniform vec3 u_CameraPos;
+  uniform vec3 u_SpotTarget;
   varying vec4 v_VertPos;
 
   void main() {
@@ -95,7 +98,7 @@ var FSHADER_SOURCE = `
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
     }
 
-    vec3 lightVector = u_LightPos - vec3(v_VertPos);
+    vec3 lightVector = u_PointLightPos - vec3(v_VertPos);  // vertex -> light
     float r = length(lightVector);
 
     // Distance Visualization
@@ -119,7 +122,7 @@ var FSHADER_SOURCE = `
     vec3 R = reflect(-L, N);
 
     // eye
-    vec3 E = normalize(u_CameraPos - vec3(v_VertPos));
+    vec3 E = normalize(u_CameraPos - vec3(v_VertPos));  // vertex -> eye
 
     float specular = pow(max(dot(E, R), 0.0), 100.0);
     vec3 diffuse = vec3(gl_FragColor) * nDotL;

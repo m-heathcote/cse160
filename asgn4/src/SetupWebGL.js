@@ -22,9 +22,12 @@ let u_Sampler10;
 let u_Sampler11;
 let u_Sampler12;
 let u_Sampler13;
-let u_LightPos;
+let u_PointLightPos;
+let u_SpotLightPos;
+let u_SpotTarget;
 let u_CameraPos;
-let u_LightOn;
+let u_PointLightOn;
+let u_SpotLightOn;
 let u_HowShiny;
 let u_Size;
 let u_ModelMatrix;
@@ -165,10 +168,24 @@ function connectVariablesToGLSL() {
     return false;
   }
 
-  // Get the storage location of u_LightPos
-  u_LightPos = gl.getUniformLocation(gl.program, 'u_LightPos');
-  if (!u_LightPos) {
-    console.log('Failed to get the storage location of u_LightPos');
+  // Get the storage location of u_PointLightPos
+  u_PointLightPos = gl.getUniformLocation(gl.program, 'u_PointLightPos');
+  if (!u_PointLightPos) {
+    console.log('Failed to get the storage location of u_PointLightPos');
+    return;
+  }
+
+  // Get the storage location of u_SpotLightPos
+  u_SpotLightPos = gl.getUniformLocation(gl.program, 'u_SpotLightPos');
+  if (!u_SpotLightPos) {
+    console.log('Failed to get the storage location of u_SpotLightPos');
+    return;
+  }
+
+  // Get the storage location of u_SpotTarget
+  u_SpotTarget = gl.getUniformLocation(gl.program, 'u_SpotTarget');
+  if (!u_SpotTarget) {
+    console.log('Failed to get the storage location of u_SpotTarget');
     return;
   }
 
@@ -179,10 +196,17 @@ function connectVariablesToGLSL() {
     return;
   }
 
-  // Get the storage location of u_LightOn
-  u_LightOn = gl.getUniformLocation(gl.program, 'u_LightOn');
-  if (!u_LightOn) {
-    console.log('Failed to get the storage location of u_LightOn');
+  // Get the storage location of u_PointLightOn
+  u_PointLightOn = gl.getUniformLocation(gl.program, 'u_PointLightOn');
+  if (!u_PointLightOn) {
+    console.log('Failed to get the storage location of u_PointLightOn');
+    return;
+  }
+
+  // Get the storage location of u_SpotLightOn
+  u_SpotLightOn = gl.getUniformLocation(gl.program, 'u_SpotLightOn');
+  if (!u_SpotLightOn) {
+    console.log('Failed to get the storage location of u_SpotLightOn');
     return;
   }
 

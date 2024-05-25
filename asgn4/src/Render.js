@@ -1,7 +1,9 @@
 // Render.js
 
 // -- Light Globals --
-var g_lightPos = [6, 6, -6];
+var g_pointLightPos = [6, 6, -6];
+var g_spotLightPos = [6, 6, -6];
+var g_spotTarget = [0, 0, 0];
 var g_lightOn = true;
 var g_normalsOn = false;
 
@@ -36,9 +38,6 @@ function renderAllShapes() {
   // Clear <canvas>
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  // Pass Light Status
-  gl.uniform1i(u_LightOn, g_lightOn);
-
 
   // ---------- ENVIRONMENT ----------
 
@@ -72,19 +71,38 @@ function renderAllShapes() {
 
 
   // ---------- Light ----------
+
+  // Pass Light Status
+  gl.uniform1i(u_PointLightOn, u_PointLightOn);
+  gl.uniform1i(u_SpotLightOn, u_SpotLightOn);
+
+  // color
   var sun = [255/255, 225/255, 130/255, 1];
 
-  var light = new Cube();
-  light.textureNum = -2;
-  light.color = sun;
-  light.updateNormals = false;
-  light.matrix.translate(g_lightPos[0], g_lightPos[1], g_lightPos[2]);
-  light.matrix.scale(-0.2, -0.2, -0.2);
-  light.matrix.translate(-0.5, -0.5, -0.5);
-  light.render();
+  // point light
+  var p_light = new Cube();
+  p_light.textureNum = -2;
+  p_light.color = sun;
+  p_light.updateNormals = false;
+  p_light.matrix.translate(g_pointLightPos[0], g_pointLightPos[1], g_lightPos[2]);
+  p_light.matrix.scale(-0.2, -0.2, -0.2);
+  p_light.matrix.translate(-0.5, -0.5, -0.5);
+  p_light.render();
+
+  // spot light
+  var s_light = new Cube();
+  s_light.textureNum = -2;
+  s_light.color = sun;
+  s_light.updateNormals = false;
+  s_light.matrix.translate(g_pointLightPos[0], g_pointLightPos[1], g_lightPos[2]);
+  s_light.matrix.scale(-0.2, -0.2, -0.2);
+  s_light.matrix.translate(-0.5, -0.5, -0.5);
+  s_light.render();
 
   // pass the light and camera positions to GLSL
-  gl.uniform3f(u_LightPos, g_lightPos[0], g_lightPos[1], g_lightPos[2]);
+  gl.uniform3f(u_PointLightPos, g_pointLightPos[0], g_pointLightPos[1], g_pointLightPos[2]);
+  gl.uniform3f(u_SpotLightPos, g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
+  gl.uniform3f(u_SpotTarget, g_spotTarget[0], g_spotTarget[1], g_spotTarget[2]);
   gl.uniform3f(u_CameraPos, camera.eye.elements[0], camera.eye.elements[1], camera.eye.elements[2]);
 
 
