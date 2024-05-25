@@ -28,6 +28,9 @@ let u_SpotTarget;
 let u_SpotCosCutoff;
 let u_SpotExp;
 let u_PointColor;
+let u_PointColorOn;
+let u_SpotColor;
+let u_SpotColorOn;
 let u_CameraPos;
 let u_PointLightOn;
 let u_SpotLightOn;
@@ -217,6 +220,27 @@ function connectVariablesToGLSL() {
   u_PointColor = gl.getUniformLocation(gl.program, 'u_PointColor');
   if (!u_PointColor) {
     console.log('Failed to get the storage location of u_PointColor');
+    return;
+  }
+
+  // Get the storage location of u_PointColorOn
+  u_PointColorOn = gl.getUniformLocation(gl.program, 'u_PointColorOn');
+  if (!u_PointColorOn) {
+    console.log('Failed to get the storage location of u_PointColorOn');
+    return;
+  }
+
+  // Get the storage location of u_SpotColor
+  u_SpotColor = gl.getUniformLocation(gl.program, 'u_SpotColor');
+  if (!u_SpotColor) {
+    console.log('Failed to get the storage location of u_SpotColor');
+    return;
+  }
+
+  // Get the storage location of u_SpotColorOn
+  u_SpotColorOn = gl.getUniformLocation(gl.program, 'u_SpotColorOn');
+  if (!u_SpotColorOn) {
+    console.log('Failed to get the storage location of u_SpotColorOn');
     return;
   }
 

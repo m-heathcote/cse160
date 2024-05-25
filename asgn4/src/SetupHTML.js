@@ -34,6 +34,10 @@ function addActionsForHtmlUI() {
   document.getElementById("pointSlideZ").addEventListener("mousemove", function() {
     g_pointLightPos[2] = this.value/10;
   });
+
+  document.getElementById('pointColorButton').onclick = function() {
+    g_pointColorOn = !g_pointColorOn;
+  };
   document.getElementById("pColorSlide").addEventListener("mousemove", function() {
     g_pointColor = hueToRGB(this.value);
   });
@@ -48,6 +52,14 @@ function addActionsForHtmlUI() {
   document.getElementById("spotSlideZ").addEventListener("mousemove", function() {
     g_spotLightPos[2] = this.value/10;
   });
+
+  document.getElementById('spotColorButton').onclick = function() {
+    g_spotColorOn = !g_spotColorOn;
+  };
+  document.getElementById("sColorSlide").addEventListener("mousemove", function() {
+    g_spotColor = hueToRGB(this.value);
+  });
+
   document.getElementById("targetSlideX").addEventListener("mousemove", function() {
     g_spotTarget[0] = this.value/10;
   });
@@ -118,29 +130,29 @@ function sendTextToHTML(text, htmlID) {
 // ----- hueToRGB -----
 function hueToRGB(hue) {
   let c = 1; // Chromaticity (maximum value)
-    let x = 1 - Math.abs((hue / 60) % 2 - 1); // Intermediate value
-    let m = 0; // Minimum value (offset)
+  let x = c * (1 - Math.abs((hue / 60) % 2 - 1)); // Intermediate value
+  let m = 0; // Minimum value (offset)
 
-    let r, g, b;
-    if (0 <= hue && hue < 60) {
-        [r, g, b] = [c, x, m];
-    } else if (60 <= hue && hue < 120) {
-        [r, g, b] = [x, c, m];
-    } else if (120 <= hue && hue < 180) {
-        [r, g, b] = [m, c, x];
-    } else if (180 <= hue && hue < 240) {
-        [r, g, b] = [m, x, c];
-    } else if (240 <= hue && hue < 300) {
-        [r, g, b] = [x, m, c];
-    } else {
-        [r, g, b] = [c, m, x];
-    }
+  let r, g, b;
+  if (0 <= hue && hue < 60) {
+      [r, g, b] = [c, x, m];
+  } else if (60 <= hue && hue < 120) {
+      [r, g, b] = [x, c, m];
+  } else if (120 <= hue && hue < 180) {
+      [r, g, b] = [m, c, x];
+  } else if (180 <= hue && hue < 240) {
+      [r, g, b] = [m, x, c];
+  } else if (240 <= hue && hue < 300) {
+      [r, g, b] = [x, m, c];
+  } else {
+      [r, g, b] = [c, m, x];
+  }
 
-    // Convert to RGB
-    return [
-      (r + m),
-      (g + m),
-      (b + m)
-    ];
+  // Convert to RGB
+  return [
+    (r + m),
+    (g + m),
+    (b + m)
+  ];
 }
 // ----- end hueToRGB -----

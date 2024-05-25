@@ -5,10 +5,13 @@ var g_pointLightPos = [6, 6, -6];
 var g_spotLightPos = [-6, 6, -6];
 var g_spotTarget = [0, 0, 0];
 var g_pointColor = [1, 0, 0];
+var g_spotColor = [1, 0, 0];
 var g_spotAngleCutoff = 5;
 var g_spotExp = 100;
 var g_spotIntensity = 0.5;
 var g_pointLightOn = true;
+var g_pointColorOn = false;
+var g_spotColorOn = false;
 var g_spotLightOn = false;
 var g_normalsOn = false;
 
@@ -112,7 +115,10 @@ function renderAllShapes() {
   gl.uniform3f(u_CameraPos, camera.eye.elements[0], camera.eye.elements[1], camera.eye.elements[2]);
   
   // pass color to GLSL
+  gl.uniform1i(u_PointColorOn, g_pointColorOn);
   gl.uniform3f(u_PointColor, g_pointColor[0], g_pointColor[1], g_pointColor[2]);
+  gl.uniform1i(u_SpotColorOn, g_spotColorOn);
+  gl.uniform3f(u_SpotColor, g_spotColor[0], g_spotColor[1], g_spotColor[2]);
 
   // pass other light settings to GLSL
   gl.uniform1f(u_SpotCosCutoff, Math.cos(g_spotAngleCutoff * (Math.PI/180)));

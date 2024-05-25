@@ -50,13 +50,16 @@ var FSHADER_SOURCE = `
   uniform sampler2D u_Sampler13;
 
   uniform bool u_PointLightOn;
+  uniform bool u_PointColorOn;
   uniform bool u_SpotLightOn;
+  uniform bool u_SpotColorOn;
   uniform float u_HowShiny;     // 0 = not shiny, 1 = shiny
   uniform vec3 u_PointLightPos;
   uniform vec3 u_SpotLightPos;
   uniform vec3 u_CameraPos;
   uniform vec3 u_SpotTarget;
   uniform vec3 u_PointColor;
+  uniform vec3 u_SpotColor;
   uniform float u_SpotCosCutoff;
   uniform float u_SpotExp;
   uniform float u_SpotIntensity;
@@ -133,10 +136,22 @@ var FSHADER_SOURCE = `
     // eye
     vec3 E = normalize(u_CameraPos - vec3(v_VertPos));  // vertex -> eye
 
+    // specular
     float specular = pow(max(dot(E, R), 0.0), 100.0);
-    vec3 diffuse = vec3(gl_FragColor) * nDotL1 * u_PointColor;
+
+    // diffuse
+    vec3 diffuse;
+    if (u_PointColorOn) {
+      diffuse = vec3(gl_FragColor) * nDotL1 * u_PointColor;
+    }
+    else {
+      diffuse = vec3(gl_FragColor) * nDotL1;
+    }
+
+    // ambient
     vec3 ambient = vec3(gl_FragColor) * 0.3;
 
+    // spotlight
     float spotFactor = 0.0;
     if (dDotL2 > u_SpotCosCutoff) {
       spotFactor = pow(dDotL2, u_SpotExp) * u_SpotIntensity;
@@ -146,7 +161,12 @@ var FSHADER_SOURCE = `
       gl_FragColor = vec4((specular*u_HowShiny) + diffuse + ambient, 1.0);
     }
     if (u_SpotLightOn) {
-      gl_FragColor += spotFactor;
+      if (u_SpotColorOn) {
+        gl_FragColor += vec4(u_SpotColor * spotFactor, 1.0);
+      }
+      else {
+        gl_FragColor += spotFactor;
+      }
     }
   }`
 
