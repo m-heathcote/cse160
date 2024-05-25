@@ -56,6 +56,8 @@ var FSHADER_SOURCE = `
   uniform vec3 u_SpotLightPos;
   uniform vec3 u_CameraPos;
   uniform vec3 u_SpotTarget;
+  uniform float u_SpotCosCutoff;
+  uniform float u_SpotExp;
   varying vec4 v_VertPos;
 
   void main() {
@@ -98,7 +100,7 @@ var FSHADER_SOURCE = `
       gl_FragColor = vec4(1, 0.2, 0.2, 1);
     }
 
-    vec3 lightVector = u_PointLightPos - vec3(v_VertPos);  // vertex -> light
+    vec3 lightVector = u_PointLightPos - vec3(v_VertPos);  // vertex -> point light
     float r = length(lightVector);
 
     // Distance Visualization
@@ -113,23 +115,38 @@ var FSHADER_SOURCE = `
     // Light Falloff Visualization
     //gl_FragColor = vec4(vec3(gl_FragColor)/(r*r), 1);
 
-    // N dot L
-    vec3 L = normalize(lightVector);
+    // N dot L1
+    vec3 L1 = normalize(lightVector);
     vec3 N = normalize(v_Normal);
-    float nDotL = max(dot(N,L), 0.0);
+    float nDotL1 = max(dot(N, L1), 0.0);
+
+    // D dot L2
+    vec3 L2 = normalize(u_SpotLightPos - vec3(v_VertPos));  // vertex -> spot light
+    vec3 D = normalize(u_SpotLightPos - vec3(u_SpotTarget));  // target -> spot light
+    float dDotL2 = max(dot(-D, -L2), 0.0);  // cos(angle between target and vertex)
 
     // Reflection
-    vec3 R = reflect(-L, N);
+    vec3 R = reflect(-L1, N);
 
     // eye
     vec3 E = normalize(u_CameraPos - vec3(v_VertPos));  // vertex -> eye
 
     float specular = pow(max(dot(E, R), 0.0), 100.0);
-    vec3 diffuse = vec3(gl_FragColor) * nDotL;
+    vec3 diffuse = vec3(gl_FragColor) * nDotL1;
     vec3 ambient = vec3(gl_FragColor) * 0.3;
 
-    if (u_LightOn) {
+    float spotFactor = 0.0;
+    if (dDotL2 > u_SpotCosCutoff) {
+      spotFactor = pow(dDotL2, u_SpotExp); // put spot exponent here
+      
+      //spotFactor = 1.0;
+    }
+
+    if (u_PointLightOn) {
       gl_FragColor = vec4((specular*u_HowShiny) + diffuse + ambient, 1.0);
+    }
+    if (u_SpotLightOn) {
+      gl_FragColor += spotFactor;
     }
   }`
 

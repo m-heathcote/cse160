@@ -20,10 +20,9 @@
       </canvas>
 
       <div class="slider-container">
-        <h1>Click the [House] button to hide the house and build your own!</h1>
-        <h2>(or build anything else)</h2>
+        <!--<h1>Click the [House] button to hide the house and build your own!</h1>-->
+        <!--<h2>(or build anything else)</h2>-->
         <p>
-        
         <h1>Camera Controls:</h1>
         W-A-S-D: to move<br>
         [space]/[L-shift]: to fly up/down<br>
@@ -54,18 +53,32 @@
     <div class="container">
     <p>
     Lighting:
-    <button type="button" class="rounded-button" id="lightButton">ON/OFF</button>
+    <button type="button" class="rounded-button" id="light1Button">Point ON/OFF</button>
+    <button type="button" class="rounded-button" id="light2Button">Spot ON/OFF</button>
     <button type="button" class="rounded-button" id="normalsButton">Normals ON/OFF</button>
     <button type="button" class="rounded-button" id="lightAnimateButton">Animation ON/OFF</button>
 
     <br><br>
-    Light Position: &nbsp; &nbsp;
+    Point Light: &nbsp; &nbsp;
     X:
-    <input type="range" min="-78" max="78" value="60" class="slider" id="lightSlideX">
+    <input type="range" min="-78" max="78" value="60" class="slider" id="pointSlideX">
     Y:
-    <input type="range" min="0" max="78" value="60" class="slider" id="lightSlideY">
+    <input type="range" min="0" max="78" value="60" class="slider" id="pointSlideY">
     Z:
-    <input type="range" min="-78" max="78" value="-60" class="slider" id="lightSlideZ">
+    <input type="range" min="-78" max="78" value="-60" class="slider" id="pointSlideZ">
+
+    <br><br>
+    Spot Light: &nbsp; &nbsp;
+    X:
+    <input type="range" min="-78" max="78" value="-70" class="slider" id="spotSlideX">
+    Y:
+    <input type="range" min="0" max="78" value="70" class="slider" id="spotSlideY">
+    Z:
+    <input type="range" min="-78" max="78" value="-70" class="slider" id="spotSlideZ">
+    &nbsp; &nbsp; &nbsp; &nbsp;
+    Cutoff:
+    <input type="range" min="1" max="20" value="5" class="slider" id="cutoffSlide">
+    <input type="range" min="100" max="2000" value="100" class="slider" id="exponentSlide">
 
     <br><br>
     View:

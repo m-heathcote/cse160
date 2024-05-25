@@ -2,9 +2,12 @@
 
 // -- Light Globals --
 var g_pointLightPos = [6, 6, -6];
-var g_spotLightPos = [6, 6, -6];
+var g_spotLightPos = [-7, 7, -7];
 var g_spotTarget = [0, 0, 0];
-var g_lightOn = true;
+var g_spotAngleCutoff = 5;
+var g_spotExp = 100;
+var g_pointLightOn = true;
+var g_spotLightOn = true;
 var g_normalsOn = false;
 
 // -- Globals for Turtle Movement --
@@ -73,8 +76,8 @@ function renderAllShapes() {
   // ---------- Light ----------
 
   // Pass Light Status
-  gl.uniform1i(u_PointLightOn, u_PointLightOn);
-  gl.uniform1i(u_SpotLightOn, u_SpotLightOn);
+  gl.uniform1i(u_PointLightOn, g_pointLightOn);
+  gl.uniform1i(u_SpotLightOn, g_spotLightOn);
 
   // color
   var sun = [255/255, 225/255, 130/255, 1];
@@ -84,7 +87,7 @@ function renderAllShapes() {
   p_light.textureNum = -2;
   p_light.color = sun;
   p_light.updateNormals = false;
-  p_light.matrix.translate(g_pointLightPos[0], g_pointLightPos[1], g_lightPos[2]);
+  p_light.matrix.translate(g_pointLightPos[0], g_pointLightPos[1], g_pointLightPos[2]);
   p_light.matrix.scale(-0.2, -0.2, -0.2);
   p_light.matrix.translate(-0.5, -0.5, -0.5);
   p_light.render();
@@ -94,8 +97,8 @@ function renderAllShapes() {
   s_light.textureNum = -2;
   s_light.color = sun;
   s_light.updateNormals = false;
-  s_light.matrix.translate(g_pointLightPos[0], g_pointLightPos[1], g_lightPos[2]);
-  s_light.matrix.scale(-0.2, -0.2, -0.2);
+  s_light.matrix.translate(g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
+  s_light.matrix.scale(0.2, 0.2, 0.2);
   s_light.matrix.translate(-0.5, -0.5, -0.5);
   s_light.render();
 
@@ -104,7 +107,11 @@ function renderAllShapes() {
   gl.uniform3f(u_SpotLightPos, g_spotLightPos[0], g_spotLightPos[1], g_spotLightPos[2]);
   gl.uniform3f(u_SpotTarget, g_spotTarget[0], g_spotTarget[1], g_spotTarget[2]);
   gl.uniform3f(u_CameraPos, camera.eye.elements[0], camera.eye.elements[1], camera.eye.elements[2]);
-
+  
+  // pass other light settings to GLSL
+  gl.uniform1f(u_SpotCosCutoff, Math.cos(g_spotAngleCutoff * (Math.PI/180)));
+  gl.uniform1f(u_SpotExp, g_spotExp);
+  
 
   // ---------- FORBIDDEN MINECRAFT SPHERE ----------
   

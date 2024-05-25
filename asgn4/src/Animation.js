@@ -70,36 +70,36 @@ let g_lightSpeed = 0.15;
 // ----- animateLight -----
 function animateLight() {
   if (g_lightDir == W) {
-    if (g_lightPos[0] > -6) {
-      g_lightPos[0] -= g_lightSpeed;
-      fixSlider("lightSlideX", g_lightPos[0] * 10);
+    if (g_pointLightPos[0] > -6) {
+      g_pointLightPos[0] -= g_lightSpeed;
+      fixSlider("lightSlideX", g_pointLightPos[0] * 10);
     }
     else {
       g_lightDir = S;
     }
   } else
   if (g_lightDir == S) {
-    if (g_lightPos[2] < 6) {
-      g_lightPos[2] += g_lightSpeed;
-      fixSlider("lightSlideZ", g_lightPos[2] * 10);
+    if (g_pointLightPos[2] < 6) {
+      g_pointLightPos[2] += g_lightSpeed;
+      fixSlider("lightSlideZ", g_pointLightPos[2] * 10);
     }
     else {
       g_lightDir = E;
     }
   } else
   if (g_lightDir == E) {
-    if (g_lightPos[0] < 6) {
-      g_lightPos[0] += g_lightSpeed;
-      fixSlider("lightSlideX", g_lightPos[0] * 10);
+    if (g_pointLightPos[0] < 6) {
+      g_pointLightPos[0] += g_lightSpeed;
+      fixSlider("lightSlideX", g_pointLightPos[0] * 10);
     }
     else {
       g_lightDir = N;
     }
   } else
   if (g_lightDir == N) {
-    if (g_lightPos[2] > -6) {
-      g_lightPos[2] -= g_lightSpeed;
-      fixSlider("lightSlideZ", g_lightPos[2] * 10);
+    if (g_pointLightPos[2] > -6) {
+      g_pointLightPos[2] -= g_lightSpeed;
+      fixSlider("lightSlideZ", g_pointLightPos[2] * 10);
     }
     else {
       g_lightDir = W;

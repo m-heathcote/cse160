@@ -9,8 +9,13 @@ let g_globalAngle_x = 0;  // rotate around x axis
 function addActionsForHtmlUI() {
 
   // Lighting Buttons
-  document.getElementById('lightButton').onclick = function() {
-    g_lightOn = !g_lightOn;
+  document.getElementById('light1Button').onclick = function() {
+    g_pointLightOn = !g_pointLightOn;
+    console.log("point light: ", g_pointLightOn);
+  };
+  document.getElementById('light2Button').onclick = function() {
+    g_spotLightOn = !g_spotLightOn;
+    console.log("spot light: ", g_spotLightOn);
   };
   document.getElementById('normalsButton').onclick = function() {
     g_normalsOn = !g_normalsOn;
@@ -19,15 +24,32 @@ function addActionsForHtmlUI() {
     g_animateLight = !g_animateLight;
   };
 
-  // Light Sliders
-  document.getElementById("lightSlideX").addEventListener("mousemove", function() {
-    g_lightPos[0] = this.value/10;
+  // Point Light Sliders
+  document.getElementById("pointSlideX").addEventListener("mousemove", function() {
+    g_pointLightPos[0] = this.value/10;
   });
-  document.getElementById("lightSlideY").addEventListener("mousemove", function() {
-    g_lightPos[1] = this.value/10;
+  document.getElementById("pointSlideY").addEventListener("mousemove", function() {
+    g_pointLightPos[1] = this.value/10;
   });
-  document.getElementById("lightSlideZ").addEventListener("mousemove", function() {
-    g_lightPos[2] = this.value/10;
+  document.getElementById("pointSlideZ").addEventListener("mousemove", function() {
+    g_pointLightPos[2] = this.value/10;
+  });
+
+  // Spot Light Sliders
+  document.getElementById("spotSlideX").addEventListener("mousemove", function() {
+    g_spotLightPos[0] = this.value/10;
+  });
+  document.getElementById("spotSlideY").addEventListener("mousemove", function() {
+    g_spotLightPos[1] = this.value/10;
+  });
+  document.getElementById("spotSlideZ").addEventListener("mousemove", function() {
+    g_spotLightPos[2] = this.value/10;
+  });
+  document.getElementById("cutoffSlide").addEventListener("mousemove", function() {
+    g_spotAngleCutoff = this.value;
+  });
+  document.getElementById("exponentSlide").addEventListener("mousemove", function() {
+    g_spotExp = this.value;
   });
 
   // Camera View Buttons

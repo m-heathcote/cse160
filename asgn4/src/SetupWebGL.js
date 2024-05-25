@@ -25,6 +25,8 @@ let u_Sampler13;
 let u_PointLightPos;
 let u_SpotLightPos;
 let u_SpotTarget;
+let u_SpotCosCutoff;
+let u_SpotExp;
 let u_CameraPos;
 let u_PointLightOn;
 let u_SpotLightOn;
@@ -186,6 +188,20 @@ function connectVariablesToGLSL() {
   u_SpotTarget = gl.getUniformLocation(gl.program, 'u_SpotTarget');
   if (!u_SpotTarget) {
     console.log('Failed to get the storage location of u_SpotTarget');
+    return;
+  }
+
+  // Get the storage location of u_SpotCosCutoff
+  u_SpotCosCutoff = gl.getUniformLocation(gl.program, 'u_SpotCosCutoff');
+  if (!u_SpotCosCutoff) {
+    console.log('Failed to get the storage location of u_SpotCosCutoff');
+    return;
+  }
+
+  // Get the storage location of u_SpotExp
+  u_SpotExp = gl.getUniformLocation(gl.program, 'u_SpotExp');
+  if (!u_SpotExp) {
+    console.log('Failed to get the storage location of u_SpotExp');
     return;
   }
 

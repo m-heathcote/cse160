@@ -71,7 +71,7 @@ class Camera {
         }
       }
     }
-    console.log("OUT OF BOUNDS");
+    //console.log("OUT OF BOUNDS");
     return false;
   }
 
