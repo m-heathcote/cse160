@@ -317,7 +317,7 @@ function addFirefly() {
 	// use sprite because it appears the same from all angles
 	var spriteMaterial = new THREE.SpriteMaterial( { 
 		map: texture,
-    color: 0xFFEC90,
+    color: 0xF9BE00,
     transparent: true,
     blending: THREE.AdditiveBlending
 	});

@@ -55,6 +55,7 @@ function main() {
   Objects.createFrame1();
   Objects.createFrame2();
   Objects.createLanturn();
+  Objects.createForest();
   //Objects.createAllBulbs();
 
   // ---------- Animation ----------

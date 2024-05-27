@@ -266,3 +266,52 @@ export function createAllBulbs() {
   createBulb(15.25, 13.3, 5);
   createBulb(15.25, 13.3, -4);
 }
+
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
+}
+
+function createPartialForest(x, y, z, rot) {
+  // load the MTL file
+  const mtlLoader = new MTLLoader();
+  mtlLoader.load('../objs/Forest/PUSHILIN_forest.mtl', (mtl) => {
+    mtl.preload();
+
+    // load the OBJ file
+    const objLoader = new OBJLoader();
+    objLoader.setMaterials(mtl);
+    objLoader.load('../objs/Forest/PUSHILIN_forest.obj', (root) => {
+      // scale
+      const scaleFactor = 22;
+      root.scale.set(scaleFactor, scaleFactor, scaleFactor);
+
+      // rotate
+      root.rotation.y = toRadians(rot);
+
+      // move
+      const newPosition = new THREE.Vector3(x, y, z);
+      root.position.copy(newPosition);
+
+      // add to scene
+      SetUp.scene.add(root);
+    });
+  });
+}
+
+export function createForest() {
+  // right, left
+  createPartialForest(75, 6, 0, -60);
+  createPartialForest(-75, 6, 0, 120);
+
+  // front, back
+  createPartialForest(0, 6, 75, 30);
+  createPartialForest(0, 6, -75, 210);
+
+  // right corners
+  createPartialForest(50, 6, -50, -15);
+  createPartialForest(50, 6, 50, 75);
+
+  // left corners
+  createPartialForest(-50, 6, -50, 75);
+  createPartialForest(-50, 6, 50, 165);
+}
