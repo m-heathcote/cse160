@@ -214,7 +214,41 @@ export function createLanturn() {
   const intensity = 10;
   const distance = 15;
   const pointLight = new THREE.PointLight(color, intensity, distance);
-  pointLight.position.set(3, 4, 7.4);
+  pointLight.position.set(3, 3.9, 7.4);
+
+  SetUp.scene.add(pointLight);
+
+  if (showLightHelper) {
+    const pointLightHelper = new THREE.PointLightHelper(pointLight);
+    SetUp.scene.add(pointLightHelper);
+  }
+}
+
+export function createHangingLanturn() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Lights/HangingLantern.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position of the model
+    model.position.set(-6, 19.8, 0); // x, y, z coordinates
+
+    // Change the scale of the model
+    model.scale.set(1.8, 1.8, 1.8); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create a point light (for the lantern light)
+  const color = 0xF6D45D;
+  const intensity = 10;
+  const distance = 15;
+  const pointLight = new THREE.PointLight(color, intensity, distance);
+  pointLight.position.set(-6, 18.2, 0);
 
   SetUp.scene.add(pointLight);
 
@@ -244,7 +278,7 @@ function createBulb(x, y, z) {
     console.error(error);
   });
 
-  // create a point light (for the lantern light)
+  // create a point light (for the bulb light)
   const color = 0xF6D45D;
   const intensity = 10;
   const distance = 15;
