@@ -415,3 +415,43 @@ export function createPath() {
   createRocksRight(1, 0, 32.8, 0);
   //createRocksRight(4, 0, 34, 0);
 }
+
+export function createTable() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  var x = 20;
+  var y = 3;
+  var z = 20;
+
+  loader.load('../objs/Table/BarTable.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position and rotation of the model
+    model.position.set(x, y, z); // x, y, z coordinates
+    model.rotation.y = toRadians(-20);
+
+    // Change the scale of the model
+    var s = 5;
+    model.scale.set(s, s, s); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create a point light (for the lantern light)
+  const color = 0xF6D45D;
+  const intensity = 5;
+  const distance = 8;
+  const pointLight = new THREE.PointLight(color, intensity, distance);
+  pointLight.position.set(x, y + 1.5, z - 1.5);
+
+  SetUp.scene.add(pointLight);
+
+  if (showLightHelper) {
+    const pointLightHelper = new THREE.PointLightHelper(pointLight);
+    SetUp.scene.add(pointLightHelper);
+  }
+}

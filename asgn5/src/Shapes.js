@@ -55,7 +55,7 @@ export function createGround() {
 export function createIsland() {
   // define size
   const rTop = 100;
-  const rBottom = 95;
+  const rBottom = 92;
   const height = 10;
   const segments = 32;
 

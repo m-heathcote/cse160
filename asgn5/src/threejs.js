@@ -59,7 +59,7 @@ function main() {
   Objects.createHangingLanturn();
   Objects.createForest();
   Objects.createPath();
-
+  //Objects.createTable();
   //Objects.createAllBulbs();
 
   // ---------- Animation ----------
