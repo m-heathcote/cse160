@@ -43,6 +43,7 @@ function main() {
 
   // Shapes
   Shapes.createGround();
+  Shapes.createIsland();
   Shapes.createBigTree();
   Shapes.createSwing();
   Shapes.addFireflies();

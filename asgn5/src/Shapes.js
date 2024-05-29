@@ -44,12 +44,29 @@ export function makeInstTextured(geometry, path, num) {
 export function createGround() {
   // define size
   const radius = 100;
-  const segments = 40;
+  const segments = 32;
 
   // create circle
   const grass_geo = new THREE.CircleGeometry(radius, segments);
   const grass = makeInstTextured(grass_geo, '../imgs/grass-2.png', 5);
   grass.rotation.x = - Math.PI / 2;  // -90 degrees
+}
+
+export function createIsland() {
+  // define size
+  const rTop = 100;
+  const rBottom = 95;
+  const height = 10;
+  const segments = 32;
+
+  // create geometry
+  const layer_geo = new THREE.CylinderGeometry(rTop, rBottom, height, segments);
+
+  // create instances
+  const layer_1 = makeInstTextured(layer_geo, '../imgs/grass-dirt.png', 1);
+  
+  // position
+  layer_1.position.set(0, -5.06, 0);
 }
 
 export function createBigTree() {
@@ -58,7 +75,7 @@ export function createBigTree() {
 
   // create instances
   const c_trunk_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 2);
-  const c_trunk_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
+  //const c_trunk_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
 
   const r_trunk_1 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
   const r_trunk_2 = makeInstTextured(cube_geo, '../imgs/wood-3.jpg', 1);
