@@ -55,10 +55,11 @@ function main() {
   Objects.createMat();
   Objects.createFrame1();
   Objects.createFrame2();
-  Objects.createLanturn();
+  Objects.createAllLanturns();
   Objects.createHangingLanturn();
   Objects.createForest();
   Objects.createPath();
+
   //Objects.createAllBulbs();
 
   // ---------- Animation ----------

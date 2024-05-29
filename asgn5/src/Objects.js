@@ -192,7 +192,7 @@ export function createFrame2() {
   photo.scale.set(1.4, 1.4, 1.4);
 }
 
-export function createLanturn() {
+function createLanturn(x, y, z) {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
 
@@ -200,7 +200,7 @@ export function createLanturn() {
     const model = gltf.scene;
 
     // Change the position of the model
-    model.position.set(3, 0, 5.5); // x, y, z coordinates
+    model.position.set(x, y, z); // x, y, z coordinates
 
     // Change the scale of the model
     model.scale.set(1.8, 1.8, 1.8); // x, y, z scale factors
@@ -216,7 +216,7 @@ export function createLanturn() {
   const intensity = 10;
   const distance = 15;
   const pointLight = new THREE.PointLight(color, intensity, distance);
-  pointLight.position.set(3, 3.9, 7.4);
+  pointLight.position.set(x, y + 3.9, z + 1.9);
 
   SetUp.scene.add(pointLight);
 
@@ -224,6 +224,13 @@ export function createLanturn() {
     const pointLightHelper = new THREE.PointLightHelper(pointLight);
     SetUp.scene.add(pointLightHelper);
   }
+}
+
+export function createAllLanturns() {
+  createLanturn(3, 0, 5.5);
+  createLanturn(-8, 0, 15);
+  createLanturn(4, 0, 25);
+  createLanturn(-6.5, 0, 40.5);
 }
 
 export function createHangingLanturn() {
@@ -352,17 +359,21 @@ export function createForest() {
   createPartialForest(-50, 6, 50, 165);
 }
 
-function createPathSquare() {
+function createRocksRight(x, y, z, rot) {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
 
-  loader.load('../objs/Paths/Path-Square.glb', (gltf) => {
+  loader.load('../objs/Rocks/Rocks-6.glb', (gltf) => {
     const model = gltf.scene;
 
     // set position, scale, and rotation
-    model.position.set(0, 0, 15); // x, y, z coordinates
-    //model.rotation.y = - Math.PI / 2;
-    model.scale.set(3, 3, 3); // x, y, z scale factors
+    //model.position.set(0, 0, 35.5); // x, y, z coordinates
+    //model.rotation.y = - toRadians(90);
+    //model.scale.set(7, 7, 7); // x, y, z scale factors
+
+    model.position.set(7 + x, 0 + y, 34 + z); // x, y, z coordinates
+    model.rotation.y = - toRadians(70) + toRadians(rot);
+    model.scale.set(7, 7, 7); // x, y, z scale factors
 
     // Add the model to the scene
     SetUp.scene.add(model);
@@ -372,17 +383,21 @@ function createPathSquare() {
   });
 }
 
-function createPathScattered() {
+function createRocksLeft(x, y, z, rot) {
   // GLTFLoader to load the .glb file
   const loader = new GLTFLoader();
 
-  loader.load('../objs/Paths/Path-Scattered.glb', (gltf) => {
+  loader.load('../objs/Rocks/Rocks-6.glb', (gltf) => {
     const model = gltf.scene;
 
     // set position, scale, and rotation
-    model.position.set(0, 0, 25); // x, y, z coordinates
-    //model.rotation.y = - Math.PI / 2;
-    model.scale.set(3, 3, 3); // x, y, z scale factors
+    //model.position.set(-6, 0, 1); // x, y, z coordinates
+    //model.rotation.y = toRadians(90);
+    //model.scale.set(7, 7, 7); // x, y, z scale factors
+
+    model.position.set(-11 + x, 0 + y, 4 + z); // x, y, z coordinates
+    model.rotation.y = toRadians(110) + toRadians(rot);
+    model.scale.set(7, 7, 7); // x, y, z scale factors
 
     // Add the model to the scene
     SetUp.scene.add(model);
@@ -393,6 +408,10 @@ function createPathScattered() {
 }
 
 export function createPath() {
-  createPathSquare();
-  createPathScattered();
+  createRocksRight(0, 0, -1, 0);
+  createRocksLeft(0, 0, -1, 0);
+  createRocksRight(-2, 0, 18, 0);
+  createRocksLeft(8, 0, 14.5, -5);
+  createRocksRight(1, 0, 32.8, 0);
+  //createRocksRight(4, 0, 34, 0);
 }
