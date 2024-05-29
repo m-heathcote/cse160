@@ -58,6 +58,7 @@ function main() {
   Objects.createLanturn();
   Objects.createHangingLanturn();
   Objects.createForest();
+  Objects.createPath();
   //Objects.createAllBulbs();
 
   // ---------- Animation ----------

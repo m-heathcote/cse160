@@ -149,7 +149,8 @@ export function createFrame1() {
   const heightSegments = 1;
   const plane_geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 
-  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly-2.png', 1);
+  //const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly-2.png', 1);
+  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/toby-dilly-4.png', 1);
   //photo.position.set(4.18, 5.35, 2.4);
   photo.position.set(5.68, 3.05, 3);
   photo.rotation.y = Math.PI / 2;
@@ -183,7 +184,8 @@ export function createFrame2() {
   const heightSegments = 1;
   const plane_geo = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
 
-  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/frog.png', 1);
+  //const photo = Shapes.makeInstTextured(plane_geo, '../imgs/frog.png', 1);
+  const photo = Shapes.makeInstTextured(plane_geo, '../imgs/fergus-2.png', 1);
   //photo.position.set(5.68, 3.55, 1.4);
   photo.position.set(5.68, 2.55, 1.05);
   photo.rotation.y = Math.PI / 2;
@@ -348,4 +350,49 @@ export function createForest() {
   // left corners
   createPartialForest(-50, 6, -50, 75);
   createPartialForest(-50, 6, 50, 165);
+}
+
+function createPathSquare() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Paths/Path-Square.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    model.position.set(0, 0, 15); // x, y, z coordinates
+    //model.rotation.y = - Math.PI / 2;
+    model.scale.set(3, 3, 3); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+}
+
+function createPathScattered() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load('../objs/Paths/Path-Scattered.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // set position, scale, and rotation
+    model.position.set(0, 0, 25); // x, y, z coordinates
+    //model.rotation.y = - Math.PI / 2;
+    model.scale.set(3, 3, 3); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+
+  }, undefined, (error) => {
+    console.error(error);
+  });
+}
+
+export function createPath() {
+  createPathSquare();
+  createPathScattered();
 }
