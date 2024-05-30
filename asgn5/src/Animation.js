@@ -1,5 +1,7 @@
+import * as THREE from 'three';
 import * as SetUp from "./SetUp.js"
 import * as Shapes from "./Shapes.js"
+import * as Objects from "./Objects.js"
 
 // resize to match window dimensions if necessary 
 function resizeRendererToDisplaySize(renderer) {
@@ -19,6 +21,8 @@ function resizeRendererToDisplaySize(renderer) {
 let angle = 0;
 let amplitude = Math.PI / 8;  // max swing rotation angle
 let frequency = 2.5;
+let increment = 0;
+let sign = 1;
 
 // animation loop
 export function render(time) {
@@ -51,6 +55,22 @@ export function render(time) {
     if (firefly.position.y > 90 || firefly.position.y < -10) firefly.velocity.y = -firefly.velocity.y;
     if (firefly.position.z > 75 || firefly.position.z < -75) firefly.velocity.z = -firefly.velocity.z;
   });
+
+  // -- fire --
+
+  increment = THREE.MathUtils.randFloatSpread(4) + 2;
+  if (Objects.fireLight.intensity > 10) {
+    sign = -1;
+  } else
+  if (Objects.fireLight.intensity < 4) {
+    sign = 1;
+  }
+
+  if (THREE.MathUtils.randFloatSpread(2) > 0 && increment < 3.3) {
+    Objects.fireLight.intensity += (sign * increment);
+  }
+
+  // ----
 
   // render the scene
   SetUp.renderer.render(SetUp.scene, SetUp.camera);

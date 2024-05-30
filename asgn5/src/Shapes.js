@@ -358,5 +358,5 @@ function addFirefly() {
 }
 
 export function addFireflies() {
-  Array(200).fill().forEach(addFirefly);
+  Array(180).fill().forEach(addFirefly);
 }

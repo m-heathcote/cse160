@@ -53,13 +53,16 @@ function main() {
   Objects.createWindows();
   Objects.createFrog();
   Objects.createMat();
-  Objects.createFrame1();
-  Objects.createFrame2();
+  //Objects.createFrame1();
+  //Objects.createFrame2();
   Objects.createAllLanturns();
   Objects.createHangingLanturn();
   Objects.createForest();
   Objects.createPath();
-  //Objects.createTable();
+  Objects.createTable();
+  Objects.createFirePit();
+  Objects.createLogAndShrooms();
+  Objects.createAnimals();
   //Objects.createAllBulbs();
 
   // ---------- Animation ----------

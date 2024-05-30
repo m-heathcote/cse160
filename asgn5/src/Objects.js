@@ -421,8 +421,8 @@ export function createTable() {
   const loader = new GLTFLoader();
 
   var x = 20;
-  var y = 3;
-  var z = 20;
+  var y = 2.5;
+  var z = 17;
 
   loader.load('../objs/Table/BarTable.glb', (gltf) => {
     const model = gltf.scene;
@@ -454,4 +454,98 @@ export function createTable() {
     const pointLightHelper = new THREE.PointLightHelper(pointLight);
     SetUp.scene.add(pointLightHelper);
   }
+}
+
+export var fireLight;
+export function createFirePit() {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  var x = -22;
+  var y = 0.5;
+  var z = 22;
+
+  loader.load('../objs/Fire/Bonfire.glb', (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position and rotation of the model
+    model.position.set(x, y, z); // x, y, z coordinates
+    //model.rotation.y = toRadians(-20);
+
+    // Change the scale of the model
+    var s = 20;
+    model.scale.set(s, s, s); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+
+  // create a point light
+  var fireLit = true;
+  if (fireLit) {
+    const color = 0xF6D45D;
+    const intensity = 5;
+    const distance = 5;
+    fireLight = new THREE.PointLight(color, intensity, distance);
+    fireLight.position.set(x, y + 1, z);
+
+    SetUp.scene.add(fireLight);
+
+    if (showLightHelper) {
+      const pointLightHelper = new THREE.PointLightHelper(fireLight);
+      SetUp.scene.add(pointLightHelper);
+    }
+  }
+}
+
+// why did it take me this long to create this function
+function createGLB(path, x, y, z, s, rot) {
+  // GLTFLoader to load the .glb file
+  const loader = new GLTFLoader();
+
+  loader.load(path, (gltf) => {
+    const model = gltf.scene;
+
+    // Change the position and rotation of the model
+    model.position.set(x, y, z); // x, y, z coordinates
+    model.rotation.y = toRadians(rot);
+
+    // Change the scale of the model
+    model.scale.set(s, s, s); // x, y, z scale factors
+
+    // Add the model to the scene
+    SetUp.scene.add(model);
+  }, undefined, (error) => {
+    console.error(error);
+  });
+}
+
+export function createLogAndShrooms() {
+  createGLB('../objs/Fire/Log.glb', -26, 1, 15, 10, 110);
+  createGLB('../objs/Fire/Mushrooms.glb', -33.5, 1.5, 18, 5, 150);
+  createGLB('../objs/Fire/Mushrooms.glb', -32, 0.8, 15, 3, 70);
+
+  createGLB('../objs/Fire/Mushrooms.glb', 5, 1.5, -2, 5.5, 25);
+  createGLB('../objs/Fire/Mushrooms.glb', -5, 0.8, -4, 3, 110);
+
+  //createGLB('../objs/Fire/Mushrooms.glb', 5.5, 1, 26.5, 3, 110);
+}
+
+export function createAnimals() {
+  createGLB('../objs/Animals/Hedgehog.glb', -27, 2.65, 16.2, 0.028, 20);
+  createGLB('../objs/Animals/Ladybug.glb', -24.8, 1.8, 14.9, 0.045, 0);
+  createGLB('../objs/Animals/Ant.glb', -25.2, 1.7, 15.7, 0.02, 90);
+  createGLB('../objs/Animals/Ant.glb', -25.9, 1.8, 15.55, 0.02, 60);
+  createGLB('../objs/Animals/Ant.glb', -24, 1.4, 15.75, 0.02, 100);
+  createGLB('../objs/Animals/CottontailRabbit.glb', -23.5, 1.7, 14.45, 0.4, 20);
+  createGLB('../objs/Animals/BearCub.glb', -30, 2.3, 25, 0.08, 100);
+  createGLB('../objs/Animals/Fox.glb', -26, 0, 29, 0.9, 130);
+  createGLB('../objs/Animals/Duck.glb', 18, 1.7, 23.3, 0.25, 160);
+  createGLB('../objs/Animals/Skunk.glb', 24.3, 1.6, 15.4, 0.65, -20);
+  createGLB('../objs/Animals/Mouse.glb', 16, 0, 15, 0.8, 20);
+  createGLB('../objs/Animals/Deer-Male.glb', 18.6, 3.77, 8, 0.056, -40);
+  createGLB('../objs/Animals/Deer-Female.glb', 16, 3.2, 5.5, 0.092, -15);
+  createGLB('../objs/Animals/Squirrell.glb', 5.2, 22.3, 1, 1.5, 100);
 }
